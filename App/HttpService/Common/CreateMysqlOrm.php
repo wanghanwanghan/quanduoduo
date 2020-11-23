@@ -43,7 +43,7 @@ class CreateMysqlOrm extends ServiceBase
         $config->setMinObjectNum(5); //设置最小连接池存在连接对象数量
         $config->setAutoPing(5); //设置自动ping客户端链接的间隔
 
-        DbManager::getInstance()->addConnection(new Connection($config), 'quanduoduo');
+        DbManager::getInstance()->addConnection(new Connection($config));
     }
 
 }
