@@ -15,10 +15,21 @@ class UserController extends Index
 
     function login()
     {
-        User::create()->data([
-            'phone' => 'wanghan123'
-        ])->save();
+        try
+        {
+            User::create()->data([
+                'phone' => 'wanghan123'
+            ])->save();
 
-        $this->writeJson();
+        }catch (\Throwable $e)
+        {
+            $msg = $e->getMessage();
+            $file = $e->getFile();
+            $line = $e->getLine();
+
+            $this->writeJson(200,$msg,$file,$line);
+        }
+
+        $this->writeJson(200,null,null,null);
     }
 }
