@@ -2,9 +2,9 @@
 
 namespace App\HttpModels\Api;
 
-use EasySwoole\ORM\AbstractModel;
+use App\HttpModels\ModelsBase;
 
-class User extends AbstractModel
+class User extends ModelsBase
 {
     protected $tableName = 'api_user';
     protected $autoTimeStamp = true;
