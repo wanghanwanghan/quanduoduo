@@ -28,7 +28,7 @@ class CreateMysqlOrm extends ServiceBase
         $config = new Config();
 
         //数据库配置
-        $config->setHost('127.0.0.1');
+        $config->setHost('47.106.169.68');
         $config->setPort(63066);
         $config->setUser('chinaiiss');
         $config->setPassword('zbxlbj@2018*()');
