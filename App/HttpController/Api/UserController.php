@@ -9,6 +9,6 @@ class UserController extends Index
 {
     function hkf()
     {
-        $this->writeJson(200,null,null,'胡康飞是坑坑');
+        $this->writeJson(200,null,null,'胡大胖是坑坑');
     }
 }
