@@ -11,4 +11,9 @@ class UserController extends Index
     {
         CreateMysqlTable::getInstance()->api_user();
     }
+
+    function actionNotFound(?string $action)
+    {
+        parent::actionNotFound($action);
+    }
 }
