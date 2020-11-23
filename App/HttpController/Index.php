@@ -15,8 +15,22 @@ class Index extends Controller
     {
         if (!$this->response()->isEndResponse())
         {
+            //整理paging
+            if (is_array($paging))
+            {
+                foreach ($paging as $key => $val)
+                {
+                    $paging[$key] = (int)$val;
+                }
+            }
+
+            if (empty($paging)) $paging = null;
+
+            //整理result
+            if (empty($result)) $result = null;
+
             $data = [
-                'code' => $statusCode,
+                'code' => (int)$statusCode,
                 'paging' => $paging,
                 'result' => $result,
                 'msg' => $msg

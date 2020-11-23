@@ -15,6 +15,7 @@ class ApiRouter
 
         $router->addGroup('/user', function (RouteCollector $routeCollector) use ($prefix) {
             $routeCollector->addRoute(['GET', 'POST'], '/hkf', $prefix . 'hkf');
+            $routeCollector->addRoute(['GET', 'POST'], '/login', $prefix . 'login');
         });
 
         return true;

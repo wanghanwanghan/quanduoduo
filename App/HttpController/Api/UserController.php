@@ -11,4 +11,9 @@ class UserController extends Index
     {
         $this->writeJson(200,null,null,'胡大胖是坑坑');
     }
+
+    function login()
+    {
+        CreateMysqlTable::getInstance()->api_user();
+    }
 }

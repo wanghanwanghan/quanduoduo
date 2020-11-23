@@ -31,13 +31,13 @@ class CreateMysqlTable extends ServiceBase
         $sql = DDLBuilder::table(__FUNCTION__, function (Table $table) {
             $table->setTableComment('')->setTableEngine(Engine::INNODB)->setTableCharset(Character::UTF8MB4_GENERAL_CI);
             $table->colInt('id', 11)->setIsAutoIncrement()->setIsUnsigned()->setIsPrimaryKey()->setColumnComment('主键');
-            $table->colVarChar('username', 20)->setDefaultValue('');
-            $table->colVarChar('password', 20)->setDefaultValue('');
-            $table->colVarChar('phone', 20)->setDefaultValue('');
-            $table->colVarChar('email', 100)->setDefaultValue('');
+            $table->colVarChar('username', 16)->setDefaultValue('');
+            $table->colVarChar('password', 16)->setDefaultValue('');
+            $table->colVarChar('phone', 16)->setDefaultValue('');
+            $table->colVarChar('wxOpenId', 64)->setDefaultValue('');
+            $table->colVarChar('email', 64)->setDefaultValue('');
             $table->colInt('created_at', 11)->setIsUnsigned()->setDefaultValue(0);
             $table->colInt('updated_at', 11)->setIsUnsigned()->setDefaultValue(0);
-            $table->indexNormal('phone_index', 'phone');
         });
 
         $obj = Manager::getInstance()->get('quanduoduo')->getObj();
