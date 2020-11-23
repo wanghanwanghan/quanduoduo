@@ -18,6 +18,7 @@ class UserController extends Index
         User::create()->data([
             'phone' => 'wanghan123'
         ])->save();
+
         $this->writeJson();
     }
 }
