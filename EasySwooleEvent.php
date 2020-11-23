@@ -14,14 +14,13 @@ class EasySwooleEvent implements Event
     public static function initialize()
     {
         date_default_timezone_set('Asia/Shanghai');
-
-        CreateMysqlOrm::getInstance()->create();
     }
 
     public static function mainServerCreate(EventRegister $register)
     {
         CreateRedisPool::getInstance()->create();
         CreateMysqlPool::getInstance()->create();
+        CreateMysqlOrm::getInstance()->create();
     }
 
     public static function onRequest(Request $request, Response $response): bool
