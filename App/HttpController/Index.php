@@ -3,6 +3,7 @@
 namespace App\HttpController;
 
 use EasySwoole\Http\AbstractInterface\Controller;
+use wanghanwanghan\someUtils\control;
 
 class Index extends Controller
 {
@@ -33,7 +34,7 @@ class Index extends Controller
                 'code' => (int)$statusCode,
                 'paging' => $paging,
                 'result' => $result,
-                'msg' => $msg
+                'msg' => empty($msg) ? control::getUuid() : $msg
             ];
 
             $this->response()->write(json_encode($data, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES));
