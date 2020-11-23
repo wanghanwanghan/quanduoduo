@@ -9,11 +9,6 @@ class UserController extends Index
 {
     function wanghan()
     {
-        CreateMysqlTable::getInstance()->api_user();
-    }
-
-    function actionNotFound(?string $action)
-    {
-        parent::actionNotFound($action);
+        $this->writeJson(200,null,null,'胡康飞是坑坑');
     }
 }
