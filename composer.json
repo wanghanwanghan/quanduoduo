@@ -1,5 +1,10 @@
 {
     "require": {
+        "php": ">=7.2.0",
+        "ext-zlib": "*",
+        "ext-json": "*",
+        "ext-openssl": "*",
+        "ext-curl": "*",
         "easyswoole/easyswoole": "3.3.x",
         "wanghanwanghan/someutils": "^1.1",
         "easyswoole/redis-pool": "^2.1",
