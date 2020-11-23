@@ -7,7 +7,7 @@ use App\HttpService\Common\CreateMysqlTable;
 
 class UserController extends Index
 {
-    function wanghan()
+    function hkf()
     {
         $this->writeJson(200,null,null,'胡康飞是坑坑');
     }
