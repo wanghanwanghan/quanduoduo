@@ -10,6 +10,6 @@ class ModelsBase extends AbstractModel
     {
         parent::__construct($data);
 
-        $this->connectionName = 'quanduoduo';
+        //$this->connectionName = 'quanduoduo';
     }
 }
