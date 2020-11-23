@@ -10,4 +10,9 @@ class Index extends Controller
     {
 
     }
+
+    public function actionNotFound(?string $action)
+    {
+        parent::actionNotFound($action);
+    }
 }
