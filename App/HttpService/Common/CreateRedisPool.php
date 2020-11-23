@@ -3,11 +3,14 @@
 namespace App\HttpService\Common;
 
 use App\HttpService\ServiceBase;
+use EasySwoole\Component\Singleton;
 use EasySwoole\Redis\Config\RedisConfig;
 use EasySwoole\RedisPool\Redis;
 
 class CreateRedisPool extends ServiceBase
 {
+    use Singleton;
+
     function __construct()
     {
         parent::__construct();
