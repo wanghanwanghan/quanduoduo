@@ -3,7 +3,6 @@ namespace EasySwoole\EasySwoole;
 
 use App\HttpService\Common\CreateMysqlOrm;
 use App\HttpService\Common\CreateMysqlPool;
-use App\HttpService\Common\CreateMysqlTable;
 use App\HttpService\Common\CreateRedisPool;
 use EasySwoole\EasySwoole\Swoole\EventRegister;
 use EasySwoole\EasySwoole\AbstractInterface\Event;
@@ -12,7 +11,6 @@ use EasySwoole\Http\Response;
 
 class EasySwooleEvent implements Event
 {
-
     public static function initialize()
     {
         date_default_timezone_set('Asia/Shanghai');
@@ -23,8 +21,6 @@ class EasySwooleEvent implements Event
         CreateRedisPool::getInstance()->create();
         CreateMysqlOrm::getInstance()->create();
         CreateMysqlPool::getInstance()->create();
-
-        CreateMysqlTable::getInstance()->api_user();
     }
 
     public static function onRequest(Request $request, Response $response): bool
