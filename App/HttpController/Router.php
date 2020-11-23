@@ -13,14 +13,12 @@ class Router extends AbstractRouter
         $this->setGlobalMode(true);
 
         //前端
-        $routeCollector->addGroup('/api/v1',function (RouteCollector $routeCollector)
-        {
+        $routeCollector->addGroup('/api/v1', function (RouteCollector $routeCollector) {
             ApiRouter::getInstance()->addRouterV1($routeCollector);
         });
 
         //后台
-        $routeCollector->addGroup('/admin/v1',function (RouteCollector $routeCollector)
-        {
+        $routeCollector->addGroup('/admin/v1', function (RouteCollector $routeCollector) {
             AdminRouter::getInstance()->addRouterV1($routeCollector);
         });
     }

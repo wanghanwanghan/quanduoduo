@@ -11,16 +11,14 @@ class AdminRouter
 
     function addRouterV1(RouteCollector $router)
     {
-        $prefix='/Admin/UserController/';
+        $prefix = '/Admin/UserController/';
 
-        $router->addGroup('/user',function (RouteCollector $routeCollector) use ($prefix)
-        {
-            $routeCollector->addRoute(['GET','POST'],'/getThreeYearsData',$prefix.'getThreeYearsData');
+        $router->addGroup('/user', function (RouteCollector $routeCollector) use ($prefix) {
+            $routeCollector->addRoute(['GET', 'POST'], '/getThreeYearsData', $prefix . 'getThreeYearsData');
         });
 
         return true;
     }
-
 
 
 }
