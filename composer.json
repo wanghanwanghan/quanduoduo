@@ -2,7 +2,8 @@
     "require": {
         "easyswoole/easyswoole": "3.3.x",
         "wanghanwanghan/someutils": "^1.1",
-        "easyswoole/redis-pool": "^2.1"
+        "easyswoole/redis-pool": "^2.1",
+        "easyswoole/orm": "^1.4"
     },
     "autoload": {
         "psr-4": {
