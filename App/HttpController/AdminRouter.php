@@ -11,13 +11,13 @@ class AdminRouter
 
     function addRouterV1(RouteCollector $router)
     {
-        $prefix = '/Admin/UserController/';
+        $prefix = '/Admin/LinkController/';
 
-        $router->addGroup('/user', function (RouteCollector $routeCollector) use ($prefix) {
-            $routeCollector->addRoute(['GET', 'POST'], '/getThreeYearsData', $prefix . 'getThreeYearsData');
+        $router->addGroup('/link', function (RouteCollector $routeCollector) use ($prefix) {
+            $routeCollector->addRoute(['GET', 'POST'], '/addTakeaway', $prefix . 'addTakeaway');
+            $routeCollector->addRoute(['GET', 'POST'], '/addVegetable', $prefix . 'addVegetable');
+            $routeCollector->addRoute(['GET', 'POST'], '/addSurprise', $prefix . 'addSurprise');
         });
-
-        return true;
     }
 
 

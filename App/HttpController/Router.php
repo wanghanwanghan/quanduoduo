@@ -21,5 +21,11 @@ class Router extends AbstractRouter
         $routeCollector->addGroup('/admin/v1', function (RouteCollector $routeCollector) {
             AdminRouter::getInstance()->addRouterV1($routeCollector);
         });
+
+        //公用
+        $routeCollector->addGroup('/common/v1', function (RouteCollector $routeCollector) {
+            $prefix = '/Common/CommonController/';
+            $routeCollector->addRoute(['GET', 'POST'], '/uploadFile', $prefix . 'uploadFile');
+        });
     }
 }

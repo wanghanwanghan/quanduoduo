@@ -1,4 +1,5 @@
 <?php
+
 namespace EasySwoole\EasySwoole;
 
 use App\HttpService\Common\CreateMysqlOrm;
@@ -18,6 +19,10 @@ class EasySwooleEvent implements Event
 
     public static function mainServerCreate(EventRegister $register)
     {
+        define('ROOT_PATH', __DIR__ . DIRECTORY_SEPARATOR);
+        define('STATIC_PATH', ROOT_PATH . 'Static' . DIRECTORY_SEPARATOR);
+        define('FILE_PATH', STATIC_PATH . 'File' . DIRECTORY_SEPARATOR);
+
         CreateRedisPool::getInstance()->create();
         CreateMysqlPool::getInstance()->create();
         CreateMysqlOrm::getInstance()->create();
@@ -25,6 +30,10 @@ class EasySwooleEvent implements Event
 
     public static function onRequest(Request $request, Response $response): bool
     {
+        $response->withHeader('Access-Control-Allow-Origin', '*');
+        $response->withHeader('Access-Control-Allow-Methods', 'GET, POST');
+        $response->withHeader('Access-Control-Allow-Credentials', 'true');
+        $response->withHeader('Access-Control-Allow-Headers', '*');
         return true;
     }
 

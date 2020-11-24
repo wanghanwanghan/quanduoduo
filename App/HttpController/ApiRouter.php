@@ -17,8 +17,6 @@ class ApiRouter
             $routeCollector->addRoute(['GET', 'POST'], '/hkf', $prefix . 'hkf');
             $routeCollector->addRoute(['GET', 'POST'], '/login', $prefix . 'login');
         });
-
-        return true;
     }
 
 
