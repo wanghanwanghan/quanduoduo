@@ -31,7 +31,7 @@ class CommonController extends Index
                 //移动到文件夹
                 $file->moveTo(FILE_PATH . $filename);
 
-                $fileList[] = $filename;
+                $fileList[$key] = $filename;
             }
         }
 
