@@ -11,9 +11,8 @@ class AdminRouter
 
     function addRouterV1(RouteCollector $router)
     {
-        $prefix = '/Admin/LinkController/';
-
-        $router->addGroup('/link', function (RouteCollector $routeCollector) use ($prefix) {
+        $router->addGroup('/link', function (RouteCollector $routeCollector) {
+            $prefix = '/Admin/LinkController/';
             $routeCollector->addRoute(['GET', 'POST'], '/insertLink', $prefix . 'insertLink');
             $routeCollector->addRoute(['GET', 'POST'], '/deleteLink', $prefix . 'deleteLink');
             $routeCollector->addRoute(['GET', 'POST'], '/editLink', $prefix . 'editLink');

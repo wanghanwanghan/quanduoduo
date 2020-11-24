@@ -38,4 +38,5 @@ class CommonController extends Index
         return $this->writeJson(200, null, $fileList, '上传成功');
     }
 
+
 }
