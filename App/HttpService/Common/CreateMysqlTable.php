@@ -47,4 +47,31 @@ class CreateMysqlTable extends ServiceBase
         Manager::getInstance()->get('quanduoduo')->recycleObj($obj);
     }
 
+    function admin_link_info()
+    {
+        $sql = DDLBuilder::table(__FUNCTION__, function (Table $table) {
+            $table->setTableComment('')->setTableEngine(Engine::INNODB)->setTableCharset(Character::UTF8MB4_GENERAL_CI);
+            $table->colInt('id', 11)->setIsAutoIncrement()->setIsUnsigned()->setIsPrimaryKey()->setColumnComment('主键');
+            $table->colTinyInt('linkType',3)->setIsUnsigned()->setDefaultValue(0);
+            $table->colVarChar('image',256)->setDefaultValue('');
+            $table->colVarChar('miniAppName',16)->setDefaultValue('');
+            $table->colVarChar('appId',32)->setDefaultValue('');
+            $table->colVarChar('url',256)->setDefaultValue('');
+            $table->colTinyInt('level',3)->setIsUnsigned()->setDefaultValue(0);
+            $table->colVarChar('mainTitle',16)->setDefaultValue('');
+            $table->colVarChar('subTitle',32)->setDefaultValue('');
+            $table->colInt('num',11)->setIsUnsigned()->setDefaultValue(0);
+            $table->colVarChar('backgroundColor',32)->setDefaultValue('');
+            $table->colTinyInt('isShow',3)->setIsUnsigned()->setDefaultValue(1);
+            $table->colInt('created_at', 11)->setIsUnsigned()->setDefaultValue(0);
+            $table->colInt('updated_at', 11)->setIsUnsigned()->setDefaultValue(0);
+        });
+
+        $obj = Manager::getInstance()->get('quanduoduo')->getObj();
+
+        $obj->rawQuery($sql);
+
+        Manager::getInstance()->get('quanduoduo')->recycleObj($obj);
+    }
+
 }

@@ -20,8 +20,11 @@ class EasySwooleEvent implements Event
     public static function mainServerCreate(EventRegister $register)
     {
         define('ROOT_PATH', __DIR__ . DIRECTORY_SEPARATOR);
+        define('LOG_PATH', ROOT_PATH . 'Log' . DIRECTORY_SEPARATOR);
         define('STATIC_PATH', ROOT_PATH . 'Static' . DIRECTORY_SEPARATOR);
+
         define('FILE_PATH', STATIC_PATH . 'File' . DIRECTORY_SEPARATOR);
+        define('IMAGE_PATH', STATIC_PATH . 'Image' . DIRECTORY_SEPARATOR);
 
         CreateRedisPool::getInstance()->create();
         CreateMysqlPool::getInstance()->create();
