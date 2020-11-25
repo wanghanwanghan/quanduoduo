@@ -2,7 +2,6 @@
 
 namespace App\HttpController;
 
-use App\HttpService\LogService;
 use EasySwoole\Http\AbstractInterface\Controller;
 use wanghanwanghan\someUtils\control;
 
@@ -10,11 +9,22 @@ class Index extends Controller
 {
     function onRequest(?string $action): ?bool
     {
+        parent::onRequest($action);
+
         $uri = $this->request()->getUri()->__toString();
 
-        LogService::getInstance()->log4PHP(parse_url($uri));
+        $urlInfo = parse_url($uri);
 
-        return parent::onRequest($action);
+        $path = trim($urlInfo,DIRECTORY_SEPARATOR);
+
+        $path = explode(DIRECTORY_SEPARATOR,$path);
+
+        //后台和公共路由不检查
+        $prefix = strtoupper(current($path));
+
+        if ('ADMIN' === $prefix || 'COMMON' === $prefix) return true;
+
+        return true;
     }
 
     function writeJson($statusCode = 200, $paging = null, $result = null, $msg = null)
