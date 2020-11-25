@@ -10,11 +10,9 @@ class Index extends Controller
 {
     function onRequest(?string $action): ?bool
     {
-        $uri = $this->request()->getUri();
-        $uriStr = $this->request()->getUri()->__toString();
+        $uri = $this->request()->getUri()->__toString();
 
-        LogService::getInstance()->log4PHP($uri);
-        LogService::getInstance()->log4PHP($uriStr);
+        LogService::getInstance()->log4PHP(parse_url($uri));
 
         return parent::onRequest($action);
     }
