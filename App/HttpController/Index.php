@@ -2,17 +2,22 @@
 
 namespace App\HttpController;
 
+use App\HttpService\LogService;
 use EasySwoole\Http\AbstractInterface\Controller;
 use wanghanwanghan\someUtils\control;
 
 class Index extends Controller
 {
-    public function index()
+    function onRequest(?string $action): ?bool
     {
+        $uri = $this->request()->getUri()->__toString();
 
+        LogService::getInstance()->log4PHP($uri);
+
+        return parent::onRequest($action);
     }
 
-    protected function writeJson($statusCode = 200, $paging = null, $result = null, $msg = null)
+    function writeJson($statusCode = 200, $paging = null, $result = null, $msg = null)
     {
         if (!$this->response()->isEndResponse())
         {
@@ -49,7 +54,7 @@ class Index extends Controller
         return true;
     }
 
-    protected function writeErr(\Throwable $e, $which = 'comm'): bool
+    function writeErr(\Throwable $e, $which = 'comm'): bool
     {
         //给用户看的
         $this->writeJson(9527, null, null, $which . '错误');
