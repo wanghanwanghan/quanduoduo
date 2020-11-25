@@ -7,26 +7,6 @@ use wanghanwanghan\someUtils\control;
 
 class Index extends Controller
 {
-    function onRequest(?string $action): ?bool
-    {
-        parent::onRequest($action);
-
-        $uri = $this->request()->getUri()->__toString();
-
-        $urlInfo = parse_url($uri);
-
-        $path = trim($urlInfo,DIRECTORY_SEPARATOR);
-
-        $path = explode(DIRECTORY_SEPARATOR,$path);
-
-        //后台和公共路由不检查
-        $prefix = strtoupper(current($path));
-
-        if ('ADMIN' === $prefix || 'COMMON' === $prefix) return true;
-
-        return true;
-    }
-
     function writeJson($statusCode = 200, $paging = null, $result = null, $msg = null)
     {
         if (!$this->response()->isEndResponse())

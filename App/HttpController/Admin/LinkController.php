@@ -8,6 +8,11 @@ use App\HttpService\Common\CreateMysqlTable;
 
 class LinkController extends Index
 {
+    function onRequest(?string $action): ?bool
+    {
+        return true;
+    }
+
     function insertLink()
     {
         $linkType = $this->request()->getRequestParam('linkType') ?? 1;
