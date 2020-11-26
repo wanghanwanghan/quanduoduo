@@ -39,7 +39,7 @@ class CommonController extends Index
                 is_dir(FILE_PATH.$pathSuffix) ?: mkdir(FILE_PATH.$pathSuffix,0755);
 
                 //移动到文件夹
-                $file->moveTo(FILE_PATH . $filename);
+                $file->moveTo(FILE_PATH.$pathSuffix . $filename);
 
                 $fileList[$key] = $pathSuffix.$filename;
             }
