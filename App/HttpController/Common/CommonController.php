@@ -28,10 +28,20 @@ class CommonController extends Index
                 //新建文件名
                 $filename = control::getUuid() . '.' . $ext;
 
+                //用年月日区分文件上传目录
+                $year = date('Y');
+                $month = date('m');
+                $day = date('d');
+
+                $pathSuffix = $year.DIRECTORY_SEPARATOR.$month.DIRECTORY_SEPARATOR.$day.DIRECTORY_SEPARATOR;
+
+                //传绝对路径
+                is_dir(FILE_PATH.$pathSuffix) ?: mkdir(FILE_PATH.$pathSuffix,0755);
+
                 //移动到文件夹
                 $file->moveTo(FILE_PATH . $filename);
 
-                $fileList[$key] = $filename;
+                $fileList[$key] = $pathSuffix.$filename;
             }
         }
 

@@ -5,7 +5,7 @@ namespace App\HttpService;
 use EasySwoole\Component\Singleton;
 use wanghanwanghan\someUtils\control;
 
-class LogService
+class LogService extends ServiceBase
 {
     use Singleton;
 
