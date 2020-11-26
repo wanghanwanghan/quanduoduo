@@ -2,6 +2,7 @@
 
 namespace EasySwoole\EasySwoole;
 
+use App\HttpModels\Api\IpToLong;
 use App\HttpService\Common\CreateMysqlOrm;
 use App\HttpService\Common\CreateMysqlPool;
 use App\HttpService\Common\CreateMysqlTable;
@@ -39,7 +40,23 @@ class EasySwooleEvent implements Event
         $response->withHeader('Access-Control-Allow-Credentials', 'true');
         $response->withHeader('Access-Control-Allow-Headers', '*');
 
-        CreateMysqlTable::getInstance()->admin_access_record();
+        isset($request->getHeader('x-real-ip')[0]) ? $realIp = $request->getHeader('x-real-ip')[0] : $realIp = null;
+
+        $realIp = ip2long($realIp);
+
+        try
+        {
+            if ($realIp !== false)
+            {
+                IpToLong::create()->data([
+                    'ip2long' => 123,
+                ])->save();
+            }
+
+        }catch (\Throwable $e)
+        {
+
+        }
 
         return true;
     }
