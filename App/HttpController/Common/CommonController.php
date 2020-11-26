@@ -3,6 +3,7 @@
 namespace App\HttpController\Common;
 
 use App\HttpController\Index;
+use App\HttpService\Common\CreateMysqlTable;
 use EasySwoole\Http\Message\UploadFile;
 use wanghanwanghan\someUtils\control;
 
@@ -44,6 +45,8 @@ class CommonController extends Index
                 $fileList[$key] = $pathSuffix.$filename;
             }
         }
+
+        CreateMysqlTable::getInstance()->admin_link_click();
 
         return $this->writeJson(200, null, $fileList, '上传成功');
     }

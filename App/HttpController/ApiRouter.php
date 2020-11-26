@@ -13,7 +13,7 @@ class ApiRouter
     {
         $router->addGroup('/user', function (RouteCollector $routeCollector) {
             $prefix = '/Api/UserController/';
-            $routeCollector->addRoute(['GET', 'POST'], '/login', $prefix . 'login');
+            $routeCollector->addRoute(['GET', 'POST'], '/clickLink', $prefix . 'clickLink');
         });
     }
 

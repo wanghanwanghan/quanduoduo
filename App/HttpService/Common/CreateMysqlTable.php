@@ -74,4 +74,24 @@ class CreateMysqlTable extends ServiceBase
         Manager::getInstance()->get('quanduoduo')->recycleObj($obj);
     }
 
+    function admin_link_click()
+    {
+        $sql = DDLBuilder::table(__FUNCTION__, function (Table $table) {
+            $table->setTableComment('')->setTableEngine(Engine::INNODB)->setTableCharset(Character::UTF8MB4_GENERAL_CI);
+            $table->colBigInt('id', 20)->setIsAutoIncrement()->setIsUnsigned()->setIsPrimaryKey()->setColumnComment('主键');
+            $table->colInt('linkId',11)->setIsUnsigned()->setDefaultValue(0);
+            $table->colInt('userId',11)->setIsUnsigned()->setDefaultValue(0);
+            $table->colInt('created_at', 11)->setIsUnsigned()->setDefaultValue(0);
+            $table->colInt('updated_at', 11)->setIsUnsigned()->setDefaultValue(0);
+            $table->indexNormal('linkId_index','linkId');
+            $table->indexNormal('userId_index','userId');
+        });
+
+        $obj = Manager::getInstance()->get('quanduoduo')->getObj();
+
+        $obj->rawQuery($sql);
+
+        Manager::getInstance()->get('quanduoduo')->recycleObj($obj);
+    }
+
 }
