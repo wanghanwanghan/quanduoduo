@@ -7,6 +7,7 @@ use App\HttpService\Common\CreateMysqlOrm;
 use App\HttpService\Common\CreateMysqlPool;
 use App\HttpService\Common\CreateMysqlTable;
 use App\HttpService\Common\CreateRedisPool;
+use App\HttpService\StatisticsService;
 use EasySwoole\EasySwoole\Swoole\EventRegister;
 use EasySwoole\EasySwoole\AbstractInterface\Event;
 use EasySwoole\Http\Request;
@@ -40,24 +41,9 @@ class EasySwooleEvent implements Event
         $response->withHeader('Access-Control-Allow-Credentials', 'true');
         $response->withHeader('Access-Control-Allow-Headers', '*');
 
-        isset($request->getHeader('x-real-ip')[0]) ? $realIp = $request->getHeader('x-real-ip')[0] : $realIp = null;
+        $check = StatisticsService::getInstance()->recordIp($request);
 
-        $realIp = ip2long($realIp);
-
-        try
-        {
-            if ($realIp !== false)
-            {
-                IpToLong::create()->data([
-                    'ip2long' => 123,
-                    'ip' => $request->getHeader('x-real-ip')[0],
-                ])->save();
-            }
-
-        }catch (\Throwable $e)
-        {
-
-        }
+        if ($check === false) return false;
 
         return true;
     }

@@ -33,7 +33,7 @@ class CreateRedisPool extends ServiceBase
 
         $redisPoolConfig = Redis::getInstance()->register('redis', $conf);
         $redisPoolConfig->setMinObjectNum(10);
-        $redisPoolConfig->setMaxObjectNum(20);
+        $redisPoolConfig->setMaxObjectNum(50);
         $redisPoolConfig->setAutoPing(10);
     }
 }
