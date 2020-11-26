@@ -27,7 +27,7 @@ class StatisticsService extends ServiceBase
         $key = 'access_record_'.Carbon::now()->format('Y_m_d_H_i');
         $redis->hIncrBy($key,$realIp,1);
 
-        $num = $redis->hGet($key,$realIp);
+        $num = (int)$redis->hGet($key,$realIp);
 
         if ($num > 60) return false;
 
