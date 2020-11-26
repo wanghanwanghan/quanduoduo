@@ -46,8 +46,6 @@ class CommonController extends Index
             }
         }
 
-        CreateMysqlTable::getInstance()->admin_link_click();
-
         return $this->writeJson(200, null, $fileList, '上传成功');
     }
 

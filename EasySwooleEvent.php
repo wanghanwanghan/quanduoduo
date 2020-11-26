@@ -4,6 +4,7 @@ namespace EasySwoole\EasySwoole;
 
 use App\HttpService\Common\CreateMysqlOrm;
 use App\HttpService\Common\CreateMysqlPool;
+use App\HttpService\Common\CreateMysqlTable;
 use App\HttpService\Common\CreateRedisPool;
 use EasySwoole\EasySwoole\Swoole\EventRegister;
 use EasySwoole\EasySwoole\AbstractInterface\Event;
@@ -37,6 +38,9 @@ class EasySwooleEvent implements Event
         $response->withHeader('Access-Control-Allow-Methods', 'GET, POST');
         $response->withHeader('Access-Control-Allow-Credentials', 'true');
         $response->withHeader('Access-Control-Allow-Headers', '*');
+
+        CreateMysqlTable::getInstance()->admin_access_record();
+
         return true;
     }
 
