@@ -50,6 +50,7 @@ class EasySwooleEvent implements Event
             {
                 IpToLong::create()->data([
                     'ip2long' => 123,
+                    'ip' => $request->getHeader('x-real-ip')[0],
                 ])->save();
             }
 
