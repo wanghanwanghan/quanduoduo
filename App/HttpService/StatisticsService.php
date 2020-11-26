@@ -23,6 +23,9 @@ class StatisticsService extends ServiceBase
 
         //存redis
         $redis = Redis::defer('redis');
+
+        if ($redis === null) return false;
+
         $redis->select(0);
         $key = 'access_record_'.Carbon::now()->format('Y_m_d_H_i');
         $redis->hIncrBy($key,$realIp,1);
