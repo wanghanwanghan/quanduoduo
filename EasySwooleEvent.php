@@ -2,7 +2,6 @@
 
 namespace EasySwoole\EasySwoole;
 
-use App\HttpModels\Api\IpToLong;
 use App\HttpService\Common\CreateMysqlOrm;
 use App\HttpService\Common\CreateMysqlPool;
 use App\HttpService\Common\CreateMysqlTable;

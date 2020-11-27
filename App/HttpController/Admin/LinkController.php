@@ -57,26 +57,6 @@ class LinkController extends Index
         return $this->writeJson(200,null,$insert,'成功');
     }
 
-    function deleteLink()
-    {
-        $id = $this->request()->getRequestParam('id') ?? '';
-
-        if (!is_numeric($id)) return $this->writeJson(201,null,null,'参数错误');
-
-        try
-        {
-            $info = LinkInfo::create()->where('id',$id)->get();
-
-            $info->update(['isShow'=>0]);
-
-        }catch (\Throwable $e)
-        {
-            return $this->writeErr($e,__FUNCTION__);
-        }
-
-        return $this->writeJson(200,null,null,'成功');
-    }
-
     function editLink()
     {
         $id = $this->request()->getRequestParam('id') ?? 1;
