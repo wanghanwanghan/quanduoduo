@@ -4,7 +4,9 @@ namespace App\HttpController\Common;
 
 use App\HttpController\Index;
 use App\HttpService\Common\CreateMysqlTable;
+use App\HttpService\LogService;
 use EasySwoole\Http\Message\UploadFile;
+use QL\QueryList;
 use wanghanwanghan\someUtils\control;
 
 class CommonController extends Index
@@ -49,5 +51,18 @@ class CommonController extends Index
         return $this->writeJson(200, null, $fileList, '上传成功');
     }
 
+    //spider
+    function spider()
+    {
+        $url = 'http://www.mama.cn/index.php?g=Home&a=Hotreview';
+
+        $allPage = QueryList::getInstance()->get($url);
+
+        $title = $allPage->find('title:eq(0)')->text();
+
+        $dt = $allPage->find('#alList>dt')->find('a')->texts();
+
+        LogService::getInstance()->log4PHP($dt);
+    }
 
 }

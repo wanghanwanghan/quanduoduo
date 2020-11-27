@@ -26,6 +26,7 @@ class Router extends AbstractRouter
         $routeCollector->addGroup('/common/v1', function (RouteCollector $routeCollector) {
             $prefix = '/Common/CommonController/';
             $routeCollector->addRoute(['GET', 'POST'], '/uploadFile', $prefix . 'uploadFile');
+            $routeCollector->addRoute(['GET', 'POST'], '/spider', $prefix . 'spider');
         });
     }
 }
