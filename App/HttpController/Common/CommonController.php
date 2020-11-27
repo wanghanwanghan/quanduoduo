@@ -62,7 +62,7 @@ class CommonController extends Index
 
         $dt = $allPage->find('#alList>dt')->find('a')->texts();
 
-        LogService::getInstance()->log4PHP($dt);
+        LogService::getInstance()->log4PHP($title);
     }
 
 }
