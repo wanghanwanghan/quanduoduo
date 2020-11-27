@@ -60,9 +60,9 @@ class CommonController extends Index
 
         $title = $allPage->find('title:eq(0)')->text();
 
-        $dt = $allPage->find('#alList>dt')->find('a')->texts();
+        $dt = $allPage->find('#alList>dt')->find('a');
 
-        LogService::getInstance()->log4PHP($title);
+        LogService::getInstance()->log4PHP($dt);
     }
 
 }
