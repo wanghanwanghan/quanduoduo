@@ -20,10 +20,8 @@ class CommonController extends Index
 
         $fileList = [];
 
-        foreach ($fileArr as $key => $file)
-        {
-            if ($file instanceof UploadFile)
-            {
+        foreach ($fileArr as $key => $file) {
+            if ($file instanceof UploadFile) {
                 //提取文件后缀
                 $ext = explode('.', $file->getClientFilename());
                 $ext = end($ext);
@@ -36,15 +34,15 @@ class CommonController extends Index
                 $month = date('m');
                 $day = date('d');
 
-                $pathSuffix = $year.DIRECTORY_SEPARATOR.$month.DIRECTORY_SEPARATOR.$day.DIRECTORY_SEPARATOR;
+                $pathSuffix = $year . DIRECTORY_SEPARATOR . $month . DIRECTORY_SEPARATOR . $day . DIRECTORY_SEPARATOR;
 
                 //传绝对路径
-                is_dir(FILE_PATH.$pathSuffix) ?: mkdir(FILE_PATH.$pathSuffix,0755);
+                is_dir(FILE_PATH . $pathSuffix) ?: mkdir(FILE_PATH . $pathSuffix, 0755);
 
                 //移动到文件夹
-                $file->moveTo(FILE_PATH.$pathSuffix . $filename);
+                $file->moveTo(FILE_PATH . $pathSuffix . $filename);
 
-                $fileList[$key] = $pathSuffix.$filename;
+                $fileList[$key] = $pathSuffix . $filename;
             }
         }
 
@@ -56,13 +54,15 @@ class CommonController extends Index
     {
         $url = 'http://www.mama.cn/index.php?g=Home&a=Hotreview';
 
-        $allPage = QueryList::getInstance()->get($url);
+        $rules = [
+            'link' => ['dt>a', 'href'],
+        ];
 
-        $title = $allPage->find('title:eq(0)')->text();
+        $range = '#alList li';
 
-        $dt = $allPage->find('#alList>dt')->find('a');
+        $rt = QueryList::get($url)->rules($rules)->range($range)->query()->getData();
 
-        LogService::getInstance()->log4PHP($dt);
+        LogService::getInstance()->log4PHP($rt->all());
     }
 
 }
