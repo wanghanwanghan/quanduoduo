@@ -81,6 +81,8 @@ class CommonController extends Index
             $content = $rt->all();
 
             LogService::getInstance()->log4PHP($content);
+
+            break;
         }
 
         return $this->writeJson(200,null,$rt->all());
