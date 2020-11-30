@@ -62,7 +62,26 @@ class CommonController extends Index
 
         $rt = QueryList::get($url)->rules($rules)->range($range)->query()->getData();
 
-        LogService::getInstance()->log4PHP($rt->all());
+        $links = $rt->all();
+
+        foreach ($links as $oneLink)
+        {
+            $url = $oneLink['link'];
+
+            $rules = [
+                'title' => ['.detail-title>h1', 'text'],
+                'image' => ['.mod-ctn>img', 'src'],
+                'desc' => ['.mod-ctn>p', 'text'],
+            ];
+
+            $range = '.detail-main';
+
+            $rt = QueryList::get($url)->rules($rules)->range($range)->query()->getData();
+
+            $content = $rt->all();
+
+            LogService::getInstance()->log4PHP($content);
+        }
 
         return $this->writeJson(200,null,$rt->all());
     }
