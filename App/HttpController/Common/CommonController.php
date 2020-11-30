@@ -52,7 +52,7 @@ class CommonController extends Index
     //spider
     function spider()
     {
-        $url = 'http://www.mama.cn/index.php?g=Home&a=Hotreview';
+        $url = 'http://www.mama.cn/index.php?g=Home&a=Hotreview&d=index&page=1';
 
         $rules = [
             'link' => ['dt>a', 'href'],
