@@ -63,6 +63,8 @@ class CommonController extends Index
         $rt = QueryList::get($url)->rules($rules)->range($range)->query()->getData();
 
         LogService::getInstance()->log4PHP($rt->all());
+
+        return $this->writeJson(200,null,$rt->all());
     }
 
 }
