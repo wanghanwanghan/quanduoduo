@@ -70,7 +70,7 @@ class CommonController extends Index
 
             $rules = [
                 'title' => ['.detail-title>h1', 'text'],
-                'image' => ['.mod-ctn>img', 'src'],
+                'image' => ['.mod-ctn>p>img', 'src'],
                 'desc' => ['.mod-ctn>p', 'text'],
             ];
 
