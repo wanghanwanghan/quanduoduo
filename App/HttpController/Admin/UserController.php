@@ -16,7 +16,7 @@ class UserController extends Index
         $username = $this->request()->getRequestParam('username') ?? '';
         $password = $this->request()->getRequestParam('password') ?? '';
 
-        if ($username !== 'admin' && $password !== 'admin')
+        if ($username !== 'admin' || $password !== 'admin')
         {
             return $this->writeJson(201,null,null,'登陆失败');
         }
