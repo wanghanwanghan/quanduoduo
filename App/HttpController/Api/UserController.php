@@ -12,9 +12,9 @@ class UserController extends Index
 {
     function clickLink()
     {
-        $linkId = $this->request()->getRequestParam('linkId') ?? '';
+        $linkId = $this->getRawData('linkId');
 
-        if (empty($linkId) || !is_numeric($linkId)) return $this->writeJson();
+        if (empty($linkId) || !is_numeric($linkId)) return $this->writeJson(201,null,null,'id错误');
 
         try
         {

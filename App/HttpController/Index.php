@@ -77,16 +77,13 @@ class Index extends Controller
         ];
     }
 
-    function getRawData($key = '',$default = '')
+    function getRawData($key = '', $default = '')
     {
         $string = $this->request()->getBody()->__toString();
 
         $arr = jsonDecode($string);
 
-        if (!empty($key))
-        {
-            return isset($arr[$key]) ? $arr[$key] : $default;
-        }
+        if (!empty($key)) return isset($arr[$key]) ? $arr[$key] : $default;
 
         return !empty($arr) ? $arr : $default;
     }

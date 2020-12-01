@@ -15,19 +15,19 @@ class LinkController extends Index
 
     function insertLink()
     {
-        $linkType = $this->request()->getRequestParam('linkType') ?? 1;
-        $type = $this->request()->getRequestParam('type') ?? 1;
-        $image = $this->request()->getRequestParam('image') ?? '';
-        $miniAppName = $this->request()->getRequestParam('miniAppName') ?? '';
-        $appId = $this->request()->getRequestParam('appId') ?? '';
-        $url = $this->request()->getRequestParam('url') ?? '';
-        $level = $this->request()->getRequestParam('level') ?? 0;
-        $mainTitle = $this->request()->getRequestParam('mainTitle') ?? '';
-        $subTitle = $this->request()->getRequestParam('subTitle') ?? '';
-        $num = $this->request()->getRequestParam('num') ?? 1;
-        $backgroundColor = $this->request()->getRequestParam('backgroundColor') ?? '';
-        $source = $this->request()->getRequestParam('source') ?? '';
-        $isShow = $this->request()->getRequestParam('isShow') ?? 0;
+        $linkType = $this->getRawData('linkType',1);
+        $type = $this->getRawData('type',1);
+        $image = $this->getRawData('image');
+        $miniAppName = $this->getRawData('miniAppName');
+        $appId = $this->getRawData('appId');
+        $url = $this->getRawData('url');
+        $level = $this->getRawData('level',0);
+        $mainTitle = $this->getRawData('mainTitle');
+        $subTitle = $this->getRawData('subTitle');
+        $num = $this->getRawData('num',1);
+        $backgroundColor = $this->getRawData('backgroundColor');
+        $source = $this->getRawData('source');
+        $isShow = $this->getRawData('isShow',0);
 
         $insert = [
             'linkType' => $linkType,
@@ -59,20 +59,20 @@ class LinkController extends Index
 
     function editLink()
     {
-        $id = $this->request()->getRequestParam('id') ?? 1;
-        $linkType = $this->request()->getRequestParam('linkType') ?? 1;
-        $type = $this->request()->getRequestParam('type') ?? 1;
-        $image = $this->request()->getRequestParam('image') ?? '';
-        $miniAppName = $this->request()->getRequestParam('miniAppName') ?? '';
-        $appId = $this->request()->getRequestParam('appId') ?? '';
-        $url = $this->request()->getRequestParam('url') ?? '';
-        $level = $this->request()->getRequestParam('level') ?? 0;
-        $mainTitle = $this->request()->getRequestParam('mainTitle') ?? '';
-        $subTitle = $this->request()->getRequestParam('subTitle') ?? '';
-        $num = $this->request()->getRequestParam('num') ?? 1;
-        $backgroundColor = $this->request()->getRequestParam('backgroundColor') ?? '';
-        $source = $this->request()->getRequestParam('source') ?? '';
-        $isShow = $this->request()->getRequestParam('isShow') ?? 0;
+        $id = $this->getRawData('id',1);
+        $linkType = $this->getRawData('linkType',1);
+        $type = $this->getRawData('type',1);
+        $image = $this->getRawData('image');
+        $miniAppName = $this->getRawData('miniAppName');
+        $appId = $this->getRawData('appId');
+        $url = $this->getRawData('url');
+        $level = $this->getRawData('level',0);
+        $mainTitle = $this->getRawData('mainTitle');
+        $subTitle = $this->getRawData('subTitle');
+        $num = $this->getRawData('num',1);
+        $backgroundColor = $this->getRawData('backgroundColor');
+        $source = $this->getRawData('source');
+        $isShow = $this->getRawData('isShow',0);
 
         $update = [
             'linkType' => $linkType,
@@ -106,9 +106,9 @@ class LinkController extends Index
 
     function selectLink()
     {
-        $linkType = $this->request()->getRequestParam('linkType');
-        $page = $this->request()->getRequestParam('page') ?? 1;
-        $pageSize = $this->request()->getRequestParam('pageSize') ?? 10;
+        $linkType = $this->getRawData('linkType');
+        $page = $this->getRawData('page',1);
+        $pageSize = $this->getRawData('pageSize',10);
 
         try
         {
