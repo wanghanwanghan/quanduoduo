@@ -106,18 +106,27 @@ class LinkController extends Index
 
     function selectLink()
     {
+        $linkType = $this->request()->getRequestParam('linkType');
+        $page = $this->request()->getRequestParam('page') ?? 1;
+        $pageSize = $this->request()->getRequestParam('pageSize') ?? 10;
+
         try
         {
-            $info = LinkInfo::create()->all();
+            $info = LinkInfo::create();
+            $total = LinkInfo::create();
 
-            $info = obj2Arr($info);
+            if (is_numeric($linkType)) $info = $info->where('linkType',$linkType);
+            if (is_numeric($linkType)) $total = $total->where('linkType',$linkType);
+
+            $info = $info->limit($this->exprOffset($page,$pageSize))->all();
+            $total = $total->count();
 
         }catch (\Throwable $e)
         {
             return $this->writeErr($e,__FUNCTION__);
         }
 
-        return $this->writeJson(200,null,$info,'成功');
+        return $this->writeJson(200,$this->createPaging($page,$pageSize,$total),$info,'成功');
     }
 
 }

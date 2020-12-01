@@ -61,4 +61,23 @@ class Index extends Controller
         //返回log写入成功或者写入失败
         return control::writeLog($content, LOG_PATH, 'info', $logFileName);
     }
+
+    //计算分页
+    function exprOffset($page, $pageSize): int
+    {
+        return ($page - 1) * $pageSize;
+    }
+
+    function createPaging($page, $pageSize, $total): array
+    {
+        return [
+            'page' => (int)$page,
+            'pageSize' => (int)$pageSize,
+            'total' => (int)$total,
+        ];
+    }
+
+
+
+
 }

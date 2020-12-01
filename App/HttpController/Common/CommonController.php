@@ -78,11 +78,20 @@ class CommonController extends Index
 
             $rt = QueryList::get($url)->rules($rules)->range($range)->query()->getData();
 
+            //[
+            //    {
+            //        "title":"新手妈妈孕期注意事项",
+            //        "img":"http://qimg.cdnmama.com/bk/wiki/2019/9/123RF-wiki/1-qinzi/3-huaiyun/9987745.jpg",
+            //        "desc":"对于绝大多数女性来说，第一次成为妈.....
+            //    }
+            //]
+
             $content = $rt->all();
 
-            LogService::getInstance()->log4PHP($content);
-
-            break;
+            foreach ($content as $oneContent)
+            {
+                continue;
+            }
         }
 
         return $this->writeJson(200,null,$rt->all());
