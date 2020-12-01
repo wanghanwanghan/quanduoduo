@@ -44,6 +44,12 @@ class EasySwooleEvent implements Event
         $response->withHeader('Access-Control-Allow-Credentials', 'true');
         $response->withHeader('Access-Control-Allow-Headers', '*');
 
+        if ($request->getMethod() === 'OPTIONS')
+        {
+            $response->withStatus(200);
+            return false;
+        }
+
         $check = StatisticsService::getInstance()->recordIp($request);
 
         if ($check === false) return false;
