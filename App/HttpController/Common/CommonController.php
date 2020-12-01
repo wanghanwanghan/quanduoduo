@@ -20,8 +20,10 @@ class CommonController extends Index
 
         $fileList = [];
 
-        foreach ($fileArr as $key => $file) {
-            if ($file instanceof UploadFile) {
+        foreach ($fileArr as $key => $file)
+        {
+            if ($file instanceof UploadFile)
+            {
                 //提取文件后缀
                 $ext = explode('.', $file->getClientFilename());
                 $ext = end($ext);

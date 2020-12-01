@@ -17,6 +17,11 @@ class AdminRouter
             $routeCollector->addRoute(['GET', 'POST'], '/editLink', $prefix . 'editLink');
             $routeCollector->addRoute(['GET', 'POST'], '/selectLink', $prefix . 'selectLink');
         });
+
+        $router->addGroup('/user', function (RouteCollector $routeCollector) {
+            $prefix = '/Admin/UserController/';
+            $routeCollector->addRoute(['GET', 'POST'], '/login', $prefix . 'login');
+        });
     }
 
 
