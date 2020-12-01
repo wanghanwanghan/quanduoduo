@@ -82,9 +82,12 @@ class Index extends Controller
 
         $arr = jsonDecode($string);
 
-        if (!empty($key)) return (isset($arr[$key]) && !empty($arr[$key])) ? $arr[$key] : $default;
+        //raw请求
+        if (!empty($arr))
+            return (isset($arr[$key]) && !empty($arr[$key])) ? $arr[$key] : $default;
 
-        return !empty($arr) ? $arr : $default;
+        //其他
+        return $this->request()->getRequestParam($key) ?? $default;
     }
 
 
