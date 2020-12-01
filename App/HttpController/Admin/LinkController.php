@@ -4,7 +4,6 @@ namespace App\HttpController\Admin;
 
 use App\HttpController\Index;
 use App\HttpModels\Admin\LinkInfo;
-use App\HttpService\Common\CreateMysqlTable;
 
 class LinkController extends Index
 {
