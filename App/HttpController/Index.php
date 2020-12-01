@@ -83,7 +83,7 @@ class Index extends Controller
 
         $arr = jsonDecode($string);
 
-        if (!empty($key)) return isset($arr[$key]) ? $arr[$key] : $default;
+        if (!empty($key)) return (isset($arr[$key]) && !empty($arr[$key])) ? $arr[$key] : $default;
 
         return !empty($arr) ? $arr : $default;
     }
