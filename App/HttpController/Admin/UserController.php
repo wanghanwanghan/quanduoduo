@@ -3,6 +3,7 @@
 namespace App\HttpController\Admin;
 
 use App\HttpController\Index;
+use App\HttpService\LogService;
 
 class UserController extends Index
 {
@@ -15,6 +16,8 @@ class UserController extends Index
     {
         $username = $this->request()->getRequestParam('username') ?? '';
         $password = $this->request()->getRequestParam('password') ?? '';
+
+        LogService::getInstance()->log4PHP($this->request()->getBody());
 
         if ($username !== 'admin' || $password !== 'admin')
         {
