@@ -62,7 +62,6 @@ class Index extends Controller
         return control::writeLog($content, LOG_PATH, 'info', $logFileName);
     }
 
-    //计算分页
     function exprOffset($page, $pageSize): int
     {
         return ($page - 1) * $pageSize;
