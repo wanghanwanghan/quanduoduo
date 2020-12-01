@@ -118,7 +118,7 @@ class LinkController extends Index
             if (is_numeric($linkType)) $info = $info->where('linkType',$linkType);
             if (is_numeric($linkType)) $total = $total->where('linkType',$linkType);
 
-            $info = $info->limit($this->exprOffset($page,$pageSize))->order('updated_at','desc')->all();
+            $info = $info->limit($this->exprOffset($page,$pageSize),$pageSize)->order('updated_at','desc')->all();
             $total = $total->count();
 
         }catch (\Throwable $e)
