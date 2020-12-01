@@ -3,7 +3,6 @@
 namespace App\HttpController\Admin;
 
 use App\HttpController\Index;
-use App\HttpService\LogService;
 
 class UserController extends Index
 {
@@ -14,8 +13,8 @@ class UserController extends Index
 
     function login()
     {
-        $username = $this->request()->getRequestParam('username') ?? '';
-        $password = $this->request()->getRequestParam('password') ?? '';
+        $username = $this->getRawData('username');
+        $password = $this->getRawData('password');
 
         if ($username !== 'admin' || $password !== 'admin')
         {
