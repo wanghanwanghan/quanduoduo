@@ -17,6 +17,11 @@ class ApiRouter
             $routeCollector->addRoute(['GET', 'POST'], '/getOneSaid', $prefix . 'getOneSaid');
             $routeCollector->addRoute(['GET', 'POST'], '/getOneJoke', $prefix . 'getOneJoke');
         });
+
+        $router->addGroup('/link', function (RouteCollector $routeCollector) {
+            $prefix = '/Api/LinkController/';
+            $routeCollector->addRoute(['GET', 'POST'], '/selectLink', $prefix . 'selectLink');
+        });
     }
 
 
