@@ -9,6 +9,7 @@ use App\HttpService\Common\CreateRedisPool;
 use App\HttpService\StatisticsService;
 use EasySwoole\EasySwoole\Swoole\EventRegister;
 use EasySwoole\EasySwoole\AbstractInterface\Event;
+use EasySwoole\Http\Message\Status;
 use EasySwoole\Http\Request;
 use EasySwoole\Http\Response;
 
@@ -46,7 +47,7 @@ class EasySwooleEvent implements Event
 
         if ($request->getMethod() === 'OPTIONS')
         {
-            $response->withStatus(200);
+            $response->withStatus(Status::CODE_OK);
             return false;
         }
 
