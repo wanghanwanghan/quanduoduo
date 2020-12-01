@@ -17,8 +17,6 @@ class UserController extends Index
         $username = $this->request()->getRequestParam('username') ?? '';
         $password = $this->request()->getRequestParam('password') ?? '';
 
-        LogService::getInstance()->log4PHP($this->request()->getBody()->__toString());
-
         if ($username !== 'admin' || $password !== 'admin')
         {
             return $this->writeJson(201,null,null,'登陆失败');
