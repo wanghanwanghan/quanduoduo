@@ -128,11 +128,12 @@ class LinkController extends Index
         $linkType = $this->getRawData('linkType');
         $page = $this->getRawData('page',1);
         $pageSize = $this->getRawData('pageSize',10);
+        $isShow = $this->getRawData('isShow',1);
 
         try
         {
-            $info = LinkInfo::create();
-            $total = LinkInfo::create();
+            $info = LinkInfo::create()->where('isShow',$isShow);
+            $total = LinkInfo::create()->where('isShow',$isShow);
 
             if (is_numeric($linkType)) $info = $info->where('linkType',$linkType);
             if (is_numeric($linkType)) $total = $total->where('linkType',$linkType);
