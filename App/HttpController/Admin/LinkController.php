@@ -35,7 +35,7 @@ class LinkController extends Index
             'miniAppName' => $miniAppName,
             'appId' => $appId,
             'url' => $url,
-            'level' => $level,
+            'level' => $level > 255 ? 255 : $level,
             'mainTitle' => $mainTitle,
             'subTitle' => $subTitle,
             'num' => $num,
