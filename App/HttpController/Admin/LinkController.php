@@ -26,7 +26,7 @@ class LinkController extends Index
         $num = $this->getRawData('num',1);
         $backgroundColor = $this->getRawData('backgroundColor');
         $source = $this->getRawData('source');
-        $isShow = $this->getRawData('isShow',0);
+        $isShow = $this->getRawData('isShow',1);
 
         $insert = [
             'linkType' => $linkType,
@@ -56,6 +56,28 @@ class LinkController extends Index
         return $this->writeJson(200,null,$insert,'成功');
     }
 
+    function deleteLink()
+    {
+        $id = $this->getRawData('id');
+
+        if (!is_numeric($id)) return $this->writeJson(201,null,null,'id错误');
+
+        try
+        {
+            $info = LinkInfo::create()->where('id',$id)->get();
+
+            $info->update([
+                'isShow' => 0
+            ]);
+
+        }catch (\Throwable $e)
+        {
+            return $this->writeErr($e,__FUNCTION__);
+        }
+
+        return $this->writeJson(200,null,null,'软删除成功');
+    }
+
     function editLink()
     {
         $id = $this->getRawData('id',1);
@@ -71,7 +93,6 @@ class LinkController extends Index
         $num = $this->getRawData('num',1);
         $backgroundColor = $this->getRawData('backgroundColor');
         $source = $this->getRawData('source');
-        $isShow = $this->getRawData('isShow',0);
 
         $update = [
             'linkType' => $linkType,
@@ -86,7 +107,6 @@ class LinkController extends Index
             'num' => $num,
             'backgroundColor' => $backgroundColor,
             'source' => $source,
-            'isShow' => $isShow,
         ];
 
         try
