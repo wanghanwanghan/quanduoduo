@@ -37,7 +37,7 @@ class StatisticsService extends ServiceBase
 
         $redis->expire($key,3600);
 
-        $ipInfo = IPv4Tool::query($realIp);
+        $ipInfo = IPv4Tool::query($request->getHeader('x-real-ip')[0]);
 
         //再记录ip
         try
