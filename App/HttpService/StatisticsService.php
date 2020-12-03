@@ -49,7 +49,7 @@ class StatisticsService extends ServiceBase
                 'ip' => $request->getHeader('x-real-ip')[0],
                 'addr' => is_array($ipInfo['addr']) ? implode('|||',$ipInfo['addr']) : $ipInfo['addr'],
                 'disp' => isset($ipInfo['disp']) ? $ipInfo['disp'] : '无',
-                'uri' => $request->getUri()->__toString(),
+                'uri' => str_replace('http://127.0.0.1:8991','',$request->getUri()->__toString()),
             ])->save();
 
         }catch (\Throwable $e)
