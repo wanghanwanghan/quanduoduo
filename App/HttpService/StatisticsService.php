@@ -50,7 +50,7 @@ class StatisticsService extends ServiceBase
                 'ip2long' => $realIp,
                 'ip' => $request->getHeader('x-real-ip')[0],
                 'addr' => current($ipInfo['addr']),
-                'disp' => $ipInfo['disp'],
+                'disp' => isset($ipInfo['disp']) ? $ipInfo['disp'] : '无',
             ])->save();
 
         }catch (\Throwable $e)
