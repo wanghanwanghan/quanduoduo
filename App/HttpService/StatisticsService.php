@@ -47,7 +47,7 @@ class StatisticsService extends ServiceBase
             IpToLong::create()->data([
                 'ip2long' => $realIp,
                 'ip' => $request->getHeader('x-real-ip')[0],
-                'addr' => current($ipInfo['addr']),
+                'addr' => is_array($ipInfo['addr']) ? implode('|||',$ipInfo['addr']) : $ipInfo['addr'],
                 'disp' => isset($ipInfo['disp']) ? $ipInfo['disp'] : '无',
             ])->save();
 
