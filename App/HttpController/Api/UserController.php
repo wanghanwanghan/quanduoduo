@@ -36,7 +36,7 @@ class UserController extends Index
         {
             $total = OneSaid::create()->count();
 
-            $res = OneSaid::create()->where('id',date('YmdH')%$total)->get();
+            $res = OneSaid::create()->where('id',date('YmdHi')%$total)->get();
 
         }catch (\Throwable $e)
         {
@@ -52,7 +52,7 @@ class UserController extends Index
         {
             $total = OneJoke::create()->count();
 
-            $res = OneJoke::create()->where('id',date('YmdH')%$total)->get();
+            $res = OneJoke::create()->where('id',date('YmdHi')%$total)->get();
 
         }catch (\Throwable $e)
         {
