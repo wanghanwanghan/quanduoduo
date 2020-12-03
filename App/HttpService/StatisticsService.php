@@ -41,6 +41,8 @@ class StatisticsService extends ServiceBase
 
         $ipInfo = obj2Arr($ipInfo);
 
+        LogService::getInstance()->log4PHP($ipInfo);
+
         //再记录ip
         try
         {
