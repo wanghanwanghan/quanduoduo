@@ -7,6 +7,7 @@ use Carbon\Carbon;
 use EasySwoole\Component\Singleton;
 use EasySwoole\Http\Request;
 use EasySwoole\RedisPool\Redis;
+use Ritaswc\ZxIPAddress\IPv4Tool;
 
 class StatisticsService extends ServiceBase
 {
@@ -36,12 +37,16 @@ class StatisticsService extends ServiceBase
 
         $redis->expire($key,3600);
 
+        $ipInfo = IPv4Tool::query($realIp);
+
         //再记录ip
         try
         {
             IpToLong::create()->data([
                 'ip2long' => $realIp,
                 'ip' => $request->getHeader('x-real-ip')[0],
+                'addr' => current($ipInfo['addr']),
+                'disp' => $ipInfo['disp'],
             ])->save();
 
         }catch (\Throwable $e)
