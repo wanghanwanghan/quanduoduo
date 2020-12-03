@@ -39,7 +39,7 @@ class StatisticsService extends ServiceBase
 
         $ipInfo = IPv4Tool::query($request->getHeader('x-real-ip')[0]);
 
-        LogService::getInstance()->log4PHP($ipInfo);
+        $ipInfo = obj2Arr($ipInfo);
 
         //再记录ip
         try
