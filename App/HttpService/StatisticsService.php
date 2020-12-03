@@ -49,6 +49,7 @@ class StatisticsService extends ServiceBase
                 'ip' => $request->getHeader('x-real-ip')[0],
                 'addr' => is_array($ipInfo['addr']) ? implode('|||',$ipInfo['addr']) : $ipInfo['addr'],
                 'disp' => isset($ipInfo['disp']) ? $ipInfo['disp'] : '无',
+                'uri' => $request->getUri()->__toString(),
             ])->save();
 
         }catch (\Throwable $e)
