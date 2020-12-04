@@ -7,7 +7,9 @@ use App\HttpModels\Admin\OneJoke;
 use App\HttpModels\Admin\OneSaid;
 use App\HttpModels\Api\LinkClick;
 use App\HttpModels\Api\User;
+use App\HttpService\CoHttpClient;
 use App\HttpService\Common\CreateMysqlTable;
+use App\HttpService\WxService;
 
 class UserController extends Index
 {
@@ -71,9 +73,13 @@ class UserController extends Index
     {
         $username = $this->getRawData('username');
         $avatar = $this->getRawData('avatar');
-        $openId = $this->getRawData('openId');
+        $jsCode = $this->getRawData('jsCode');
 
-        if (empty($openId)) return $this->writeJson(201,null,null,'openId错误');
+        if (empty($jsCode)) return $this->writeJson(201,null,null,'jsCode不能是空');
+
+        $res = WxService::getInstance()->getOpenIdByJsCode($jsCode);
+
+        $openId = end($res);
 
         $insert = [
             'username' => $username,

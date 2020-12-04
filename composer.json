@@ -12,7 +12,8 @@
         "nesbot/carbon": "^2.41",
         "jaeger/querylist": "^4.2",
         "jaeger/querylist-puppeteer": "^4.0",
-        "ritaswc/zx-ip-address": "^2.0"
+        "ritaswc/zx-ip-address": "^2.0",
+        "easyswoole/http-client": "^1.4"
     },
     "autoload": {
         "psr-4": {
