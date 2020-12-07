@@ -75,7 +75,8 @@ class UserController extends Index
         $username = $this->getRawData('username');
         $avatar = $this->getRawData('avatar');
         $jsCode = $this->getRawData('jsCode');
-        $phone = $this->getRawData('phone');
+        $phone = $this->getRawData('phone');//需要解密
+        $iv = $this->getRawData('iv');
 
         if (empty($jsCode)) return $this->writeJson(201,null,null,'jsCode不能是空');
 
@@ -83,7 +84,10 @@ class UserController extends Index
 
         LogService::getInstance()->log4PHP($res);
 
-        $openId = end($res);
+        $openId = $res['openid'];
+        $sessionKey = $res['session_key'];
+
+        (empty($phone) || empty($iv)) ?: $phone = WxService::getInstance()->decodePhone($phone,$sessionKey,$iv);
 
         $insert = [
             'username' => $username,

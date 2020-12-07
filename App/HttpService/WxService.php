@@ -24,6 +24,25 @@ class WxService extends ServiceBase
         return (new CoHttpClient())->setDecode(true)->send($url, $data, [], [], 'get');
     }
 
+    function decodePhone($encryptedData,$sessionKey,$iv): string
+    {
+        $aesKey = base64_decode($sessionKey);
+
+        $aesIV = base64_decode($iv);
+
+        $aesCipher = base64_decode($encryptedData);
+
+        $result = openssl_decrypt($aesCipher, 'AES-128-CBC', $aesKey, 1, $aesIV);
+
+        $data = jsonDecode($result);
+
+        if (empty($data)) return '';
+
+        LogService::getInstance()->log4PHP($data);
+
+        return '123123123';
+    }
+
 
 
 
