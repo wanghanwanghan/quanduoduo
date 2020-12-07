@@ -9,6 +9,7 @@ use App\HttpModels\Api\LinkClick;
 use App\HttpModels\Api\User;
 use App\HttpService\CoHttpClient;
 use App\HttpService\Common\CreateMysqlTable;
+use App\HttpService\LogService;
 use App\HttpService\WxService;
 
 class UserController extends Index
@@ -79,6 +80,8 @@ class UserController extends Index
         if (empty($jsCode)) return $this->writeJson(201,null,null,'jsCode不能是空');
 
         $res = WxService::getInstance()->getOpenIdByJsCode($jsCode);
+
+        LogService::getInstance()->log4PHP($res);
 
         $openId = end($res);
 
