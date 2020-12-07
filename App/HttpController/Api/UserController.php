@@ -74,6 +74,7 @@ class UserController extends Index
         $username = $this->getRawData('username');
         $avatar = $this->getRawData('avatar');
         $jsCode = $this->getRawData('jsCode');
+        $phone = $this->getRawData('phone');
 
         if (empty($jsCode)) return $this->writeJson(201,null,null,'jsCode不能是空');
 
@@ -85,6 +86,7 @@ class UserController extends Index
             'username' => $username,
             'avatar' => $avatar,
             'wxOpenId' => $openId,
+            'phone' => $phone,
         ];
 
         try
