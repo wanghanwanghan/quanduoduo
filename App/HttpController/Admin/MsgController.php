@@ -28,7 +28,7 @@ class MsgController extends Index
                 'thing1' => ['value' => '胡大胖'],
                 'thing2' => ['value' => '胡小胖'],
             ],
-            'miniprogram_state' => 'trial',
+            'miniprogram_state' => 'developer',
             'lang' => 'zh_CN',
         ];
 
