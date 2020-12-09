@@ -8,8 +8,6 @@ class WxService extends ServiceBase
 {
     use Singleton;
 
-    public $getOpenIdUrl = 'https://api.weixin.qq.com/sns/jscode2session';
-
     function getOpenIdByJsCode($jsCode)
     {
         $data = [
@@ -19,12 +17,12 @@ class WxService extends ServiceBase
             'grant_type' => 'authorization_code',
         ];
 
-        $url = $this->getOpenIdUrl .= '?' . http_build_query($data);
+        $url = 'https://api.weixin.qq.com/sns/jscode2session?' . http_build_query($data);
 
         return (new CoHttpClient())->setDecode(true)->send($url, $data, [], [], 'get');
     }
 
-    function decodePhone($encryptedData,$sessionKey,$iv): string
+    function decodePhone($encryptedData, $sessionKey, $iv): string
     {
         $aesKey = base64_decode($sessionKey);
 
@@ -42,8 +40,6 @@ class WxService extends ServiceBase
 
         return '123123123';
     }
-
-
 
 
 }
