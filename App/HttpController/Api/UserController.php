@@ -51,10 +51,6 @@ class UserController extends Index
             return $this->writeErr($e,__FUNCTION__);
         }
 
-        $w = WxService::getInstance()->getAccessToken();
-
-        LogService::getInstance()->log4PHP($w);
-
         return $this->writeJson(200,null,$res);
     }
 
