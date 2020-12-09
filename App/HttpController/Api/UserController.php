@@ -127,6 +127,8 @@ class UserController extends Index
 
         $info = WxService::getInstance()->decodePhone($encryptedData, $sessionKey, $iv);
 
+        LogService::getInstance()->log4PHP($info);
+
         return $this->writeJson(200,null,$info,'胡大胖别生气了');
     }
 
