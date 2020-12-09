@@ -21,7 +21,6 @@ class MsgController extends Index
         $url = "https://api.weixin.qq.com/cgi-bin/message/subscribe/send?access_token={$access_token}";
 
         $data = [
-            'access_token' => $access_token,
             'touser' => 'oDCC45HOXc-CC6XyqVfAjyM_N-zQ',
             'template_id' => 'zyTie20yrJMNorCRpDv5v10NsBNnM0Qy2oZ6wvd4PU4',
             'page' => 'index',
