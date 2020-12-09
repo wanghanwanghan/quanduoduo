@@ -7,6 +7,7 @@ use App\HttpModels\Admin\OneJoke;
 use App\HttpModels\Admin\OneSaid;
 use App\HttpModels\Api\LinkClick;
 use App\HttpModels\Api\User;
+use App\HttpService\LogService;
 use App\HttpService\WxService;
 
 class UserController extends Index
@@ -49,6 +50,10 @@ class UserController extends Index
         {
             return $this->writeErr($e,__FUNCTION__);
         }
+
+        $w = WxService::getInstance()->getAccessToken();
+
+        LogService::getInstance()->log4PHP($w);
 
         return $this->writeJson(200,null,$res);
     }

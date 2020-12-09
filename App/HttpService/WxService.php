@@ -22,6 +22,19 @@ class WxService extends ServiceBase
         return (new CoHttpClient())->setDecode(true)->send($url, $data, [], [], 'get');
     }
 
+    function getAccessToken()
+    {
+        $data = [
+            'appid' => 'wxe21bdc5cc38380b8',
+            'secret' => '8e662390d62ce9edfa687dcfa2d71f26',
+            'grant_type' => 'client_credential',
+        ];
+
+        $url = 'https://api.weixin.qq.com/cgi-bin/token?' . http_build_query($data);
+
+        return (new CoHttpClient())->setDecode(true)->send($url, $data, [], [], 'get');
+    }
+
     function decodePhone($encryptedData, $sessionKey, $iv): array
     {
         $aesKey = base64_decode($sessionKey);
