@@ -119,7 +119,7 @@ class CreateMysqlTable extends ServiceBase
             $table->colInt('id', 20)->setIsAutoIncrement()->setIsUnsigned()->setIsPrimaryKey()->setColumnComment('主键');
             $table->colVarChar('category',32)->setDefaultValue('');
             $table->colVarChar('name',32)->setDefaultValue('');
-            $table->colText('val')->setDefaultValue('');
+            $table->colText('val');
             $table->colInt('created_at', 11)->setIsUnsigned()->setDefaultValue(0);
             $table->colInt('updated_at', 11)->setIsUnsigned()->setDefaultValue(0);
         });
