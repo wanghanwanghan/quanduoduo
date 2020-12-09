@@ -2,6 +2,7 @@
 
 namespace App\Process\ProcessList;
 
+use App\HttpModels\Admin\OneJoke;
 use App\HttpService\CoHttpClient;
 use App\HttpService\LogService;
 use App\Process\ProcessBase;
@@ -40,12 +41,29 @@ class AddJokeProcess extends ProcessBase
 
                     $res = (new CoHttpClient())->setDecode(true)->send($url,[],[],[],'get');
 
-                    LogService::getInstance()->log4PHP($res);
+                    if ($res['reason'] === 'Success' && !empty($res['result']['data']) && $res['error_code'] === 0)
+                    {
+                        foreach ($res['result']['data'] as $oneJoke)
+                        {
+                            $info = OneJoke::create()->where('md5Index',$oneJoke['hashId'])->get();
+
+                            if (empty($info))
+                            {
+                                OneJoke::create()->data([
+                                    'md5Index' => $oneJoke['hashId'],
+                                    'oneJoke' => $oneJoke['content'],
+                                    'unixTime' => $oneJoke['unixtime'],
+                                    'created_at' => $oneJoke['updatetime'],
+                                    'updated_at' => $oneJoke['updatetime'],
+                                ])->save();
+                            }
+                        }
+                    }
                 }
 
             }else
             {
-                \co::sleep(30);
+                \co::sleep(300);
             }
         }
 
