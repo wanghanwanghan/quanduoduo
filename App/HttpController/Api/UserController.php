@@ -85,9 +85,6 @@ class UserController extends Index
 
         $res = WxService::getInstance()->getOpenIdByJsCode($jsCode);
 
-        LogService::getInstance()->log4PHP($jsCode);
-        LogService::getInstance()->log4PHP($res);
-
         $openId = is_array($res) ? $res['openid'] : $res->openid;
         $sessionKey = is_array($res) ? $res['session_key'] : $res->session_key;
 
