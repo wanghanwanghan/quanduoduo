@@ -35,17 +35,15 @@ class AddJokeProcess extends ProcessBase
             {
                 $H = $nowH;
 
-                for ($page=1;$page<=1;$page++)
+                for ($page=1;$page<=4;$page++)
                 {
                     $url = 'http://v.juhe.cn/joke/randJoke.php?key=41b914ce994bc0e57d0fce86b0041a03';
 
                     $res = (new CoHttpClient())->setDecode(true)->send($url,[],[],[],'get');
 
-                    LogService::getInstance()->log4PHP($res);
-
-                    if ($res['reason'] === 'Success' && !empty($res['result']['data']) && $res['error_code'] === 0)
+                    if (strtolower($res['reason']) === 'success' && !empty($res['result']) && $res['error_code'] === 0)
                     {
-                        foreach ($res['result']['data'] as $oneJoke)
+                        foreach ($res['result'] as $oneJoke)
                         {
                             $info = OneJoke::create()->where('md5Index',$oneJoke['hashId'])->get();
 
@@ -55,8 +53,8 @@ class AddJokeProcess extends ProcessBase
                                     'md5Index' => $oneJoke['hashId'],
                                     'oneJoke' => $oneJoke['content'],
                                     'unixTime' => $oneJoke['unixtime'],
-                                    'created_at' => $oneJoke['updatetime'],
-                                    'updated_at' => $oneJoke['updatetime'],
+                                    'created_at' => date('Y-m-d H:i:s',$oneJoke['unixtime']),
+                                    'updated_at' => date('Y-m-d H:i:s',$oneJoke['unixtime']),
                                 ])->save();
                             }
                         }
