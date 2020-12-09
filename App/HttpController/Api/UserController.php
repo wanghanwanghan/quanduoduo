@@ -40,11 +40,13 @@ class UserController extends Index
 
     function getOneSaid()
     {
+        mt_srand();
+
         try
         {
             $total = OneSaid::create()->count();
 
-            $res = OneSaid::create()->where('id',substr(date('YmdHis'),0,-1)%$total)->get();
+            $res = OneSaid::create()->where('id',mt_rand(0,$total) % $total)->get();
 
         }catch (\Throwable $e)
         {
@@ -56,11 +58,13 @@ class UserController extends Index
 
     function getOneJoke()
     {
+        mt_srand();
+
         try
         {
             $total = OneJoke::create()->count();
 
-            $res = OneJoke::create()->where('id',substr(date('YmdHis'),0,-1)%$total)->get();
+            $res = OneJoke::create()->where('id',mt_rand(0,$total) % $total)->get();
 
         }catch (\Throwable $e)
         {
