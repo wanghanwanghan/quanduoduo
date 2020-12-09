@@ -14,7 +14,7 @@ class ApiRouter
         $router->addGroup('/user', function (RouteCollector $routeCollector) {
             $prefix = '/Api/UserController/';
             $routeCollector->addRoute(['GET', 'POST'], '/login', $prefix . 'login');
-            $routeCollector->addRoute(['GET', 'POST'], '/bingPhone', $prefix . 'bingPhone');
+            $routeCollector->addRoute(['GET', 'POST'], '/bindPhone', $prefix . 'bindPhone');
             $routeCollector->addRoute(['GET', 'POST'], '/clickLink', $prefix . 'clickLink');
             $routeCollector->addRoute(['GET', 'POST'], '/getOneSaid', $prefix . 'getOneSaid');
             $routeCollector->addRoute(['GET', 'POST'], '/getOneJoke', $prefix . 'getOneJoke');
