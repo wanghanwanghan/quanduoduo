@@ -7,6 +7,7 @@ use App\HttpModels\Admin\OneJoke;
 use App\HttpModels\Admin\OneSaid;
 use App\HttpModels\Api\LinkClick;
 use App\HttpModels\Api\User;
+use App\HttpService\Common\CreateMysqlTable;
 use App\HttpService\LogService;
 use App\HttpService\WxService;
 
@@ -56,6 +57,7 @@ class UserController extends Index
 
     function getOneJoke()
     {
+        CreateMysqlTable::getInstance()->sys_config();
         mt_srand();
 
         try

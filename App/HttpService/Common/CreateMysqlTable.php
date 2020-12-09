@@ -112,4 +112,23 @@ class CreateMysqlTable extends ServiceBase
         Manager::getInstance()->get('quanduoduo')->recycleObj($obj);
     }
 
+    function sys_config()
+    {
+        $sql = DDLBuilder::table(__FUNCTION__, function (Table $table) {
+            $table->setTableComment('配置')->setTableEngine(Engine::INNODB)->setTableCharset(Character::UTF8MB4_GENERAL_CI);
+            $table->colInt('id', 20)->setIsAutoIncrement()->setIsUnsigned()->setIsPrimaryKey()->setColumnComment('主键');
+            $table->colVarChar('category',32)->setDefaultValue('');
+            $table->colVarChar('name',32)->setDefaultValue('');
+            $table->colText('val')->setDefaultValue('');
+            $table->colInt('created_at', 11)->setIsUnsigned()->setDefaultValue(0);
+            $table->colInt('updated_at', 11)->setIsUnsigned()->setDefaultValue(0);
+        });
+
+        $obj = Manager::getInstance()->get('quanduoduo')->getObj();
+
+        $obj->rawQuery($sql);
+
+        Manager::getInstance()->get('quanduoduo')->recycleObj($obj);
+    }
+
 }
