@@ -34,7 +34,7 @@ class MsgController extends Index
 
         $res = (new CoHttpClient())->setDecode(true)->send($url,$data);
 
-        return $this->writeJson(200,null,$res);
+        return $this->writeJson(200,null,['data'=>$data,'res'=>$res]);
     }
 
 
