@@ -7,9 +7,6 @@ use App\HttpModels\Admin\OneJoke;
 use App\HttpModels\Admin\OneSaid;
 use App\HttpModels\Api\LinkClick;
 use App\HttpModels\Api\User;
-use App\HttpService\CoHttpClient;
-use App\HttpService\Common\CreateMysqlTable;
-use App\HttpService\LogService;
 use App\HttpService\WxService;
 
 class UserController extends Index
@@ -145,6 +142,30 @@ class UserController extends Index
         return $this->writeJson(200,null,$info);
     }
 
+    function edit()
+    {
+        $openId = $this->getRawData('openId');
+        $remindTake = $this->getRawData('remindTake');
+
+        $update = [
+            'remindTake' => $remindTake,
+        ];
+
+        try
+        {
+            $info = User::create()->where('wxOpenId',$openId)->get();
+
+            if (empty($info)) return $this->writeJson(201,null,null,'未找到用户');
+
+            $info->update($update);
+
+        }catch (\Throwable $e)
+        {
+            return $this->writeErr($e,__FUNCTION__);
+        }
+
+        return $this->writeJson(200,null,null,'修改成功');
+    }
 
 
 
