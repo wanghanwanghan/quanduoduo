@@ -35,11 +35,13 @@ class AddJokeProcess extends ProcessBase
             {
                 $H = $nowH;
 
-                for ($page=1;$page<=4;$page++)
+                for ($page=1;$page<=1;$page++)
                 {
-                    $url = "http://v.juhe.cn/joke/content/text.php?page={$page}&pagesize=20&key=41b914ce994bc0e57d0fce86b0041a03";
+                    $url = 'http://v.juhe.cn/joke/randJoke.php?key=41b914ce994bc0e57d0fce86b0041a03';
 
                     $res = (new CoHttpClient())->setDecode(true)->send($url,[],[],[],'get');
+
+                    LogService::getInstance()->log4PHP($res);
 
                     if ($res['reason'] === 'Success' && !empty($res['result']['data']) && $res['error_code'] === 0)
                     {
