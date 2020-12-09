@@ -125,11 +125,24 @@ class UserController extends Index
         $openId = is_array($res) ? $res['openid'] : $res->openid;
         $sessionKey = is_array($res) ? $res['session_key'] : $res->session_key;
 
-        $info = WxService::getInstance()->decodePhone($encryptedData, $sessionKey, $iv);
+        $scInfo = WxService::getInstance()->decodePhone($encryptedData, $sessionKey, $iv);
 
-        LogService::getInstance()->log4PHP($info);
+        try
+        {
+            $info = User::create()->where('wxOpenId',$openId)->get();
 
-        return $this->writeJson(200,null,$info,'胡大胖别生气了');
+            if (empty($info)) return $this->writeJson(201,null,null,'未找到用户');
+
+            $info->update(['phone'=>$scInfo['purePhoneNumber'] ?? '']);
+
+            $info = User::create()->where('wxOpenId',$openId)->get();
+
+        }catch (\Throwable $e)
+        {
+            return $this->writeErr($e,__FUNCTION__);
+        }
+
+        return $this->writeJson(200,null,$info);
     }
 
 
