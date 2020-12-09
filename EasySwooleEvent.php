@@ -7,6 +7,7 @@ use App\HttpService\Common\CreateMysqlPool;
 use App\HttpService\Common\CreateMysqlTable;
 use App\HttpService\Common\CreateRedisPool;
 use App\HttpService\StatisticsService;
+use App\Process\Service\ProcessService;
 use EasySwoole\EasySwoole\Swoole\EventRegister;
 use EasySwoole\EasySwoole\AbstractInterface\Event;
 use EasySwoole\Http\Message\Status;
@@ -32,6 +33,8 @@ class EasySwooleEvent implements Event
         CreateRedisPool::getInstance()->create();
         CreateMysqlPool::getInstance()->create();
         CreateMysqlOrm::getInstance()->create();
+
+        ProcessService::getInstance()->create('addJoke');
 
         $register->set(EventRegister::onMessage, function (\swoole_websocket_server $server, \swoole_websocket_frame $frame) {
 

@@ -57,7 +57,6 @@ class UserController extends Index
 
     function getOneJoke()
     {
-        CreateMysqlTable::getInstance()->sys_config();
         mt_srand();
 
         try
