@@ -88,8 +88,8 @@ class UserController extends Index
 
         LogService::getInstance()->log4PHP($res);
 
-        $openId = $res['openid'];
-        $sessionKey = $res['session_key'];
+        $openId = is_array($res) ? $res['openid'] : $res->openid;
+        $sessionKey = is_array($res) ? $res['session_key'] : $res->session_key;
 
         (empty($phone) || empty($iv)) ?: $phone = WxService::getInstance()->decodePhone($phone,$sessionKey,$iv);
 
