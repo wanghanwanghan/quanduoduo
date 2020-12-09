@@ -24,6 +24,7 @@ class MsgController extends Index
             'access_token' => $access_token,
             'touser' => 'oDCC45HOXc-CC6XyqVfAjyM_N-zQ',
             'template_id' => 'zyTie20yrJMNorCRpDv5v10NsBNnM0Qy2oZ6wvd4PU4',
+            'page' => 'index',
             'data' => [
                 'thing1' => ['value' => '胡大胖'],
                 'thing2' => ['value' => '胡小胖'],
@@ -34,7 +35,7 @@ class MsgController extends Index
 
         $res = (new CoHttpClient())->setDecode(true)->send($url,$data);
 
-        return $this->writeJson(200,null,['data'=>$data,'res'=>$res]);
+        return $this->writeJson(200,null,$res);
     }
 
 
