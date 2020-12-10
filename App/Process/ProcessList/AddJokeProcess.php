@@ -23,8 +23,6 @@ class AddJokeProcess extends ProcessBase
 
     protected function addJoke()
     {
-        //自定义进程不需要传参数，启动后就一直消费一个列队
-
         $H = '';
 
         while (true)
