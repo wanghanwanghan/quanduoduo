@@ -31,6 +31,11 @@ class AddJokeProcess extends ProcessBase
         {
             $nowH = (int)Carbon::now()->format('H');
 
+            LogService::getInstance()->log4PHP([
+                'processNum' => __CLASS__,
+                'execTime' => Carbon::now()->format('Y-m-d H:i:s'),
+            ]);
+
             if ($H !== $nowH)
             {
                 $H = $nowH;
