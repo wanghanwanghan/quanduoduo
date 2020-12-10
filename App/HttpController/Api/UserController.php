@@ -19,6 +19,7 @@ class UserController extends Index
         $openId = $this->getRawData('openId');
 
         if (empty($linkId) || !is_numeric($linkId)) return $this->writeJson(201,null,null,'id错误');
+        if (empty($openId) || !is_numeric($openId)) return $this->writeJson(201,null,null,'openid错误');
 
         try
         {
