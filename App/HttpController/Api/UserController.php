@@ -87,7 +87,7 @@ class UserController extends Index
                 ->where('day',Carbon::now()->format('m-d'))
                 ->all();
 
-            empty($ids) ? $ids = [] : $ids = control::array_flatten($ids);
+            empty($ids) ? $ids = [] : $ids = control::array_flatten(obj2Arr($ids));
 
             if (count($ids))
             {
@@ -97,7 +97,7 @@ class UserController extends Index
 
                 $res = HistoryOfToday::create()->get($index);
 
-                $res['detail'] = jsonDecode($res['detail']);
+                $res->detail = jsonDecode($res->detail);
 
             }else
             {
