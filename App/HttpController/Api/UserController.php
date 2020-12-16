@@ -97,8 +97,6 @@ class UserController extends Index
 
                 $res = HistoryOfToday::create()->get($index);
 
-                //$res->detail = jsonDecode($res->detail);
-
             }else
             {
                 $res = null;

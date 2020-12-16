@@ -48,11 +48,9 @@ class AddHistoryOfTodayProcess extends ProcessBase
                     $detailInfo = (new CoHttpClient())->setDecode(true)
                         ->send($detailUrl,['e_id'=>$oneHistory['e_id'],'key'=>$key]);
 
-                    LogService::getInstance()->log4PHP($detailInfo);
-
                     if (strtolower($detailInfo['reason']) === 'success' && !empty($detailInfo['result']) && $detailInfo['error_code'] === 0)
                     {
-                        $detail = jsonEncode(current($detailInfo['result']));
+                        $detail = current($detailInfo['result'])['content'];
                     }else
                     {
                         $detail = '';
