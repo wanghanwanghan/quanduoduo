@@ -4,7 +4,9 @@ namespace App\HttpController\Admin;
 
 use App\HttpController\Index;
 use App\HttpModels\Api\AccessRecode;
+use App\HttpService\LogService;
 use Carbon\Carbon;
+use EasySwoole\ORM\DbManager;
 
 class SysController extends Index
 {
@@ -26,6 +28,11 @@ class SysController extends Index
             $accessInfo = AccessRecode::create()
                 ->where('created_at',[$start,$end],'in')
                 ->limit($this->exprOffset($page,$pageSize),$pageSize)->all();
+
+            $i = DbManager::getInstance()->getLastQuery()->getLastQuery();
+
+            LogService::getInstance()->log4PHP($i);
+
             $total = AccessRecode::create()->where('created_at',[$start,$end],'in')->count();
         }catch (\Throwable $e)
         {

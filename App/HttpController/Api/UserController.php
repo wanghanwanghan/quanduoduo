@@ -5,11 +5,14 @@ namespace App\HttpController\Api;
 use App\HttpController\Index;
 use App\HttpModels\Admin\OneJoke;
 use App\HttpModels\Admin\OneSaid;
+use App\HttpModels\Api\AccessRecode;
 use App\HttpModels\Api\LinkClick;
 use App\HttpModels\Api\User;
 use App\HttpService\Common\CreateMysqlTable;
 use App\HttpService\LogService;
 use App\HttpService\WxService;
+use Carbon\Carbon;
+use wanghanwanghan\someUtils\control;
 
 class UserController extends Index
 {
@@ -65,6 +68,40 @@ class UserController extends Index
             $total = OneJoke::create()->count();
 
             $res = OneJoke::create()->where('id',mt_rand(0,$total) % $total)->get();
+
+        }catch (\Throwable $e)
+        {
+            return $this->writeErr($e,__FUNCTION__);
+        }
+
+        return $this->writeJson(200,null,$res);
+    }
+
+    function getHistoryOfToday()
+    {
+        try
+        {
+            $ids = AccessRecode::create()
+                ->field('id')
+                ->where('day',Carbon::now()->format('m-d'))
+                ->all();
+
+            empty($ids) ? $ids = [] : $ids = control::array_flatten($ids);
+
+            if (count($ids))
+            {
+                mt_srand();
+
+                $index = mt_rand(0,count($ids));
+
+                $res = AccessRecode::create()->get($index);
+
+                $res['detail'] = jsonDecode($res['detail']);
+
+            }else
+            {
+                $res = null;
+            }
 
         }catch (\Throwable $e)
         {
