@@ -3,6 +3,7 @@
 namespace App\HttpController\Admin;
 
 use App\HttpController\Index;
+use App\HttpModels\Api\User;
 
 class UserController extends Index
 {
@@ -22,6 +23,23 @@ class UserController extends Index
         }
 
         return $this->writeJson(200,null,null,'登陆成功');
+    }
+
+    function getMiniAppUserInfo()
+    {
+        $page = $this->getRawData('page',1);
+        $pageSize = $this->getRawData('pageSize',10);
+
+        try
+        {
+            $userInfo = User::create()->limit($this->exprOffset($page,$pageSize),$pageSize)->all();
+            $total = User::create()->count();
+        }catch (\Throwable $e)
+        {
+            return $this->writeErr($e,__FUNCTION__);
+        }
+
+        return $this->writeJson(200,$this->createPaging($page,$pageSize,$total),$userInfo,'成功');
     }
 
 

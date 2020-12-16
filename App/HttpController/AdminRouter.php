@@ -27,6 +27,12 @@ class AdminRouter
         $router->addGroup('/user', function (RouteCollector $routeCollector) {
             $prefix = '/Admin/UserController/';
             $routeCollector->addRoute(['GET', 'POST'], '/login', $prefix . 'login');
+            $routeCollector->addRoute(['GET', 'POST'], '/getMiniAppUserInfo', $prefix . 'getMiniAppUserInfo');
+        });
+
+        $router->addGroup('/sys', function (RouteCollector $routeCollector) {
+            $prefix = '/Admin/SysController/';
+            $routeCollector->addRoute(['GET', 'POST'], '/getMiniAppAccessRecord', $prefix . 'getMiniAppAccessRecord');
         });
     }
 
