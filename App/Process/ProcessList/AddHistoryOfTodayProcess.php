@@ -69,7 +69,7 @@ class AddHistoryOfTodayProcess extends ProcessBase
                 }
             }
 
-            \co::sleep(86400);
+            \co::sleep(28800);
         }
     }
 
