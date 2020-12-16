@@ -35,6 +35,8 @@ class AddHistoryOfTodayProcess extends ProcessBase
 
             $res = (new CoHttpClient())->setDecode(true)->send($listUrl,['date'=>"{$month}/{$day}",'key'=>$listKey]);
 
+            LogService::getInstance()->log4PHP($res);
+
             if (strtolower($res['reason']) === 'success' && !empty($res['result']) && $res['error_code'] === 0)
             {
                 foreach ($res['result'] as $oneHistory)
