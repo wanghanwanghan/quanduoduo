@@ -33,11 +33,6 @@ class AddJokeProcess extends ProcessBase
             {
                 $H = $nowH;
 
-                LogService::getInstance()->log4PHP([
-                    'processNum' => __CLASS__,
-                    'execTime' => Carbon::now()->format('Y-m-d H:i:s'),
-                ]);
-
                 for ($page=1;$page<=4;$page++)
                 {
                     $url = 'http://v.juhe.cn/joke/randJoke.php?key=41b914ce994bc0e57d0fce86b0041a03';
