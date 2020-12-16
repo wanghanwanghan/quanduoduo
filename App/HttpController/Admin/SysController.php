@@ -4,6 +4,7 @@ namespace App\HttpController\Admin;
 
 use App\HttpController\Index;
 use App\HttpModels\Api\AccessRecode;
+use Carbon\Carbon;
 
 class SysController extends Index
 {
@@ -17,10 +18,15 @@ class SysController extends Index
         $page = $this->getRawData('page',1);
         $pageSize = $this->getRawData('pageSize',100);
 
+        $start = Carbon::now()->startOfDay()->timestamp;
+        $end = Carbon::now()->endOfDay()->timestamp;
+
         try
         {
-            $accessInfo = AccessRecode::create()->limit($this->exprOffset($page,$pageSize),$pageSize)->all();
-            $total = AccessRecode::create()->count();
+            $accessInfo = AccessRecode::create()
+                ->where('created_at',[$start,$end],'in')
+                ->limit($this->exprOffset($page,$pageSize),$pageSize)->all();
+            $total = AccessRecode::create()->where('created_at',[$start,$end],'in')->count();
         }catch (\Throwable $e)
         {
             return $this->writeErr($e,__FUNCTION__);
