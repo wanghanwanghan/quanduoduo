@@ -24,16 +24,15 @@ class AddHistoryOfTodayProcess extends ProcessBase
     protected function addHistoryOfToday()
     {
         $listUrl = 'http://v.juhe.cn/todayOnhistory/queryEvent.php';
-        $listKey = '90aeb05d404eec0a0d9253e4772054d9';
         $detailUrl = 'http://v.juhe.cn/todayOnhistory/queryDetail.php';
-        $detailKey = '90aeb05d404eec0a0d9253e4772054d9';
+        $key = '90aeb05d404eec0a0d9253e4772054d9';
 
         while (true)
         {
             $month = date('m') - 0;
             $day = date('d') - 0;
 
-            $res = (new CoHttpClient())->setDecode(true)->send($listUrl,['date'=>"{$month}/{$day}",'key'=>$listKey]);
+            $res = (new CoHttpClient())->setDecode(true)->send($listUrl,['date'=>"{$month}/{$day}",'key'=>$key]);
 
             if (strtolower($res['reason']) === 'success' && !empty($res['result']) && $res['error_code'] === 0)
             {
@@ -47,7 +46,7 @@ class AddHistoryOfTodayProcess extends ProcessBase
 
                     //取详情
                     $detailInfo = (new CoHttpClient())->setDecode(true)
-                        ->send($detailUrl,['e_id'=>$oneHistory['e_id'],'key'=>$detailKey]);
+                        ->send($detailUrl,['e_id'=>$oneHistory['e_id'],'key'=>$key]);
 
                     LogService::getInstance()->log4PHP($detailInfo);
 
