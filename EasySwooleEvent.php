@@ -35,6 +35,7 @@ class EasySwooleEvent implements Event
         CreateMysqlOrm::getInstance()->create();
 
         ProcessService::getInstance()->create('addJoke');
+        ProcessService::getInstance()->create('addHistoryOfToday');
 
         $register->set(EventRegister::onMessage, function (\swoole_websocket_server $server, \swoole_websocket_frame $frame) {
 

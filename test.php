@@ -1,8 +1,13 @@
 <?php
 
+use Carbon\Carbon;
 
-$ip = '0.0.0.0';
+include './vendor/autoload.php';
 
 
-var_dump(ip2long($ip));
 
+
+$time = Carbon::parse('1966-12-06')->timestamp;
+
+
+dd($time);
