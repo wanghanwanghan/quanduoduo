@@ -26,14 +26,10 @@ class SysController extends Index
         try
         {
             $accessInfo = AccessRecode::create()
-                ->where('created_at',[$start,$end],'in')
+                ->where('created_at',[$start,$end],'between')
                 ->limit($this->exprOffset($page,$pageSize),$pageSize)->all();
 
-            $i = DbManager::getInstance()->getLastQuery()->getLastQuery();
-
-            LogService::getInstance()->log4PHP($i);
-
-            $total = AccessRecode::create()->where('created_at',[$start,$end],'in')->count();
+            $total = AccessRecode::create()->where('created_at',[$start,$end],'between')->count();
         }catch (\Throwable $e)
         {
             return $this->writeErr($e,__FUNCTION__);

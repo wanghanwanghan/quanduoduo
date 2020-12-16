@@ -3,6 +3,7 @@
 namespace App\HttpController\Api;
 
 use App\HttpController\Index;
+use App\HttpModels\Admin\HistoryOfToday;
 use App\HttpModels\Admin\OneJoke;
 use App\HttpModels\Admin\OneSaid;
 use App\HttpModels\Api\AccessRecode;
@@ -81,7 +82,7 @@ class UserController extends Index
     {
         try
         {
-            $ids = AccessRecode::create()
+            $ids = HistoryOfToday::create()
                 ->field('id')
                 ->where('day',Carbon::now()->format('m-d'))
                 ->all();
@@ -94,7 +95,7 @@ class UserController extends Index
 
                 $index = mt_rand(0,count($ids));
 
-                $res = AccessRecode::create()->get($index);
+                $res = HistoryOfToday::create()->get($index);
 
                 $res['detail'] = jsonDecode($res['detail']);
 
