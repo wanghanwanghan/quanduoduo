@@ -206,12 +206,17 @@ class GoodsController extends Index
                         $oneGoods->label = null;
                     }else
                     {
+                        $label = [];
+
                         foreach ($goodsLabels as $oneRelation)
                         {
-                            isset($oneGoods->label) ?: $oneGoods->label = [];
-                            $oneGoods->label[] = LabelInfo::create()->where('id',$oneRelation->labelId)->where('isShow',1)->get();
-                            LogService::getInstance()->log4PHP(LabelInfo::create()->where('id',$oneRelation->labelId)->where('isShow',1)->get());
+                            $temp = LabelInfo::create()
+                                ->where('id',$oneRelation->labelId)->where('isShow',1)
+                                ->get();
+                            empty($temp) ? $temp = null : $label[] = obj2Arr($temp);
                         }
+
+                        $oneGoods->label = $label;
                     }
                 }
             }
