@@ -6,10 +6,7 @@ use App\HttpController\Index;
 use App\HttpModels\Admin\GoodsInfo;
 use App\HttpModels\Admin\LabelInfo;
 use App\HttpModels\Admin\LabelRelationship;
-use App\HttpService\Common\CreateMysqlTable;
-use App\HttpService\LogService;
 use EasySwoole\Mysqli\QueryBuilder;
-use EasySwoole\ORM\DbManager;
 use wanghanwanghan\someUtils\control;
 
 class GoodsController extends Index
@@ -178,7 +175,7 @@ class GoodsController extends Index
 
             $goodsIds = $goodsIds->group('goods.id')->all();
 
-            if (empty($goodsIds)) return $this->writeJson(200,$this->createPaging($page,$pageSize,0),null,'成功1');
+            if (empty($goodsIds)) return $this->writeJson(200,$this->createPaging($page,$pageSize,0),null,'成功');
 
             $goodsIds = jsonDecode(json_encode($goodsIds));
             $goodsIds = control::array_flatten($goodsIds);
@@ -186,7 +183,7 @@ class GoodsController extends Index
             $info = GoodsInfo::create()->where('id',$goodsIds,'in')
                 ->limit($this->exprOffset($page,$pageSize),$pageSize)->all();
 
-            if (empty($info)) return $this->writeJson(200,$this->createPaging($page,$pageSize,count($goodsIds)),null,'成功2');
+            if (empty($info)) return $this->writeJson(200,$this->createPaging($page,$pageSize,count($goodsIds)),null,'成功');
 
             $info = obj2Arr($info);
 
@@ -228,7 +225,7 @@ class GoodsController extends Index
             return $this->writeErr($e,__FUNCTION__);
         }
 
-        return $this->writeJson(200,$this->createPaging($page,$pageSize,count($goodsIds)),$info,'成功3');
+        return $this->writeJson(200,$this->createPaging($page,$pageSize,count($goodsIds)),$info,'成功');
     }
 
 }
