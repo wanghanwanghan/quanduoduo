@@ -19,6 +19,14 @@ class AdminRouter
             $routeCollector->addRoute(['GET', 'POST'], '/selectLink', $prefix . 'selectLink');
         });
 
+        $router->addGroup('/goods', function (RouteCollector $routeCollector) {
+            $prefix = '/Admin/GoodsController/';
+            $routeCollector->addRoute(['GET', 'POST'], '/insertGoods', $prefix . 'insertGoods');
+            $routeCollector->addRoute(['GET', 'POST'], '/deleteGoods', $prefix . 'deleteGoods');
+            $routeCollector->addRoute(['GET', 'POST'], '/editGoods', $prefix . 'editGoods');
+            $routeCollector->addRoute(['GET', 'POST'], '/selectGoods', $prefix . 'selectGoods');
+        });
+
         $router->addGroup('/msg', function (RouteCollector $routeCollector) {
             $prefix = '/Admin/MsgController/';
             $routeCollector->addRoute(['GET', 'POST'], '/push', $prefix . 'push');

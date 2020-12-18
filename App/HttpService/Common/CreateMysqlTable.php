@@ -25,7 +25,6 @@ class CreateMysqlTable extends ServiceBase
 
     }
 
-    //用户表
     function api_user()
     {
         $sql = DDLBuilder::table(__FUNCTION__, function (Table $table) {
@@ -131,4 +130,30 @@ class CreateMysqlTable extends ServiceBase
         Manager::getInstance()->get('quanduoduo')->recycleObj($obj);
     }
 
+    function admin_goods_info()
+    {
+        $sql = DDLBuilder::table(__FUNCTION__, function (Table $table) {
+            $table->setTableComment('')->setTableEngine(Engine::INNODB)->setTableCharset(Character::UTF8MB4_GENERAL_CI);
+            $table->colInt('id', 11)->setIsAutoIncrement()->setIsUnsigned()->setIsPrimaryKey()->setColumnComment('主键');
+            $table->colVarChar('image', 256)->setDefaultValue('');
+            $table->colVarChar('appId', 32)->setDefaultValue('');
+            $table->colVarChar('appIdDesc', 32)->setDefaultValue('appId描述');
+            $table->colVarChar('goodsDesc', 128)->setDefaultValue('商品描述');
+            $table->decimal('originalPrice', 8, 2)->setIsUnsigned('')->setDefaultValue(0);
+            $table->decimal('currentPrice', 8, 2)->setIsUnsigned('')->setDefaultValue(0);
+            $table->colTinyInt('type', 3)->setIsUnsigned('')->setDefaultValue(0)->setColumnComment('1自营，2优惠券，3京配');
+            $table->colVarChar('url', 1024)->setDefaultValue('');
+            $table->colInt('expireTime', 11)->setIsUnsigned()->setDefaultValue(0);
+            $table->colTinyInt('isShow', 3)->setIsUnsigned('')->setDefaultValue(0);
+            $table->colTinyInt('level', 3)->setIsUnsigned('')->setDefaultValue(0);
+            $table->colInt('created_at', 11)->setIsUnsigned()->setDefaultValue(0);
+            $table->colInt('updated_at', 11)->setIsUnsigned()->setDefaultValue(0);
+        });
+
+        $obj = Manager::getInstance()->get('quanduoduo')->getObj();
+
+        $obj->rawQuery($sql);
+
+        Manager::getInstance()->get('quanduoduo')->recycleObj($obj);
+    }
 }
