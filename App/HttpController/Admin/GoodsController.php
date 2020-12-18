@@ -4,8 +4,6 @@ namespace App\HttpController\Admin;
 
 use App\HttpController\Index;
 use App\HttpModels\Admin\GoodsInfo;
-use App\HttpModels\Admin\LinkInfo;
-use App\HttpService\Common\CreateMysqlTable;
 
 class GoodsController extends Index
 {
@@ -16,8 +14,6 @@ class GoodsController extends Index
 
     function insertGoods()
     {
-        CreateMysqlTable::getInstance()->admin_goods_info();
-
         $image = $this->getRawData('image');
         $appId = $this->getRawData('appId');
         $appDesc = $this->getRawData('appDesc');
@@ -31,16 +27,16 @@ class GoodsController extends Index
         $level = $this->getRawData('level',1);
 
         $insert = [
-            'isShow' => $isShow,
             'image' => $image,
             'appId' => $appId,
             'appDesc' => $appDesc,
             'goodsDesc' => $goodsDesc,
             'originalPrice' => $originalPrice,
             'currentPrice' => $currentPrice,
-            'goodsType' => $goodsType,
+            'type' => $goodsType,
             'url' => $url,
             'expireTime' => $expireTime,
+            'isShow' => $isShow,
             'level' => $level > 255 ? 255 : $level,
         ];
 
@@ -64,7 +60,7 @@ class GoodsController extends Index
 
         try
         {
-            $info = LinkInfo::create()->where('id',$id)->get();
+            $info = GoodsInfo::create()->where('id',$id)->get();
 
             $info->update([
                 'isShow' => 0
@@ -81,37 +77,35 @@ class GoodsController extends Index
     function editGoods()
     {
         $id = $this->getRawData('id',1);
-        $linkType = $this->getRawData('linkType',1);
-        $type = $this->getRawData('type',1);
         $image = $this->getRawData('image');
-        $miniAppName = $this->getRawData('miniAppName');
         $appId = $this->getRawData('appId');
+        $appDesc = $this->getRawData('appDesc');
+        $goodsDesc = $this->getRawData('goodsDesc');
+        $originalPrice = $this->getRawData('originalPrice',0);
+        $currentPrice = $this->getRawData('currentPrice',0);
+        $goodsType = $this->getRawData('type',0);
         $url = $this->getRawData('url');
-        $level = $this->getRawData('level',0);
-        $mainTitle = $this->getRawData('mainTitle');
-        $subTitle = $this->getRawData('subTitle');
-        $num = $this->getRawData('num',1);
-        $backgroundColor = $this->getRawData('backgroundColor');
-        $source = $this->getRawData('source');
+        $expireTime = $this->getRawData('expireTime',0);
+        $isShow = $this->getRawData('isShow',1);
+        $level = $this->getRawData('level',1);
 
         $update = [
-            'linkType' => $linkType,
-            'type' => $type,
             'image' => $image,
-            'miniAppName' => $miniAppName,
             'appId' => $appId,
+            'appDesc' => $appDesc,
+            'goodsDesc' => $goodsDesc,
+            'originalPrice' => $originalPrice,
+            'currentPrice' => $currentPrice,
+            'type' => $goodsType,
             'url' => $url,
-            'level' => $level,
-            'mainTitle' => $mainTitle,
-            'subTitle' => $subTitle,
-            'num' => $num,
-            'backgroundColor' => $backgroundColor,
-            'source' => $source,
+            'expireTime' => $expireTime,
+            'isShow' => $isShow,
+            'level' => $level > 255 ? 255 : $level,
         ];
 
         try
         {
-            $info = LinkInfo::create()->where('id',$id)->get();
+            $info = GoodsInfo::create()->where('id',$id)->get();
 
             $info->update($update);
 
@@ -125,18 +119,18 @@ class GoodsController extends Index
 
     function selectGoods()
     {
-        $linkType = $this->getRawData('linkType');
+        $goodsType = $this->getRawData('goodsType');
         $page = $this->getRawData('page',1);
         $pageSize = $this->getRawData('pageSize',10);
         $isShow = $this->getRawData('isShow',1);
 
         try
         {
-            $info = LinkInfo::create()->where('isShow',$isShow);
-            $total = LinkInfo::create()->where('isShow',$isShow);
+            $info = GoodsInfo::create()->where('isShow',$isShow);
+            $total = GoodsInfo::create()->where('isShow',$isShow);
 
-            if (is_numeric($linkType)) $info = $info->where('linkType',$linkType);
-            if (is_numeric($linkType)) $total = $total->where('linkType',$linkType);
+            if (is_numeric($goodsType)) $info = $info->where('type',$goodsType);
+            if (is_numeric($goodsType)) $total = $total->where('type',$goodsType);
 
             $info = $info->limit($this->exprOffset($page,$pageSize),$pageSize)->order('updated_at','desc')->all();
             $total = $total->count();
