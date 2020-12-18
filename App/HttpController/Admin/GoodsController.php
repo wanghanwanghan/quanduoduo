@@ -202,7 +202,7 @@ class GoodsController extends Index
                 {
                     //先查出这个商品有几个标签
                     $goodsLabels = LabelRelationship::create()
-                        ->where('targetId',$oneGoods['id'])->where('target','goods')
+                        ->where('targetId',$oneGoods['id'])->where('targetType','goods')
                         ->all();
 
                     if (empty($goodsLabels))
