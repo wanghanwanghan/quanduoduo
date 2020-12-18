@@ -6,7 +6,6 @@ use App\HttpController\Index;
 use App\HttpModels\Admin\GoodsInfo;
 use App\HttpModels\Admin\LabelInfo;
 use App\HttpModels\Admin\LabelRelationship;
-use App\HttpService\LogService;
 use EasySwoole\Mysqli\QueryBuilder;
 use wanghanwanghan\someUtils\control;
 
