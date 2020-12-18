@@ -213,10 +213,10 @@ class GoodsController extends Index
                             $temp = LabelInfo::create()
                                 ->where('id',$oneRelation->labelId)->where('isShow',1)
                                 ->get();
-                            empty($temp) ? $temp = null : $label[] = obj2Arr($temp);
+                            empty($temp) ?: $label[] = obj2Arr($temp);
                         }
 
-                        $oneGoods->label = $label;
+                        $oneGoods->label = empty($label) ? null : $label;
                     }
                 }
             }
