@@ -176,7 +176,7 @@ class GoodsController extends Index
             empty($labelId) ?: $goodsIds->where('rel.labelId',explode(',',$labelId),'in');
             !is_numeric($isShow) ?: $goodsIds->where('goods.isShow',$isShow);
 
-            $goodsIds = $goodsIds->group('goods.id')->all()->toArray();
+            $goodsIds = $goodsIds->group('goods.id')->all();
 
             if (empty($goodsIds)) return $this->writeJson(200,$this->createPaging($page,$pageSize,0),null,'成功1');
 
