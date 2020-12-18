@@ -22,13 +22,13 @@ class GoodsController extends Index
         $appId = $this->getRawData('appId');
         $appDesc = $this->getRawData('appDesc');
         $goodsDesc = $this->getRawData('goodsDesc');
-        $originalPrice = $this->getRawData('originalPrice');
-        $currentPrice = $this->getRawData('currentPrice');
-        $goodsType = $this->getRawData('type');
+        $originalPrice = $this->getRawData('originalPrice',0);
+        $currentPrice = $this->getRawData('currentPrice',0);
+        $goodsType = $this->getRawData('type',0);
         $url = $this->getRawData('url');
-        $expireTime = $this->getRawData('expireTime');
-        $isShow = $this->getRawData('isShow');
-        $level = $this->getRawData('level');
+        $expireTime = $this->getRawData('expireTime',0);
+        $isShow = $this->getRawData('isShow',1);
+        $level = $this->getRawData('level',1);
 
         $insert = [
             'isShow' => $isShow,
