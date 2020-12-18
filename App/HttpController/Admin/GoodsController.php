@@ -139,7 +139,7 @@ class GoodsController extends Index
             !is_numeric($isShow) ?: $info = $info->where('isShow',$isShow);
             !is_numeric($isShow) ?: $total = $total->where('isShow',$isShow);
 
-            $info = $info->limit($this->exprOffset($page,$pageSize),$pageSize)->order('created_at','desc')->all();
+            $info = $info->limit($this->exprOffset($page,$pageSize),$pageSize)->all();
             $total = $total->count();
 
         }catch (\Throwable $e)
