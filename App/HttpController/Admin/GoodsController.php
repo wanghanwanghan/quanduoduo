@@ -7,6 +7,7 @@ use App\HttpModels\Admin\GoodsInfo;
 use App\HttpModels\Admin\LabelInfo;
 use App\HttpModels\Admin\LabelRelationship;
 use App\HttpService\Common\CreateMysqlTable;
+use App\HttpService\LogService;
 use EasySwoole\Mysqli\QueryBuilder;
 use wanghanwanghan\someUtils\control;
 
@@ -179,6 +180,8 @@ class GoodsController extends Index
             if (empty($goodsIds)) return $this->writeJson(200,$this->createPaging($page,$pageSize,0),null,'成功1');
 
             $goodsIds = obj2Arr($goodsIds);
+
+            LogService::getInstance()->log4PHP($goodsIds);
 
             $info = GoodsInfo::create()->where('id',control::array_flatten($goodsIds),'in')
                 ->limit($this->exprOffset($page,$pageSize),$pageSize)->all();
