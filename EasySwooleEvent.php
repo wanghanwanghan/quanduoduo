@@ -8,6 +8,7 @@ use App\HttpService\Common\CreateMysqlTable;
 use App\HttpService\Common\CreateRedisPool;
 use App\HttpService\StatisticsService;
 use App\Process\Service\ProcessService;
+use EasySwoole\AtomicLimit\AtomicLimit;
 use EasySwoole\EasySwoole\Swoole\EventRegister;
 use EasySwoole\EasySwoole\AbstractInterface\Event;
 use EasySwoole\Http\Message\Status;
