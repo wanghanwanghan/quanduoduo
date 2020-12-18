@@ -212,7 +212,7 @@ class GoodsController extends Index
                             $oneGoods->label[] = LabelInfo::create()
                                 ->where('id',$oneRelation->labelId)->where('isShow',1)
                                 ->get();
-                            LogService::getInstance()->log4PHP($oneGoods->label);
+                            LogService::getInstance()->log4PHP($oneRelation->labelId);
                         }
                     }
                 }
