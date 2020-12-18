@@ -185,8 +185,6 @@ class GoodsController extends Index
 
             if (empty($info)) return $this->writeJson(200,$this->createPaging($page,$pageSize,count($goodsIds)),null,'成功');
 
-            $info = obj2Arr($info);
-
             //查出所有标签
             $labels = LabelInfo::create()->where('isShow',1)->all();
 
@@ -194,7 +192,7 @@ class GoodsController extends Index
             {
                 if (empty($labels))
                 {
-                    $oneGoods['label'] = null;
+                    $oneGoods->label = null;
                 }else
                 {
                     //先查出这个商品有几个标签
@@ -204,14 +202,14 @@ class GoodsController extends Index
 
                     if (empty($goodsLabels))
                     {
-                        $oneGoods['label'] = null;
+                        $oneGoods->label = null;
                     }else
                     {
                         $goodsLabels = obj2Arr($goodsLabels);
 
                         foreach ($goodsLabels as $oneRelation)
                         {
-                            $oneGoods['label'][] = LabelInfo::create()
+                            $oneGoods->label[] = LabelInfo::create()
                                 ->where(['id'=>$oneRelation['labelId'],'isShow'=>1])
                                 ->get();
                         }
