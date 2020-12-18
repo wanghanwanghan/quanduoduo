@@ -121,6 +121,7 @@
 地址:admin/v1/goods/selectGoods
 方法:get/post
 参数:
+     appDesc = XXX，app描述，京东爆品推荐
      type = 1，1自营，2优惠券，3京配
      isShow = 1
      page = 1
