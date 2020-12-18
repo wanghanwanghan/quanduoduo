@@ -88,7 +88,7 @@
      goodsDesc = XXX，良品铺子酸辣粉买一送一
      originalPrice = 0.00，原价
      currentPrice = 0.00，现价
-     type = 1，1自营，2优惠券，3京配
+     labelId = 1，1自营，2优惠券，3京配，字符串，逗号分割
      url = XXX
      expireTime = 1608274818，过期时间，Unix timestamp
      isShow = 1，1显示，0不显示
@@ -111,7 +111,7 @@
      goodsDesc = XXX，良品铺子酸辣粉买一送一
      originalPrice = 0.00，原价
      currentPrice = 0.00，现价
-     type = 1，1自营，2优惠券，3京配
+     labelId = 1，1自营，2优惠券，3京配，字符串，逗号分割
      url = XXX
      expireTime = 1608274818，过期时间，Unix timestamp
      isShow = 1，1显示，0不显示
@@ -122,7 +122,7 @@
 方法:get/post
 参数:
      appDesc = XXX，app描述，京东爆品推荐
-     type = 1，1自营，2优惠券，3京配
+     labelId = 1，1自营，2优惠券，3京配，字符串，逗号分割
      isShow = 1
      page = 1
      pageSize = 10

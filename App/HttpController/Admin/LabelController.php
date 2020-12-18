@@ -3,9 +3,7 @@
 namespace App\HttpController\Admin;
 
 use App\HttpController\Index;
-use App\HttpModels\Admin\GoodsInfo;
 use App\HttpModels\Admin\LabelInfo;
-use App\HttpService\Common\CreateMysqlTable;
 
 class LabelController extends Index
 {

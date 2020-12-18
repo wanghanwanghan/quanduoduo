@@ -4,13 +4,49 @@ namespace App\HttpController\Admin;
 
 use App\HttpController\Index;
 use App\HttpModels\Admin\GoodsInfo;
+use App\HttpModels\Admin\LabelInfo;
+use App\HttpModels\Admin\LabelRelationship;
 use App\HttpService\Common\CreateMysqlTable;
+use EasySwoole\Mysqli\QueryBuilder;
+use wanghanwanghan\someUtils\control;
 
 class GoodsController extends Index
 {
     function onRequest(?string $action): ?bool
     {
         return true;
+    }
+
+    private function relationLabel($labelIds, $targetId)
+    {
+        try
+        {
+            if (!empty($labelIds) && is_numeric($targetId))
+            {
+                $labelIds = explode(',',$labelIds);
+
+                $labelRelation = [];
+
+                foreach ($labelIds as $oneLabelId)
+                {
+                    $labelRelation[] = [
+                        'labelId' => $oneLabelId,
+                        'targetType' => 'goods',
+                        'targetId' => $targetId,
+                    ];
+                }
+
+                LabelRelationship::create()->destroy(function (QueryBuilder $builder) use ($targetId) {
+                    $builder->where('targetId', $targetId)->where('targetType', 'goods');
+                });
+
+                LabelRelationship::create()->saveAll($labelRelation);
+            }
+
+        }catch (\Throwable $e)
+        {
+            $this->writeErr($e,__FUNCTION__);
+        }
     }
 
     function insertGoods()
@@ -21,7 +57,7 @@ class GoodsController extends Index
         $goodsDesc = $this->getRawData('goodsDesc');
         $originalPrice = $this->getRawData('originalPrice',0);
         $currentPrice = $this->getRawData('currentPrice',0);
-        $type = $this->getRawData('type',0);
+        $labelId = $this->getRawData('labelId');
         $url = $this->getRawData('url');
         $expireTime = $this->getRawData('expireTime',0);
         $isShow = $this->getRawData('isShow',1);
@@ -34,7 +70,6 @@ class GoodsController extends Index
             'goodsDesc' => $goodsDesc,
             'originalPrice' => $originalPrice,
             'currentPrice' => $currentPrice,
-            'type' => $type,
             'url' => $url,
             'expireTime' => $expireTime,
             'isShow' => $isShow,
@@ -43,12 +78,14 @@ class GoodsController extends Index
 
         try
         {
-            GoodsInfo::create()->data($insert)->save();
+            $id = GoodsInfo::create()->data($insert)->save();
 
         }catch (\Throwable $e)
         {
             return $this->writeErr($e,__FUNCTION__);
         }
+
+        $this->relationLabel($labelId,$id);
 
         return $this->writeJson(200,null,$insert,'成功');
     }
@@ -77,14 +114,14 @@ class GoodsController extends Index
 
     function editGoods()
     {
-        $id = $this->getRawData('id',1);
+        $id = $this->getRawData('id');
         $image = $this->getRawData('image');
         $appId = $this->getRawData('appId');
         $appDesc = $this->getRawData('appDesc');
         $goodsDesc = $this->getRawData('goodsDesc');
         $originalPrice = $this->getRawData('originalPrice',0);
         $currentPrice = $this->getRawData('currentPrice',0);
-        $type = $this->getRawData('type',0);
+        $labelId = $this->getRawData('labelId');
         $url = $this->getRawData('url');
         $expireTime = $this->getRawData('expireTime',0);
         $isShow = $this->getRawData('isShow',1);
@@ -97,7 +134,6 @@ class GoodsController extends Index
             'goodsDesc' => $goodsDesc,
             'originalPrice' => $originalPrice,
             'currentPrice' => $currentPrice,
-            'type' => $type,
             'url' => $url,
             'expireTime' => $expireTime,
             'isShow' => $isShow,
@@ -115,40 +151,81 @@ class GoodsController extends Index
             return $this->writeErr($e,__FUNCTION__);
         }
 
+        $this->relationLabel($labelId,$id);
+
         return $this->writeJson(200,null,$update,'成功');
     }
 
     function selectGoods()
     {
         $appDesc = $this->getRawData('appDesc');
-        $type = $this->getRawData('type');
+        $labelId = $this->getRawData('labelId');
         $page = $this->getRawData('page',1);
         $pageSize = $this->getRawData('pageSize',10);
         $isShow = $this->getRawData('isShow');
 
         try
         {
-            $info = GoodsInfo::create();
-            $total = GoodsInfo::create();
+            //先查符合要求的有几个
+            $goodsIds = GoodsInfo::create()->alias('goods')->field('goods.id')
+                ->join('admin_label_relationship as rel','goods.id = rel.targetId','left');
 
-            empty($appDesc) ?: $info->where('appDesc',$appDesc);
-            empty($appDesc) ?: $total->where('appDesc',$appDesc);
+            empty($appDesc) ?: $goodsIds->where('goods.appDesc',$appDesc);
+            empty($labelId) ?: $goodsIds->where('rel.labelId',explode(',',$labelId),'in');
+            !is_numeric($isShow) ?: $goodsIds->where('goods.isShow',$isShow);
 
-            !is_numeric($type) ?: $info = $info->where('type',$type);
-            !is_numeric($type) ?: $total = $total->where('type',$type);
+            $goodsIds = $goodsIds->group('goods.id')->all();
 
-            !is_numeric($isShow) ?: $info = $info->where('isShow',$isShow);
-            !is_numeric($isShow) ?: $total = $total->where('isShow',$isShow);
+            if (empty($goodsIds)) return $this->writeJson(200,$this->createPaging($page,$pageSize,0),null,'成功');
 
-            $info = $info->limit($this->exprOffset($page,$pageSize),$pageSize)->all();
-            $total = $total->count();
+            $goodsIds = obj2Arr($goodsIds);
+
+            $info = GoodsInfo::create()->where('id',$goodsIds,'in')
+                ->limit($this->exprOffset($page,$pageSize),$pageSize)->all();
+
+            if (empty($info)) return $this->writeJson(200,$this->createPaging($page,$pageSize,count($goodsIds)),null,'成功');
+
+            $info = obj2Arr($info);
+
+            //查出所有标签
+            $labels = LabelInfo::create()->where('isShow',1)->all();
+
+            foreach ($info as &$oneGoods)
+            {
+                if (empty($labels))
+                {
+                    $oneGoods['label'] = null;
+                }else
+                {
+                    //先查出这个商品有几个标签
+                    $goodsLabels = LabelRelationship::create()
+                        ->where('targetId',$oneGoods['id'])->where('target','goods')
+                        ->all();
+
+                    if (empty($goodsLabels))
+                    {
+                        $oneGoods['label'] = null;
+                    }else
+                    {
+                        $goodsLabels = obj2Arr($goodsLabels);
+
+                        foreach ($goodsLabels as $oneRelation)
+                        {
+                            $oneGoods['label'][] = LabelInfo::create()
+                                ->where(['id'=>$oneRelation['labelId'],'isShow'=>1])
+                                ->get();
+                        }
+                    }
+                }
+            }
+            unset($oneGoods);
 
         }catch (\Throwable $e)
         {
             return $this->writeErr($e,__FUNCTION__);
         }
 
-        return $this->writeJson(200,$this->createPaging($page,$pageSize,$total),$info,'成功');
+        return $this->writeJson(200,$this->createPaging($page,$pageSize,count($goodsIds)),$info,'成功');
     }
 
 }
