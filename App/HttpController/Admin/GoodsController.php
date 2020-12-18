@@ -176,22 +176,18 @@ class GoodsController extends Index
             empty($labelId) ?: $goodsIds->where('rel.labelId',explode(',',$labelId),'in');
             !is_numeric($isShow) ?: $goodsIds->where('goods.isShow',$isShow);
 
-            $goodsIds = $goodsIds->group('goods.id')->all();
+            $goodsIds = $goodsIds->group('goods.id')->all()->toArray();
 
             if (empty($goodsIds)) return $this->writeJson(200,$this->createPaging($page,$pageSize,0),null,'成功1');
 
-            $goodsIds = obj2Arr($goodsIds);
+            LogService::getInstance()->log4PHP($goodsIds);
 
             $goodsIds = control::array_flatten($goodsIds);
 
+            LogService::getInstance()->log4PHP($goodsIds);
+
             $info = GoodsInfo::create()->where('id',$goodsIds,'in')
                 ->limit($this->exprOffset($page,$pageSize),$pageSize)->all();
-
-            $sql = DbManager::getInstance()->getLastQuery()->getLastQuery();
-
-            LogService::getInstance()->log4PHP($sql);
-
-
 
             if (empty($info)) return $this->writeJson(200,$this->createPaging($page,$pageSize,count($goodsIds)),null,'成功2');
 
