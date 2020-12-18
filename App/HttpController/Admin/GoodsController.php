@@ -205,12 +205,10 @@ class GoodsController extends Index
                         $oneGoods->label = null;
                     }else
                     {
-                        $goodsLabels = obj2Arr($goodsLabels);
-
                         foreach ($goodsLabels as $oneRelation)
                         {
                             $oneGoods->label[] = LabelInfo::create()
-                                ->where(['id'=>$oneRelation['labelId'],'isShow'=>1])
+                                ->where(['id'=>$oneRelation->labelId,'isShow'=>1])
                                 ->get();
                         }
                     }
