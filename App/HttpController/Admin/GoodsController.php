@@ -6,6 +6,7 @@ use App\HttpController\Index;
 use App\HttpModels\Admin\GoodsInfo;
 use App\HttpModels\Admin\LabelInfo;
 use App\HttpModels\Admin\LabelRelationship;
+use App\HttpService\LogService;
 use EasySwoole\Mysqli\QueryBuilder;
 use wanghanwanghan\someUtils\control;
 
@@ -211,6 +212,7 @@ class GoodsController extends Index
                             $oneGoods->label[] = LabelInfo::create()
                                 ->where('id',$oneRelation->labelId)->where('isShow',1)
                                 ->get();
+                            LogService::getInstance()->log4PHP($oneGoods->label);
                         }
                     }
                 }
