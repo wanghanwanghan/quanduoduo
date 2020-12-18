@@ -179,11 +179,11 @@ class GoodsController extends Index
 
             if (empty($goodsIds)) return $this->writeJson(200,$this->createPaging($page,$pageSize,0),null,'成功1');
 
-            $goodsIds = obj2Arr($goodsIds);
+            $goodsIds = control::array_flatten(obj2Arr($goodsIds));
 
             LogService::getInstance()->log4PHP($goodsIds);
 
-            $info = GoodsInfo::create()->where('id',control::array_flatten($goodsIds),'in')
+            $info = GoodsInfo::create()->where('id',$goodsIds,'in')
                 ->limit($this->exprOffset($page,$pageSize),$pageSize)->all();
 
             if (empty($info)) return $this->writeJson(200,$this->createPaging($page,$pageSize,count($goodsIds)),null,'成功2');
