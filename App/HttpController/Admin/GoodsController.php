@@ -20,7 +20,7 @@ class GoodsController extends Index
         $goodsDesc = $this->getRawData('goodsDesc');
         $originalPrice = $this->getRawData('originalPrice',0);
         $currentPrice = $this->getRawData('currentPrice',0);
-        $goodsType = $this->getRawData('type',0);
+        $type = $this->getRawData('type',0);
         $url = $this->getRawData('url');
         $expireTime = $this->getRawData('expireTime',0);
         $isShow = $this->getRawData('isShow',1);
@@ -33,7 +33,7 @@ class GoodsController extends Index
             'goodsDesc' => $goodsDesc,
             'originalPrice' => $originalPrice,
             'currentPrice' => $currentPrice,
-            'type' => $goodsType,
+            'type' => $type,
             'url' => $url,
             'expireTime' => $expireTime,
             'isShow' => $isShow,
@@ -83,7 +83,7 @@ class GoodsController extends Index
         $goodsDesc = $this->getRawData('goodsDesc');
         $originalPrice = $this->getRawData('originalPrice',0);
         $currentPrice = $this->getRawData('currentPrice',0);
-        $goodsType = $this->getRawData('type',0);
+        $type = $this->getRawData('type',0);
         $url = $this->getRawData('url');
         $expireTime = $this->getRawData('expireTime',0);
         $isShow = $this->getRawData('isShow',1);
@@ -96,7 +96,7 @@ class GoodsController extends Index
             'goodsDesc' => $goodsDesc,
             'originalPrice' => $originalPrice,
             'currentPrice' => $currentPrice,
-            'type' => $goodsType,
+            'type' => $type,
             'url' => $url,
             'expireTime' => $expireTime,
             'isShow' => $isShow,
@@ -119,7 +119,7 @@ class GoodsController extends Index
 
     function selectGoods()
     {
-        $goodsType = $this->getRawData('goodsType');
+        $type = $this->getRawData('type');
         $page = $this->getRawData('page',1);
         $pageSize = $this->getRawData('pageSize',10);
         $isShow = $this->getRawData('isShow',1);
@@ -129,8 +129,8 @@ class GoodsController extends Index
             $info = GoodsInfo::create()->where('isShow',$isShow);
             $total = GoodsInfo::create()->where('isShow',$isShow);
 
-            if (is_numeric($goodsType)) $info = $info->where('type',$goodsType);
-            if (is_numeric($goodsType)) $total = $total->where('type',$goodsType);
+            if (is_numeric($type)) $info = $info->where('type',$type);
+            if (is_numeric($type)) $total = $total->where('type',$type);
 
             $info = $info->limit($this->exprOffset($page,$pageSize),$pageSize)->order('updated_at','desc')->all();
             $total = $total->count();
