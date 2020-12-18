@@ -85,9 +85,6 @@ class LabelController extends Index
 
     function selectLabel()
     {
-        CreateMysqlTable::getInstance()->admin_label_info();
-        CreateMysqlTable::getInstance()->admin_label_relationship();
-
         $isShow = $this->getRawData('isShow');
         $page = $this->getRawData('page',1);
         $pageSize = $this->getRawData('pageSize',10);
