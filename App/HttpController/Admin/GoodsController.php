@@ -180,7 +180,7 @@ class GoodsController extends Index
 
             $goodsIds = obj2Arr($goodsIds);
 
-            $info = GoodsInfo::create()->where('id',$goodsIds,'in')
+            $info = GoodsInfo::create()->where('id',control::array_flatten($goodsIds),'in')
                 ->limit($this->exprOffset($page,$pageSize),$pageSize)->all();
 
             if (empty($info)) return $this->writeJson(200,$this->createPaging($page,$pageSize,count($goodsIds)),null,'成功2');
