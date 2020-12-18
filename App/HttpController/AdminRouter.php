@@ -27,6 +27,14 @@ class AdminRouter
             $routeCollector->addRoute(['GET', 'POST'], '/selectGoods', $prefix . 'selectGoods');
         });
 
+        $router->addGroup('/label', function (RouteCollector $routeCollector) {
+            $prefix = '/Admin/LabelController/';
+            $routeCollector->addRoute(['GET', 'POST'], '/insertLabel', $prefix . 'insertLabel');
+            $routeCollector->addRoute(['GET', 'POST'], '/deleteLabel', $prefix . 'deleteLabel');
+            $routeCollector->addRoute(['GET', 'POST'], '/editLabel', $prefix . 'editLabel');
+            $routeCollector->addRoute(['GET', 'POST'], '/selectLabel', $prefix . 'selectLabel');
+        });
+
         $router->addGroup('/msg', function (RouteCollector $routeCollector) {
             $prefix = '/Admin/MsgController/';
             $routeCollector->addRoute(['GET', 'POST'], '/push', $prefix . 'push');

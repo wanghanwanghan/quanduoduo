@@ -137,8 +137,8 @@ class CreateMysqlTable extends ServiceBase
             $table->colInt('id', 11)->setIsAutoIncrement()->setIsUnsigned()->setIsPrimaryKey()->setColumnComment('主键');
             $table->colVarChar('image', 256)->setDefaultValue('');
             $table->colVarChar('appId', 32)->setDefaultValue('');
-            $table->colVarChar('appIdDesc', 32)->setDefaultValue('appId描述');
-            $table->colVarChar('goodsDesc', 128)->setDefaultValue('商品描述');
+            $table->colVarChar('appIdDesc', 32)->setDefaultValue('')->setColumnComment('appId描述');
+            $table->colVarChar('goodsDesc', 128)->setDefaultValue('')->setColumnComment('商品描述');
             $table->decimal('originalPrice', 8, 2)->setDefaultValue(0);
             $table->decimal('currentPrice', 8, 2)->setDefaultValue(0);
             $table->colTinyInt('type', 3)->setIsUnsigned()->setDefaultValue(0)->setColumnComment('1自营，2优惠券，3京配');
@@ -146,6 +146,43 @@ class CreateMysqlTable extends ServiceBase
             $table->colInt('expireTime', 11)->setIsUnsigned()->setDefaultValue(0);
             $table->colTinyInt('isShow', 3)->setIsUnsigned()->setDefaultValue(0);
             $table->colTinyInt('level', 3)->setIsUnsigned()->setDefaultValue(0);
+            $table->colInt('created_at', 11)->setIsUnsigned()->setDefaultValue(0);
+            $table->colInt('updated_at', 11)->setIsUnsigned()->setDefaultValue(0);
+        });
+
+        $obj = Manager::getInstance()->get('quanduoduo')->getObj();
+
+        $obj->rawQuery($sql);
+
+        Manager::getInstance()->get('quanduoduo')->recycleObj($obj);
+    }
+
+    function admin_label_info()
+    {
+        $sql = DDLBuilder::table(__FUNCTION__, function (Table $table) {
+            $table->setTableComment('')->setTableEngine(Engine::INNODB)->setTableCharset(Character::UTF8MB4_GENERAL_CI);
+            $table->colInt('id', 11)->setIsAutoIncrement()->setIsUnsigned()->setIsPrimaryKey()->setColumnComment('主键');
+            $table->colVarChar('labelName', 16)->setDefaultValue('')->setColumnComment('标签名');
+            $table->colTinyInt('isShow', 3)->setIsUnsigned()->setDefaultValue(1);
+            $table->colInt('created_at', 11)->setIsUnsigned()->setDefaultValue(0);
+            $table->colInt('updated_at', 11)->setIsUnsigned()->setDefaultValue(0);
+        });
+
+        $obj = Manager::getInstance()->get('quanduoduo')->getObj();
+
+        $obj->rawQuery($sql);
+
+        Manager::getInstance()->get('quanduoduo')->recycleObj($obj);
+    }
+
+    function admin_label_relationship()
+    {
+        $sql = DDLBuilder::table(__FUNCTION__, function (Table $table) {
+            $table->setTableComment('标签的关系表')->setTableEngine(Engine::INNODB)->setTableCharset(Character::UTF8MB4_GENERAL_CI);
+            $table->colInt('id', 11)->setIsAutoIncrement()->setIsUnsigned()->setIsPrimaryKey()->setColumnComment('主键');
+            $table->colInt('labelId', 11)->setIsUnsigned()->setDefaultValue(0);
+            $table->colVarChar('targetType', 16)->setDefaultValue('')->setColumnComment('链接还是商品');
+            $table->colInt('targetId', 11)->setIsUnsigned()->setDefaultValue(0)->setColumnComment('目标主键');
             $table->colInt('created_at', 11)->setIsUnsigned()->setDefaultValue(0);
             $table->colInt('updated_at', 11)->setIsUnsigned()->setDefaultValue(0);
         });

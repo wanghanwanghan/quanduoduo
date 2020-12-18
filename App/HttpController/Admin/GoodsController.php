@@ -4,6 +4,7 @@ namespace App\HttpController\Admin;
 
 use App\HttpController\Index;
 use App\HttpModels\Admin\GoodsInfo;
+use App\HttpService\Common\CreateMysqlTable;
 
 class GoodsController extends Index
 {
