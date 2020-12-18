@@ -123,18 +123,21 @@ class GoodsController extends Index
         $type = $this->getRawData('type');
         $page = $this->getRawData('page',1);
         $pageSize = $this->getRawData('pageSize',10);
-        $isShow = $this->getRawData('isShow',1);
+        $isShow = $this->getRawData('isShow');
 
         try
         {
-            $info = GoodsInfo::create()->where('isShow',$isShow);
-            $total = GoodsInfo::create()->where('isShow',$isShow);
+            $info = GoodsInfo::create();
+            $total = GoodsInfo::create();
 
             empty($appDesc) ?: $info->where('appDesc',$appDesc);
             empty($appDesc) ?: $total->where('appDesc',$appDesc);
 
             !is_numeric($type) ?: $info = $info->where('type',$type);
             !is_numeric($type) ?: $total = $total->where('type',$type);
+
+            !is_numeric($isShow) ?: $info = $info->where('isShow',$isShow);
+            !is_numeric($isShow) ?: $total = $total->where('isShow',$isShow);
 
             $info = $info->limit($this->exprOffset($page,$pageSize),$pageSize)->order('updated_at','desc')->all();
             $total = $total->count();
