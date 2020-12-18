@@ -47,6 +47,14 @@ class WxService extends ServiceBase
 
         $data = jsonDecode($result);
 
+        LogService::getInstance()->log4PHP([
+            'aesKey' => $aesKey,
+            'aesIV' => $aesIV,
+            'aesCipher' => $aesCipher,
+            'result' => $result,
+            'data' => $data,
+        ]);
+
         return $data;
     }
 
