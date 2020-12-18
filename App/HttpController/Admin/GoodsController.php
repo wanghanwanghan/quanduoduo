@@ -9,6 +9,7 @@ use App\HttpModels\Admin\LabelRelationship;
 use App\HttpService\Common\CreateMysqlTable;
 use App\HttpService\LogService;
 use EasySwoole\Mysqli\QueryBuilder;
+use EasySwoole\ORM\DbManager;
 use wanghanwanghan\someUtils\control;
 
 class GoodsController extends Index
@@ -181,10 +182,14 @@ class GoodsController extends Index
 
             $goodsIds = control::array_flatten(obj2Arr($goodsIds));
 
-            LogService::getInstance()->log4PHP($goodsIds);
-
             $info = GoodsInfo::create()->where('id',$goodsIds,'in')
                 ->limit($this->exprOffset($page,$pageSize),$pageSize)->all();
+
+            $sql = DbManager::getInstance()->getLastQuery()->getLastQuery();
+
+            LogService::getInstance()->log4PHP($sql);
+
+
 
             if (empty($info)) return $this->writeJson(200,$this->createPaging($page,$pageSize,count($goodsIds)),null,'成功2');
 
