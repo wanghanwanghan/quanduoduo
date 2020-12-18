@@ -207,8 +207,10 @@ class GoodsController extends Index
                     {
                         foreach ($goodsLabels as $oneRelation)
                         {
-                            LabelInfo::create()->where('id',$oneRelation->labelId)->where('isShow',1)->get();
-                            $oneGoods->label[] = 1;
+                            isset($oneGoods->label) ?: $oneGoods->label = [];
+                            $oneGoods->label[] = LabelInfo::create()
+                                ->where('id',$oneRelation->labelId)->where('isShow',1)
+                                ->get();
                         }
                     }
                 }
