@@ -176,14 +176,14 @@ class GoodsController extends Index
 
             $goodsIds = $goodsIds->group('goods.id')->all();
 
-            if (empty($goodsIds)) return $this->writeJson(200,$this->createPaging($page,$pageSize,0),null,'成功');
+            if (empty($goodsIds)) return $this->writeJson(200,$this->createPaging($page,$pageSize,0),null,'成功1');
 
             $goodsIds = obj2Arr($goodsIds);
 
             $info = GoodsInfo::create()->where('id',$goodsIds,'in')
                 ->limit($this->exprOffset($page,$pageSize),$pageSize)->all();
 
-            if (empty($info)) return $this->writeJson(200,$this->createPaging($page,$pageSize,count($goodsIds)),null,'成功');
+            if (empty($info)) return $this->writeJson(200,$this->createPaging($page,$pageSize,count($goodsIds)),null,'成功2');
 
             $info = obj2Arr($info);
 
@@ -225,7 +225,7 @@ class GoodsController extends Index
             return $this->writeErr($e,__FUNCTION__);
         }
 
-        return $this->writeJson(200,$this->createPaging($page,$pageSize,count($goodsIds)),$info,'成功');
+        return $this->writeJson(200,$this->createPaging($page,$pageSize,count($goodsIds)),$info,'成功3');
     }
 
 }
