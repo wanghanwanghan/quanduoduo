@@ -188,6 +188,7 @@ class GoodsController extends Index
         $page = $this->getRawData('page',1);
         $pageSize = $this->getRawData('pageSize',10);
         $isShow = $this->getRawData('isShow');
+        $sale = $this->getRawData('sale');
 
         try
         {
@@ -197,7 +198,8 @@ class GoodsController extends Index
 
             empty($appDesc) ?: $goodsIds->where('goods.appDesc',$appDesc);
             empty($labelId) ?: $goodsIds->where('rel.labelId',explode(',',$labelId),'in');
-            !is_numeric($isShow) ? $goodsIds->where('goods.isShow',1) : $goodsIds->where('goods.isShow',$isShow);
+            !is_numeric($isShow) ?: $goodsIds->where('goods.isShow',$isShow);
+            !is_numeric($sale) ?: $goodsIds->where('goods.sale',$sale);
 
             $goodsIds = $goodsIds->group('goods.id')->all();
 
