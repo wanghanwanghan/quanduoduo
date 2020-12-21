@@ -23,6 +23,7 @@ class AdminRouter
             $prefix = '/Admin/GoodsController/';
             $routeCollector->addRoute(['GET', 'POST'], '/insertGoods', $prefix . 'insertGoods');
             $routeCollector->addRoute(['GET', 'POST'], '/deleteGoods', $prefix . 'deleteGoods');
+            $routeCollector->addRoute(['GET', 'POST'], '/saleGoods', $prefix . 'saleGoods');
             $routeCollector->addRoute(['GET', 'POST'], '/editGoods', $prefix . 'editGoods');
             $routeCollector->addRoute(['GET', 'POST'], '/selectGoods', $prefix . 'selectGoods');
         });

@@ -112,6 +112,29 @@ class GoodsController extends Index
         return $this->writeJson(200,null,null,'软删除成功');
     }
 
+    function saleGoods()
+    {
+        $id = $this->getRawData('id');
+        $sale = $this->getRawData('sale');
+
+        if (!is_numeric($id)) return $this->writeJson(201,null,null,'id错误');
+
+        try
+        {
+            $info = GoodsInfo::create()->where('id',$id)->get();
+
+            $info->update([
+                'sale' => $sale
+            ]);
+
+        }catch (\Throwable $e)
+        {
+            return $this->writeErr($e,__FUNCTION__);
+        }
+
+        return $this->writeJson(200,null,null,'成功');
+    }
+
     function editGoods()
     {
         $id = $this->getRawData('id');
