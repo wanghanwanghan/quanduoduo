@@ -113,16 +113,13 @@ class UserController extends Index
 
             empty($ids) ? $ids = [] : $ids = control::array_flatten(obj2Arr($ids));
 
-            LogService::getInstance()->log4PHP($ids);
-
-
             if (count($ids))
             {
                 mt_srand();
 
                 $index = mt_rand(0,count($ids));
 
-                $res = HistoryOfToday::create()->get($index);
+                $res = HistoryOfToday::create()->where('id',$index)->get();
 
             }else
             {
