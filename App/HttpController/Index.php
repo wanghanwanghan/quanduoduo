@@ -84,7 +84,7 @@ class Index extends Controller
 
         //raw请求
         if (!empty($arr))
-            return (isset($arr[$key]) && !empty($arr[$key])) ? $arr[$key] : $default;
+            return (isset($arr[$key])) ? $arr[$key] : $default;
 
         //其他
         return $this->request()->getRequestParam($key) ?? $default;
