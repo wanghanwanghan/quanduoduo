@@ -9,6 +9,7 @@ use App\HttpModels\Admin\OneSaid;
 use App\HttpModels\Api\GoodsClick;
 use App\HttpModels\Api\LinkClick;
 use App\HttpModels\Api\User;
+use App\HttpService\LogService;
 use App\HttpService\WxService;
 use Carbon\Carbon;
 use wanghanwanghan\someUtils\control;
@@ -109,6 +110,8 @@ class UserController extends Index
                 ->field('id')
                 ->where('day',Carbon::now()->format('m-d'))
                 ->all();
+
+            LogService::getInstance()->log4PHP($ids);
 
             empty($ids) ? $ids = [] : $ids = control::array_flatten(obj2Arr($ids));
 
