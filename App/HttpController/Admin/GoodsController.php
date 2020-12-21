@@ -6,6 +6,7 @@ use App\HttpController\Index;
 use App\HttpModels\Admin\GoodsInfo;
 use App\HttpModels\Admin\LabelInfo;
 use App\HttpModels\Admin\LabelRelationship;
+use App\HttpService\LogService;
 use EasySwoole\Mysqli\QueryBuilder;
 use wanghanwanghan\someUtils\control;
 
@@ -78,6 +79,8 @@ class GoodsController extends Index
         try
         {
             $id = GoodsInfo::create()->data($insert)->save();
+
+            LogService::getInstance()->log4PHP($id);
 
         }catch (\Throwable $e)
         {
