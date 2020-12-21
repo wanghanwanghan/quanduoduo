@@ -162,7 +162,7 @@ class GoodsController extends Index
             'expireTime' => $expireTime,
             'isShow' => $isShow,
             'level' => $level > 255 ? 255 : $level,
-            'sale' => $sale,
+            'sale' => ($sale > 1 || $sale < 0) ? 1 : $sale,
         ];
 
         try
