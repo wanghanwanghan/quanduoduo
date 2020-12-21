@@ -6,11 +6,9 @@ use App\HttpController\Index;
 use App\HttpModels\Admin\HistoryOfToday;
 use App\HttpModels\Admin\OneJoke;
 use App\HttpModels\Admin\OneSaid;
-use App\HttpModels\Api\AccessRecode;
+use App\HttpModels\Api\GoodsClick;
 use App\HttpModels\Api\LinkClick;
 use App\HttpModels\Api\User;
-use App\HttpService\Common\CreateMysqlTable;
-use App\HttpService\LogService;
 use App\HttpService\WxService;
 use Carbon\Carbon;
 use wanghanwanghan\someUtils\control;
@@ -31,6 +29,31 @@ class UserController extends Index
 
             LinkClick::create()->data([
                 'linkId'=>$linkId,
+                'userId'=>empty($userInfo) ? 0 : $userInfo->id,
+            ])->save();
+
+        }catch (\Throwable $e)
+        {
+            return $this->writeErr($e,__FUNCTION__);
+        }
+
+        return $this->writeJson();
+    }
+
+    function clickGoods()
+    {
+        $goodsId = $this->getRawData('goodsId');
+        $openId = $this->getRawData('openId');
+
+        if (empty($goodsId) || !is_numeric($goodsId)) return $this->writeJson(201,null,null,'id错误');
+        if (empty($openId) || !is_numeric($openId)) return $this->writeJson(201,null,null,'openid错误');
+
+        try
+        {
+            $userInfo = User::create()->where('wxOpenId',$openId)->get();
+
+            GoodsClick::create()->data([
+                'goodsId'=>$goodsId,
                 'userId'=>empty($userInfo) ? 0 : $userInfo->id,
             ])->save();
 

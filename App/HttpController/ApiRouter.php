@@ -17,6 +17,7 @@ class ApiRouter
             $routeCollector->addRoute(['GET', 'POST'], '/bindPhone', $prefix . 'bindPhone');
             $routeCollector->addRoute(['GET', 'POST'], '/edit', $prefix . 'edit');
             $routeCollector->addRoute(['GET', 'POST'], '/clickLink', $prefix . 'clickLink');
+            $routeCollector->addRoute(['GET', 'POST'], '/clickGoods', $prefix . 'clickGoods');
             $routeCollector->addRoute(['GET', 'POST'], '/getOneSaid', $prefix . 'getOneSaid');
             $routeCollector->addRoute(['GET', 'POST'], '/getOneJoke', $prefix . 'getOneJoke');
             $routeCollector->addRoute(['GET', 'POST'], '/getHistoryOfToday', $prefix . 'getHistoryOfToday');
