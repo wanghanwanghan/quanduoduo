@@ -119,11 +119,7 @@ class UserController extends Index
 
                 $index = mt_rand(0,count($ids));
 
-                LogService::getInstance()->log4PHP($index);
-
                 $res = HistoryOfToday::create()->where('id',$index)->get();
-
-                LogService::getInstance()->log4PHP($res);
 
             }else
             {
@@ -134,13 +130,6 @@ class UserController extends Index
         {
             return $this->writeErr($e,__FUNCTION__);
         }
-
-        if (!empty($res['detail']))
-        {
-            $res['detail'] = preg_replace('/在\d+年前的今天[,|，]?/','',$res['detail']);
-        }
-
-        LogService::getInstance()->log4PHP($res);
 
         return $this->writeJson(200,null,$res);
     }
