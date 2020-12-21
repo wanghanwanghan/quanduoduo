@@ -26,6 +26,11 @@ class ApiRouter
             $prefix = '/Api/LinkController/';
             $routeCollector->addRoute(['GET', 'POST'], '/selectLink', $prefix . 'selectLink');
         });
+
+        $router->addGroup('/goods', function (RouteCollector $routeCollector) {
+            $prefix = '/Api/GoodsController/';
+            $routeCollector->addRoute(['GET', 'POST'], '/selectGoods', $prefix . 'selectGoods');
+        });
     }
 
 
