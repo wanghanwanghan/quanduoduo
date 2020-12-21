@@ -130,6 +130,11 @@ class UserController extends Index
             return $this->writeErr($e,__FUNCTION__);
         }
 
+        if (!empty($res['detail']))
+        {
+            $res['detail'] = preg_replace('/在\d+年前的今天[,|，]?/','',$res['detail']);
+        }
+
         return $this->writeJson(200,null,$res);
     }
 

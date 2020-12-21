@@ -16,7 +16,7 @@ function jsonDecode($target, $type = true)
 
 function obj2Arr($obj)
 {
-    return is_array($obj) ? $obj : json_decode(json_encode($obj), true);
+    return json_decode(json_encode($obj), true);
 }
 
 
