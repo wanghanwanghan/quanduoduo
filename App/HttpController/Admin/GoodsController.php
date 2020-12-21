@@ -80,8 +80,6 @@ class GoodsController extends Index
         {
             $id = GoodsInfo::create()->data($insert)->save();
 
-            LogService::getInstance()->log4PHP($id);
-
         }catch (\Throwable $e)
         {
             return $this->writeErr($e,__FUNCTION__);
