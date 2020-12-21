@@ -111,9 +111,10 @@ class UserController extends Index
                 ->where('day',Carbon::now()->format('m-d'))
                 ->all();
 
+            empty($ids) ? $ids = [] : $ids = control::array_flatten(obj2Arr($ids));
+
             LogService::getInstance()->log4PHP($ids);
 
-            empty($ids) ? $ids = [] : $ids = control::array_flatten(obj2Arr($ids));
 
             if (count($ids))
             {
