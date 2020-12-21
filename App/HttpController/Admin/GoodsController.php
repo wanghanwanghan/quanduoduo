@@ -149,6 +149,7 @@ class GoodsController extends Index
         $expireTime = $this->getRawData('expireTime',0);
         $isShow = $this->getRawData('isShow',1);
         $level = $this->getRawData('level',1);
+        $sale = $this->getRawData('sale',1);
 
         $update = [
             'image' => $image,
@@ -161,6 +162,7 @@ class GoodsController extends Index
             'expireTime' => $expireTime,
             'isShow' => $isShow,
             'level' => $level > 255 ? 255 : $level,
+            'sale' => $sale,
         ];
 
         try
