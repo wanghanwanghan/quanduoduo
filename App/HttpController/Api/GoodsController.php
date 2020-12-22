@@ -36,7 +36,7 @@ class GoodsController extends Index
             $goodsIds = control::array_flatten($goodsIds);
 
             $info = GoodsInfo::create()->where('id',$goodsIds,'in')
-                ->limit($this->exprOffset($page,$pageSize),$pageSize)->all();
+                ->limit($this->exprOffset($page,$pageSize),$pageSize)->order('level','desc')->all();
 
             if (empty($info)) return $this->writeJson(200,$this->createPaging($page,$pageSize,count($goodsIds)),null,'成功');
 
