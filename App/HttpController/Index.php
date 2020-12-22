@@ -85,15 +85,12 @@ class Index extends Controller
         //raw请求
         if (!empty($arr))
         {
-            if (isset($arr[$key]) && $arr[$key] == '')
+            if (!isset($arr[$key]) || (isset($arr[$key]) && $arr[$key] == ''))
             {
                 return $default;
-            }elseif (isset($arr[$key]))
-            {
-                return $arr[$key];
             }else
             {
-                return $default;
+                return $arr[$key];
             }
         }
 
