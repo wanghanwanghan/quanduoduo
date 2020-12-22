@@ -117,9 +117,9 @@ class UserController extends Index
             {
                 mt_srand();
 
-                $index = mt_rand(0,count($ids));
+                $index = mt_rand(0,count($ids) - 1);
 
-                $res = HistoryOfToday::create()->where('id',$index)->get();
+                $res = HistoryOfToday::create()->where('id',$ids[$index])->get();
 
             }else
             {
