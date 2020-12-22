@@ -43,6 +43,13 @@ class GoodsController extends Index
                 LabelRelationship::create()->saveAll($labelRelation);
             }
 
+            if (empty($labelIds) && is_numeric($targetId))
+            {
+                LabelRelationship::create()->destroy(function (QueryBuilder $builder) use ($targetId) {
+                    $builder->where('targetId', $targetId)->where('targetType', 'goods');
+                });
+            }
+
         }catch (\Throwable $e)
         {
             $this->writeErr($e,__FUNCTION__);
