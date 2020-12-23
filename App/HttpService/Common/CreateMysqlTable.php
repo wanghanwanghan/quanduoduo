@@ -214,4 +214,113 @@ class CreateMysqlTable extends ServiceBase
 
         Manager::getInstance()->get('quanduoduo')->recycleObj($obj);
     }
+
+    function constellationToday()
+    {
+        $sql = DDLBuilder::table(__FUNCTION__, function (Table $table) {
+            $table->setTableComment('')->setTableEngine(Engine::INNODB)->setTableCharset(Character::UTF8MB4_GENERAL_CI);
+            $table->colInt('id', 11)->setIsAutoIncrement()->setIsUnsigned()->setIsPrimaryKey()->setColumnComment('主键');
+            $table->colVarChar('name', 16)->setDefaultValue('')->setColumnComment('星座名称');
+            $table->colVarChar('friend', 16)->setDefaultValue('')->setColumnComment('速配星座');
+            $table->colTinyInt('number', 3)->setIsUnsigned('')->setDefaultValue(0)->setColumnComment('幸运数字');
+            $table->colVarChar('summary', 512)->setDefaultValue('')->setColumnComment('今日概述');
+            $table->colTinyInt('all', 3)->setIsUnsigned('')->setDefaultValue(0)->setColumnComment('综合指数');
+            $table->colTinyInt('health', 3)->setIsUnsigned('')->setDefaultValue(0)->setColumnComment('健康指数');
+            $table->colTinyInt('love', 3)->setIsUnsigned('')->setDefaultValue(0)->setColumnComment('爱情指数');
+            $table->colTinyInt('work', 3)->setIsUnsigned('')->setDefaultValue(0)->setColumnComment('工作指数');
+            $table->colTinyInt('money', 3)->setIsUnsigned('')->setDefaultValue(0)->setColumnComment('财运指数');
+            $table->colInt('created_at', 11)->setIsUnsigned()->setDefaultValue(0);
+            $table->colInt('updated_at', 11)->setIsUnsigned()->setDefaultValue(0);
+        });
+
+        $obj = Manager::getInstance()->get('quanduoduo')->getObj();
+
+        $obj->rawQuery($sql);
+
+        Manager::getInstance()->get('quanduoduo')->recycleObj($obj);
+    }
+
+    function constellationWeek()
+    {
+        $sql = DDLBuilder::table(__FUNCTION__, function (Table $table) {
+            $table->setTableComment('')->setTableEngine(Engine::INNODB)->setTableCharset(Character::UTF8MB4_GENERAL_CI);
+            $table->colInt('id', 11)->setIsAutoIncrement()->setIsUnsigned()->setIsPrimaryKey()->setColumnComment('主键');
+            $table->colTinyInt('week', 3)->setIsUnsigned('')->setDefaultValue(0)->setColumnComment('第几周');
+            $table->colVarChar('name', 16)->setDefaultValue('')->setColumnComment('星座名称');
+            $table->colVarChar('health', 512)->setDefaultValue('')->setColumnComment('健康概述');
+            $table->colVarChar('job', 512)->setDefaultValue('')->setColumnComment('学业概述');
+            $table->colVarChar('love', 512)->setDefaultValue('')->setColumnComment('恋爱概述');
+            $table->colVarChar('money', 512)->setDefaultValue('')->setColumnComment('财运概述');
+            $table->colVarChar('work', 512)->setDefaultValue('')->setColumnComment('工作概述');
+            $table->colInt('created_at', 11)->setIsUnsigned()->setDefaultValue(0);
+            $table->colInt('updated_at', 11)->setIsUnsigned()->setDefaultValue(0);
+        });
+
+        $obj = Manager::getInstance()->get('quanduoduo')->getObj();
+
+        $obj->rawQuery($sql);
+
+        Manager::getInstance()->get('quanduoduo')->recycleObj($obj);
+    }
+
+    function constellationMonth()
+    {
+        $sql = DDLBuilder::table(__FUNCTION__, function (Table $table) {
+            $table->setTableComment('')->setTableEngine(Engine::INNODB)->setTableCharset(Character::UTF8MB4_GENERAL_CI);
+            $table->colInt('id', 11)->setIsAutoIncrement()->setIsUnsigned()->setIsPrimaryKey()->setColumnComment('主键');
+            $table->colTinyInt('month', 3)->setIsUnsigned('')->setDefaultValue(0)->setColumnComment('第几月');
+            $table->colVarChar('name', 16)->setDefaultValue('')->setColumnComment('星座名称');
+            $table->colVarChar('all', 512)->setDefaultValue('')->setColumnComment('综合概述');
+            $table->colVarChar('health', 512)->setDefaultValue('')->setColumnComment('健康概述');
+            $table->colVarChar('love', 512)->setDefaultValue('')->setColumnComment('感情概述');
+            $table->colVarChar('money', 512)->setDefaultValue('')->setColumnComment('财运概述');
+            $table->colVarChar('work', 512)->setDefaultValue('')->setColumnComment('工作概述');
+            $table->colVarChar('happyMagic', 512)->setDefaultValue('')->setColumnComment('可能发生的事');
+            $table->colInt('created_at', 11)->setIsUnsigned()->setDefaultValue(0);
+            $table->colInt('updated_at', 11)->setIsUnsigned()->setDefaultValue(0);
+        });
+
+        $obj = Manager::getInstance()->get('quanduoduo')->getObj();
+
+        $obj->rawQuery($sql);
+
+        Manager::getInstance()->get('quanduoduo')->recycleObj($obj);
+    }
+
+    function constellationYear()
+    {
+        $sql = DDLBuilder::table(__FUNCTION__, function (Table $table) {
+            $table->setTableComment('')->setTableEngine(Engine::INNODB)->setTableCharset(Character::UTF8MB4_GENERAL_CI);
+            $table->colInt('id', 11)->setIsAutoIncrement()->setIsUnsigned()->setIsPrimaryKey()->setColumnComment('主键');
+            $table->colSmallInt('year')->setIsUnsigned('')->setDefaultValue(0)->setColumnComment('年');
+            $table->colVarChar('name', 16)->setDefaultValue('')->setColumnComment('星座名称');
+            $table->colVarChar('allTitle', 32)->setDefaultValue('')->setColumnComment('总结');
+            $table->colVarChar('allDesc', 512)->setDefaultValue('')->setColumnComment('综合概述');
+            $table->colVarChar('career', 512)->setDefaultValue('')->setColumnComment('事业概述');
+            $table->colVarChar('love', 512)->setDefaultValue('')->setColumnComment('感情概述');
+            $table->colVarChar('health', 512)->setDefaultValue('')->setColumnComment('健康概述');
+            $table->colVarChar('finance', 512)->setDefaultValue('')->setColumnComment('财运概述');
+            $table->colVarChar('stone', 32)->setDefaultValue('')->setColumnComment('幸运物品');
+            $table->colInt('created_at', 11)->setIsUnsigned()->setDefaultValue(0);
+            $table->colInt('updated_at', 11)->setIsUnsigned()->setDefaultValue(0);
+        });
+
+        $obj = Manager::getInstance()->get('quanduoduo')->getObj();
+
+        $obj->rawQuery($sql);
+
+        Manager::getInstance()->get('quanduoduo')->recycleObj($obj);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
 }

@@ -10,6 +10,7 @@ use App\HttpModels\Api\GoodsClick;
 use App\HttpModels\Api\LifeIndex;
 use App\HttpModels\Api\LinkClick;
 use App\HttpModels\Api\User;
+use App\HttpService\Common\CreateMysqlTable;
 use App\HttpService\LogService;
 use App\HttpService\WxService;
 use Carbon\Carbon;
@@ -104,6 +105,10 @@ class UserController extends Index
 
     function getLifeIndex()
     {
+        CreateMysqlTable::getInstance()->constellationToday();
+        CreateMysqlTable::getInstance()->constellationWeek();
+        CreateMysqlTable::getInstance()->constellationMonth();
+        CreateMysqlTable::getInstance()->constellationYear();
         return $this->writeJson(200,null,null);
     }
 

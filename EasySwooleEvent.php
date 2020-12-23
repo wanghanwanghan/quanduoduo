@@ -37,6 +37,7 @@ class EasySwooleEvent implements Event
 
         ProcessService::getInstance()->create('addJoke');
         ProcessService::getInstance()->create('addHistoryOfToday');
+        ProcessService::getInstance()->create('addConstellation');
 
         $register->set(EventRegister::onMessage, function (\swoole_websocket_server $server, \swoole_websocket_frame $frame) {
 
