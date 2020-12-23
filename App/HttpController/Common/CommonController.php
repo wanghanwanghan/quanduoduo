@@ -13,8 +13,6 @@ class CommonController extends Index
     //测试
     function test()
     {
-        CreateMysqlTable::getInstance()->lifeIndex();
-
         return $this->writeJson(200,null,null,'测试');
     }
 

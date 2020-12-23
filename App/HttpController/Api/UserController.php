@@ -12,6 +12,7 @@ use App\HttpModels\Api\User;
 use App\HttpService\LogService;
 use App\HttpService\WxService;
 use Carbon\Carbon;
+use Ritaswc\ZxIPAddress\IPv4Tool;
 use wanghanwanghan\someUtils\control;
 
 class UserController extends Index
@@ -98,6 +99,22 @@ class UserController extends Index
         }
 
         return $this->writeJson(200,null,$res);
+    }
+
+    function getLifeIndex()
+    {
+        $ipInfo = IPv4Tool::query($this->request()->getHeader('x-real-ip')[0]);
+
+        $ipInfo = obj2Arr($ipInfo);
+
+
+
+
+
+
+
+
+        return $this->writeJson(200,null,$ipInfo);
     }
 
     function getHistoryOfToday()
