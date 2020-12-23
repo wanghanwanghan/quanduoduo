@@ -7,6 +7,7 @@ use App\HttpModels\Admin\HistoryOfToday;
 use App\HttpModels\Admin\OneJoke;
 use App\HttpModels\Admin\OneSaid;
 use App\HttpModels\Api\GoodsClick;
+use App\HttpModels\Api\LifeIndex;
 use App\HttpModels\Api\LinkClick;
 use App\HttpModels\Api\User;
 use App\HttpService\LogService;
@@ -103,18 +104,7 @@ class UserController extends Index
 
     function getLifeIndex()
     {
-        $ipInfo = IPv4Tool::query($this->request()->getHeader('x-real-ip')[0]);
-
-        $ipInfo = obj2Arr($ipInfo);
-
-
-
-
-
-
-
-
-        return $this->writeJson(200,null,$ipInfo);
+        return $this->writeJson(200,null,null);
     }
 
     function getHistoryOfToday()
