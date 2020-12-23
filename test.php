@@ -1,10 +1,10 @@
 <?php
 
-use wanghanwanghan\someUtils\control;
-
 include './vendor/autoload.php';
 
 
-dd(explode(',',''));
 
+$res = \Carbon\Carbon::now()->month;
+
+dd($res);
 

@@ -105,10 +105,6 @@ class UserController extends Index
 
     function getLifeIndex()
     {
-        CreateMysqlTable::getInstance()->constellationToday();
-        CreateMysqlTable::getInstance()->constellationWeek();
-        CreateMysqlTable::getInstance()->constellationMonth();
-        CreateMysqlTable::getInstance()->constellationYear();
         return $this->writeJson(200,null,null);
     }
 
