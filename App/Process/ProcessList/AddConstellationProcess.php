@@ -32,6 +32,8 @@ class AddConstellationProcess extends ProcessBase
     {
         $startOfDay = Carbon::now()->startOfDay()->timestamp;
         $endOfDay = Carbon::now()->endOfDay()->timestamp;
+        $startOfYear = Carbon::now()->startOfYear()->timestamp;
+        $endOfYear = Carbon::now()->endOfYear()->timestamp;
         $weekOfYear = Carbon::now()->weekOfYear;
         $month = Carbon::now()->month;
         $year = Carbon::now()->year;
@@ -72,6 +74,7 @@ class AddConstellationProcess extends ProcessBase
                 $week = Constellation::create()->addSuffix('Week')
                     ->where('name',$one)
                     ->where('week',$weekOfYear)
+                    ->where('created_at',[$startOfYear,$endOfYear],'between')
                     ->get();
 
                 if (!empty($week)) continue;
@@ -97,6 +100,7 @@ class AddConstellationProcess extends ProcessBase
                 $months = Constellation::create()->addSuffix('Month')
                     ->where('name',$one)
                     ->where('month',$month)
+                    ->where('created_at',[$startOfYear,$endOfYear],'between')
                     ->get();
 
                 if (!empty($months)) continue;
@@ -127,11 +131,9 @@ class AddConstellationProcess extends ProcessBase
 
                 if (!empty($years)) continue;
 
-                $res = $this->getConstellationData($one,'years');
+                $res = $this->getConstellationData($one,'year');
 
                 if (empty($res)) continue;
-
-                LogService::getInstance()->log4PHP($res);
 
                 Constellation::create()->addSuffix('Year')->data([
                     'name' => $one,
@@ -162,7 +164,7 @@ class AddConstellationProcess extends ProcessBase
 
         $res = (new CoHttpClient())->setDecode(true)->send($url,$postData);
 
-        return (isset($res['resultcode']) || (int)$res['resultcode'] === 200) ? $res : [];
+        return (isset($res['resultcode']) && (int)$res['resultcode'] === 200) ? $res : [];
     }
 
     protected function onPipeReadable(Process $process)
