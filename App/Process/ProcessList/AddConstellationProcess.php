@@ -131,6 +131,8 @@ class AddConstellationProcess extends ProcessBase
 
                 if (empty($res)) continue;
 
+                LogService::getInstance()->log4PHP($res);
+
                 Constellation::create()->addSuffix('Year')->data([
                     'name' => $one,
                     'year' => $res['year'],
