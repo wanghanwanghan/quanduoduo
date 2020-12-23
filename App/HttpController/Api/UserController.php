@@ -3,6 +3,7 @@
 namespace App\HttpController\Api;
 
 use App\HttpController\Index;
+use App\HttpModels\Admin\Constellation;
 use App\HttpModels\Admin\HistoryOfToday;
 use App\HttpModels\Admin\OneJoke;
 use App\HttpModels\Admin\OneSaid;
@@ -106,6 +107,64 @@ class UserController extends Index
     function getLifeIndex()
     {
         return $this->writeJson(200,null,null);
+    }
+
+    function getConstellation()
+    {
+        $constellation = $this->getRawData('constellation','');
+
+        if (empty($constellation)) {
+            $temp = ['水瓶座','双鱼座','白羊座','金牛座','双子座','巨蟹座','狮子座','处女座','天秤座','天蝎座','射手座','摩羯座'];
+            $constellation = $temp[mt_rand(0,11)];
+        }
+
+        $type = strtolower($this->getRawData('type','today'));
+
+        mt_srand();
+
+        try
+        {
+            $res = Constellation::create()->addSuffix(ucfirst($type));
+
+            switch ($type)
+            {
+                case 'today':
+                    $startOfDay = Carbon::now()->startOfDay()->timestamp;
+                    $endOfDay = Carbon::now()->endOfDay()->timestamp;
+                    $res = $res->where('name',$constellation)
+                        ->where('created_at',[$startOfDay,$endOfDay],'between')
+                        ->get();
+                    break;
+                case 'week':
+                    $startOfYear = Carbon::now()->startOfYear()->timestamp;
+                    $endOfYear = Carbon::now()->endOfYear()->timestamp;
+                    $week = Carbon::now()->weekOfYear;
+                    $res = $res->where('name',$constellation)
+                        ->where('week',$week)
+                        ->where('created_at',[$startOfYear,$endOfYear],'between')
+                        ->get();
+                    break;
+                case 'month':
+                    $startOfYear = Carbon::now()->startOfYear()->timestamp;
+                    $endOfYear = Carbon::now()->endOfYear()->timestamp;
+                    $res = $res->where('name',$constellation)
+                        ->where('month',Carbon::now()->month)
+                        ->where('created_at',[$startOfYear,$endOfYear],'between')
+                        ->get();
+                    break;
+                case 'year':
+                    $res = $res->where('name',$constellation)
+                        ->where('year',Carbon::now()->year)
+                        ->get();
+                    break;
+            }
+
+        }catch (\Throwable $e)
+        {
+            return $this->writeErr($e,__FUNCTION__);
+        }
+
+        return $this->writeJson(200,null,$res);
     }
 
     function getHistoryOfToday()

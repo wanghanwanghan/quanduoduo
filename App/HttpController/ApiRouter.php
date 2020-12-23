@@ -22,6 +22,7 @@ class ApiRouter
             $routeCollector->addRoute(['GET', 'POST'], '/getOneJoke', $prefix . 'getOneJoke');
             $routeCollector->addRoute(['GET', 'POST'], '/getHistoryOfToday', $prefix . 'getHistoryOfToday');
             $routeCollector->addRoute(['GET', 'POST'], '/getLifeIndex', $prefix . 'getLifeIndex');
+            $routeCollector->addRoute(['GET', 'POST'], '/getConstellation', $prefix . 'getConstellation');
         });
 
         $router->addGroup('/link', function (RouteCollector $routeCollector) {
