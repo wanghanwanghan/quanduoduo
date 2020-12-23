@@ -1,4 +1,4 @@
-<h1 align="center"> 券多多 </h1>
+<h1 align="center"> 外卖券多多 </h1>
 
 ## 安装
 
