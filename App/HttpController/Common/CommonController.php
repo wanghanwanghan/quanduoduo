@@ -3,10 +3,6 @@
 namespace App\HttpController\Common;
 
 use App\HttpController\Index;
-use App\HttpModels\Admin\CityList;
-use App\HttpService\CoHttpClient;
-use App\HttpService\Common\CreateMysqlTable;
-use App\HttpService\LogService;
 use EasySwoole\Http\Message\UploadFile;
 use wanghanwanghan\someUtils\control;
 
@@ -15,24 +11,7 @@ class CommonController extends Index
     //测试
     function test()
     {
-        CreateMysqlTable::getInstance()->cityList();
-
-        $url = 'http://apis.juhe.cn/simpleWeather/cityList';
-
-        $data = [
-            'key' => 'c477b64f5f5ceb3a0f64222da2bbc329'
-        ];
-
-        $res = (new CoHttpClient())->setDecode(true)->send($url,$data);
-
-        foreach ($res['result'] as $one)
-        {
-            CityList::create()->data([
-                'province' => $one['province'],
-                'city' => $one['city'],
-                'district' => $one['district'],
-            ])->save();
-        }
+        $res = [];
 
         return $this->writeJson(200,null,null,$res);
     }
