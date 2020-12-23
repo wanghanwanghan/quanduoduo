@@ -193,4 +193,25 @@ class CreateMysqlTable extends ServiceBase
 
         Manager::getInstance()->get('quanduoduo')->recycleObj($obj);
     }
+
+    function lifeIndex()
+    {
+        $sql = DDLBuilder::table(__FUNCTION__, function (Table $table) {
+            $table->setTableComment('')->setTableEngine(Engine::INNODB)->setTableCharset(Character::UTF8MB4_GENERAL_CI);
+            $table->colInt('id', 11)->setIsAutoIncrement()->setIsUnsigned()->setIsPrimaryKey()->setColumnComment('主键');
+            $table->colVarChar('category', 16)->setDefaultValue('')->setColumnComment('类别');
+            $table->colVarChar('evaluate', 16)->setDefaultValue('')->setColumnComment('评定');
+            $table->colVarChar('desc', 256)->setDefaultValue('')->setColumnComment('描述');
+            $table->colVarChar('city', 16)->setDefaultValue('')->setColumnComment('城市');
+            $table->colVarChar('area', 16)->setDefaultValue('')->setColumnComment('区域');
+            $table->colInt('created_at', 11)->setIsUnsigned()->setDefaultValue(0);
+            $table->colInt('updated_at', 11)->setIsUnsigned()->setDefaultValue(0);
+        });
+
+        $obj = Manager::getInstance()->get('quanduoduo')->getObj();
+
+        $obj->rawQuery($sql);
+
+        Manager::getInstance()->get('quanduoduo')->recycleObj($obj);
+    }
 }

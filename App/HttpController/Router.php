@@ -25,6 +25,7 @@ class Router extends AbstractRouter
         //公用
         $routeCollector->addGroup('/common/v1', function (RouteCollector $routeCollector) {
             $prefix = '/Common/CommonController/';
+            $routeCollector->addRoute(['GET', 'POST'], '/test', $prefix . 'test');
             $routeCollector->addRoute(['GET', 'POST'], '/uploadFile', $prefix . 'uploadFile');
         });
     }

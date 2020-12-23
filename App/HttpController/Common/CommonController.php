@@ -10,6 +10,14 @@ use wanghanwanghan\someUtils\control;
 
 class CommonController extends Index
 {
+    //测试
+    function test()
+    {
+        CreateMysqlTable::getInstance()->lifeIndex();
+
+        return $this->writeJson(200,null,null,'测试');
+    }
+
     //上传文件
     function uploadFile()
     {
