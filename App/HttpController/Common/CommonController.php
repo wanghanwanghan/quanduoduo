@@ -11,9 +11,8 @@ class CommonController extends Index
     //测试
     function test()
     {
-        $res = [];
 
-        return $this->writeJson(200,null,null,$res);
+        return $this->writeJson(200,null,null);
     }
 
     //上传文件
