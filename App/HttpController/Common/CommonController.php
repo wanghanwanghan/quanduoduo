@@ -19,7 +19,7 @@ class CommonController extends Index
 
             $ql = QueryList::getInstance();
 
-            $ql->use(Chrome::class);
+            $ql->use(Chrome::class,'chrome');
 
             $rules = [
                 'h1' => ['h1','text'],
