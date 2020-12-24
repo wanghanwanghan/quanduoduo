@@ -8,14 +8,10 @@ use App\HttpModels\Admin\HistoryOfToday;
 use App\HttpModels\Admin\OneJoke;
 use App\HttpModels\Admin\OneSaid;
 use App\HttpModels\Api\GoodsClick;
-use App\HttpModels\Api\LifeIndex;
 use App\HttpModels\Api\LinkClick;
 use App\HttpModels\Api\User;
-use App\HttpService\Common\CreateMysqlTable;
-use App\HttpService\LogService;
 use App\HttpService\WxService;
 use Carbon\Carbon;
-use Ritaswc\ZxIPAddress\IPv4Tool;
 use wanghanwanghan\someUtils\control;
 
 class UserController extends Index
@@ -111,6 +107,8 @@ class UserController extends Index
 
     function getConstellation()
     {
+        mt_srand();
+
         $constellation = $this->getRawData('constellation','');
 
         if (empty($constellation)) {
@@ -119,8 +117,6 @@ class UserController extends Index
         }
 
         $type = strtolower($this->getRawData('type','today'));
-
-        mt_srand();
 
         try
         {
@@ -169,6 +165,8 @@ class UserController extends Index
 
     function getHistoryOfToday()
     {
+        mt_srand();
+
         try
         {
             $ids = HistoryOfToday::create()
@@ -180,11 +178,11 @@ class UserController extends Index
 
             if (count($ids))
             {
-                mt_srand();
-
                 $index = mt_rand(0,count($ids) - 1);
 
                 $res = HistoryOfToday::create()->where('id',$ids[$index])->get();
+
+                $res['detail'] = preg_replace('/在\d+年前的今天[,|，]/u','',$res['detail']);
 
             }else
             {
