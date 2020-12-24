@@ -6,6 +6,7 @@ use App\HttpController\Index;
 use App\HttpModels\Admin\Constellation;
 use App\HttpModels\Admin\HistoryOfToday;
 use App\HttpModels\Admin\OneJoke;
+use App\HttpModels\Admin\OneJokeVideo;
 use App\HttpModels\Admin\OneSaid;
 use App\HttpModels\Api\GoodsClick;
 use App\HttpModels\Api\LinkClick;
@@ -72,7 +73,7 @@ class UserController extends Index
         {
             $total = OneSaid::create()->count();
 
-            $res = OneSaid::create()->where('id',mt_rand(0,$total) % $total)->get();
+            $res = OneSaid::create()->where('id',mt_rand(1, $total))->get();
 
         }catch (\Throwable $e)
         {
@@ -90,7 +91,7 @@ class UserController extends Index
         {
             $total = OneJoke::create()->count();
 
-            $res = OneJoke::create()->where('id',mt_rand(0,$total) % $total)->get();
+            $res = OneJoke::create()->where('id',mt_rand(1, $total))->get();
 
         }catch (\Throwable $e)
         {
@@ -188,6 +189,24 @@ class UserController extends Index
             {
                 $res = null;
             }
+
+        }catch (\Throwable $e)
+        {
+            return $this->writeErr($e,__FUNCTION__);
+        }
+
+        return $this->writeJson(200,null,$res);
+    }
+
+    function getOneJokeVideo()
+    {
+        mt_srand();
+
+        try
+        {
+            $total = OneJokeVideo::create()->count();
+
+            $res = OneJokeVideo::create()->where('id',mt_rand(1, $total))->get();
 
         }catch (\Throwable $e)
         {

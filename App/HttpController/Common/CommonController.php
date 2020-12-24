@@ -69,7 +69,7 @@ class CommonController extends Index
 
                 OneJokeVideo::create()->data([
                     'url' => FILE_PATH.$pathSuffix.$filename.$ext,
-                    'soure' => '糗事百科',
+                    'source' => '糗事百科',
                 ])->save();
             }
         }
