@@ -16,8 +16,6 @@ class CommonController extends Index
     //测试
     function test()
     {
-        CreateMysqlTable::getInstance()->oneJokeVideo();
-
         for ($page=5;$page<=5;$page++)
         {
             LogService::getInstance()->log4PHP(['page'=>$page]);
