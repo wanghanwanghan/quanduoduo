@@ -21,13 +21,17 @@ class CommonController extends Index
 
             $ql->use(Chrome::class,'chrome');
 
-            $rules = [
-                'video' => ['.old-style-col1 video>source','src'],
-            ];
-
             $ql = $ql->chrome($url,['args' => ['--no-sandbox']]);
 
-            $res = $ql->rules($rules)->queryData();
+            $range = [
+                '.old-style-col1',
+            ];
+
+            $rules = [
+                'video' => ['video>source','src'],
+            ];
+
+            $res = $ql->range($range)->rules($rules)->queryData();
         }
 
 
