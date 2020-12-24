@@ -16,7 +16,28 @@ class CommonController extends Index
     //测试
     function test()
     {
-        for ($page=5;$page<=5;$page++)
+        $res = OneJokeVideo::create()->all();
+
+        foreach ($res as $one)
+        {
+            $url = str_replace('/mnt/work/quanduoduo.sanh.com.cn/Static/File/','',$one['url']);
+
+            $url = str_replace('.mp4.mp4','.mp4',$url);
+
+            $one->update([
+                'url' => $url
+            ]);
+        }
+
+        $res = OneJokeVideo::create()->all();
+
+        return $this->writeJson(200,null,$res);
+    }
+
+    //爬糗事百科
+    function spider1()
+    {
+        for ($page=1;$page<=13;$page++)
         {
             LogService::getInstance()->log4PHP(['page'=>$page]);
 
