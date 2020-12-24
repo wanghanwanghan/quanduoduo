@@ -29,16 +29,16 @@ class AddConstellationProcess extends ProcessBase
 
     protected function addConstellation()
     {
-        $startOfDay = Carbon::now()->startOfDay()->timestamp;
-        $endOfDay = Carbon::now()->endOfDay()->timestamp;
-        $startOfYear = Carbon::now()->startOfYear()->timestamp;
-        $endOfYear = Carbon::now()->endOfYear()->timestamp;
-        $weekOfYear = Carbon::now()->weekOfYear;
-        $month = Carbon::now()->month;
-        $year = Carbon::now()->year;
-
         while (true)
         {
+            $startOfDay = Carbon::now()->startOfDay()->timestamp;
+            $endOfDay = Carbon::now()->endOfDay()->timestamp;
+            $startOfYear = Carbon::now()->startOfYear()->timestamp;
+            $endOfYear = Carbon::now()->endOfYear()->timestamp;
+            $weekOfYear = Carbon::now()->weekOfYear;
+            $month = Carbon::now()->month;
+            $year = Carbon::now()->year;
+
             //today
             foreach ($this->constellation as $one)
             {
