@@ -50,11 +50,7 @@ class CommonController extends Index
                 'desc' => ['.m','text'],
             ];
 
-            $range = [
-                '.bl>li',
-            ];
-
-            $res = $ql->rules($rules)->range($range)->query()->getData()->all();
+            $res = $ql->rules($rules)->range('.bl>li')->query()->getData()->all();
         }
 
         return $this->writeJson(200,null,$res);
