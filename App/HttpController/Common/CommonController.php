@@ -3,7 +3,9 @@
 namespace App\HttpController\Common;
 
 use App\HttpController\Index;
+use App\HttpService\LogService;
 use EasySwoole\Http\Message\UploadFile;
+use QL\QueryList;
 use wanghanwanghan\someUtils\control;
 
 class CommonController extends Index
@@ -11,8 +13,19 @@ class CommonController extends Index
     //测试
     function test()
     {
+        for ($page=1;$page<=1;$page++)
+        {
+            $url = "https://www.qiushibaike.com/video/page/{$page}";
 
-        return $this->writeJson(200,null,null);
+            $res = file_get_contents($url);
+
+            LogService::getInstance()->log4PHP($res);
+        }
+
+
+
+
+        return $this->writeJson(200,null,$res);
     }
 
     //上传文件
