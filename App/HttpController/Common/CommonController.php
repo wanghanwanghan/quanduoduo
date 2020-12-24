@@ -23,34 +23,11 @@ class CommonController extends Index
 
             $ql = $ql->chrome($url,['args' => ['--no-sandbox']]);
 
-            $range = [
-                '.old-style-col1>div',
-            ];
-
             $rules = [
                 'item' => ['video>source','src'],
             ];
 
-            $res = $ql->rules($rules)->range($range)->query()->getData()->all();
-        }
-
-        for ($page=1;$page<=1;$page++)
-        {
-            $url = "https://mobile.ithome.com/";
-
-            $ql = QueryList::getInstance();
-
-            $ql->use(Chrome::class,'chrome');
-
-            $ql = $ql->chrome($url,['args' => ['--no-sandbox']]);
-
-            $rules = [
-                'a' => ['a','href'],
-                'title' => ['div>h2>a','title'],
-                'desc' => ['.m','text'],
-            ];
-
-            $res = $ql->rules($rules)->range('.bl>li')->query()->getData()->all();
+            $res = $ql->rules($rules)->range('.old-style-col1>div')->query()->getData()->all();
         }
 
         return $this->writeJson(200,null,$res);
