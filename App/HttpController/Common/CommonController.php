@@ -3,6 +3,7 @@
 namespace App\HttpController\Common;
 
 use App\HttpController\Index;
+use App\HttpModels\Admin\OneJokeVideo;
 use App\HttpService\Common\CreateMysqlTable;
 use App\HttpService\LogService;
 use EasySwoole\Http\Message\UploadFile;
@@ -58,7 +59,14 @@ class CommonController extends Index
                 //传绝对路径
                 is_dir(FILE_PATH . $pathSuffix) ?: mkdir(FILE_PATH . $pathSuffix, 0644);
 
-                file_put_contents($filename.$ext,file_get_contents($url));
+                file_put_contents(FILE_PATH.$pathSuffix.$filename.$ext,file_get_contents($url));
+
+                LogService::getInstance()->log4PHP(['file'=>FILE_PATH.$pathSuffix.$filename.$ext]);
+
+                OneJokeVideo::create()->data([
+                    'url' => FILE_PATH.$pathSuffix.$filename.$ext,
+                    'soure' => '糗事百科',
+                ])->save();
             }
         }
 
