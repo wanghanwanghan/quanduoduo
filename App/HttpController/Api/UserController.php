@@ -182,7 +182,7 @@ class UserController extends Index
 
                 $res = HistoryOfToday::create()->where('id',$ids[$index])->get();
 
-                $res['detail'] = preg_replace('/在\d+年前的今天[,|，]/u','',$res['detail']);
+                $res['detail'] = preg_replace('/在\d+年前的今天[,|，]?/u','',$res['detail']);
 
             }else
             {
