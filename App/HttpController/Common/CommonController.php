@@ -3,6 +3,8 @@
 namespace App\HttpController\Common;
 
 use App\HttpController\Index;
+use App\HttpService\Common\CreateMysqlTable;
+use App\HttpService\LogService;
 use EasySwoole\Http\Message\UploadFile;
 use QL\Ext\Chrome;
 use QL\QueryList;
@@ -13,8 +15,12 @@ class CommonController extends Index
     //测试
     function test()
     {
-        for ($page=1;$page<=1;$page++)
+        CreateMysqlTable::getInstance()->oneJokeVideo();
+
+        for ($page=1;$page<=13;$page++)
         {
+            LogService::getInstance()->log4PHP(['page'=>$page]);
+
             $url = "https://www.qiushibaike.com/video/page/{$page}";
 
             $ql = QueryList::getInstance();
@@ -28,6 +34,32 @@ class CommonController extends Index
             ];
 
             $res = $ql->rules($rules)->range('.old-style-col1>div')->query()->getData()->all();
+
+            foreach ($res as $key => $one)
+            {
+                LogService::getInstance()->log4PHP(['item'=>$key]);
+
+                $url = str_replace('//','https://',$one['item']);
+
+                if (empty($url)) continue;
+
+                $filename = explode('/',$url);
+                $filename = end($filename);
+
+                $ext = explode('.',$filename);
+                $ext = '.'.end($ext);
+
+                $year = date('Y');
+                $month = date('m');
+                $day = date('d');
+
+                $pathSuffix = $year . DIRECTORY_SEPARATOR . $month . DIRECTORY_SEPARATOR . $day . DIRECTORY_SEPARATOR;
+
+                //传绝对路径
+                is_dir(FILE_PATH . $pathSuffix) ?: mkdir(FILE_PATH . $pathSuffix, 0644);
+
+                file_put_contents($filename.$ext,file_get_contents($url));
+            }
         }
 
         return $this->writeJson(200,null,$res);
