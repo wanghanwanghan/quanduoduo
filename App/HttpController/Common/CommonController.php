@@ -44,14 +44,14 @@ class CommonController extends Index
 
             $ql = $ql->chrome($url,['args' => ['--no-sandbox']]);
 
-            $range = [
-                '.bl>li',
-            ];
-
             $rules = [
                 'a' => ['a','href'],
                 'title' => ['div>h2>a','title'],
                 'desc' => ['.m','text'],
+            ];
+
+            $range = [
+                '.bl>li',
             ];
 
             $res = $ql->rules($rules)->range($range)->query()->getData()->all();
