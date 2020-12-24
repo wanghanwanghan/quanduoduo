@@ -18,7 +18,7 @@ class CommonController extends Index
     {
         CreateMysqlTable::getInstance()->oneJokeVideo();
 
-        for ($page=1;$page<=13;$page++)
+        for ($page=5;$page<=5;$page++)
         {
             LogService::getInstance()->log4PHP(['page'=>$page]);
 
