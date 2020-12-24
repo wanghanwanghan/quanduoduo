@@ -31,7 +31,7 @@ class CommonController extends Index
                 'item' => ['video>source','src'],
             ];
 
-            $res = $ql->range($range)->rules($rules)->query()->getData()->all();
+            $res = $ql->rules($rules)->range($range)->query()->getData()->all();
         }
 
 
