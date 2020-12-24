@@ -24,7 +24,7 @@ class CommonController extends Index
             $ql = $ql->chrome($url,['args' => ['--no-sandbox']]);
 
             $range = [
-                '.old-style-col1',
+                '.old-style-col1 div',
             ];
 
             $rules = [
