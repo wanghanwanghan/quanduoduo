@@ -22,7 +22,7 @@ class CommonController extends Index
             $ql->use(Chrome::class,'chrome');
 
             $rules = [
-                'video' => ['.old-style-col1 video','src'],
+                'video' => ['.old-style-col1 video>source','src'],
             ];
 
             $ql = $ql->chrome($url,['args' => ['--no-sandbox']]);
