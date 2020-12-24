@@ -16,22 +16,7 @@ class CommonController extends Index
     //测试
     function test()
     {
-        $res = OneJokeVideo::create()->all();
-
-        foreach ($res as $one)
-        {
-            $url = str_replace('/mnt/work/quanduoduo.sanh.com.cn/Static/File/','',$one['url']);
-
-            $url = str_replace('.mp4.mp4','.mp4',$url);
-
-            $one->update([
-                'url' => $url
-            ]);
-        }
-
-        $res = OneJokeVideo::create()->all();
-
-        return $this->writeJson(200,null,$res);
+        return $this->writeJson();
     }
 
     //爬糗事百科
