@@ -26,7 +26,7 @@ class CommonController extends Index
                 'title' => ['title','text'],
             ];
 
-            $ql = $ql->chrome($url);
+            $ql = $ql->chrome($url,['args'=>['--no-sandbox']]);
 
             $res = $ql->rules($rules)->queryData();
         }
