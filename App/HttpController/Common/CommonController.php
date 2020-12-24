@@ -3,8 +3,8 @@
 namespace App\HttpController\Common;
 
 use App\HttpController\Index;
-use App\HttpService\LogService;
 use EasySwoole\Http\Message\UploadFile;
+use QL\Ext\Chrome;
 use QL\QueryList;
 use wanghanwanghan\someUtils\control;
 
@@ -17,11 +17,19 @@ class CommonController extends Index
         {
             $url = "https://www.qiushibaike.com/video/page/{$page}";
 
-            $res = file_get_contents($url);
+            $ql = QueryList::getInstance();
 
-            LogService::getInstance()->log4PHP($res);
+            $ql->use(Chrome::class);
+
+            $rules = [
+                'h1' => ['h1','text'],
+                'title' => ['title','text'],
+            ];
+
+            $ql = $ql->chrome($url);
+
+            $res = $ql->rules($rules)->queryData();
         }
-
 
 
 
