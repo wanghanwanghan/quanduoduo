@@ -24,11 +24,11 @@ class CommonController extends Index
             $ql = $ql->chrome($url,['args' => ['--no-sandbox']]);
 
             $range = [
-                'video',
+                '.old-style-col1>div',
             ];
 
             $rules = [
-                'video' => ['source','src'],
+                'item' => ['video>source','src'],
             ];
 
             $res = $ql->range($range)->rules($rules)->query()->getData()->all();
