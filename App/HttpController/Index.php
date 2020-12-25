@@ -7,7 +7,7 @@ use wanghanwanghan\someUtils\control;
 
 class Index extends Controller
 {
-    function writeJson($statusCode = 200, $paging = null, $result = null, $msg = null)
+    function writeJson($statusCode = 200, $paging = null, $result = null, $msg = '胖胖飞')
     {
         if (!$this->response()->isEndResponse())
         {
