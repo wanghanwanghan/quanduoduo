@@ -34,8 +34,7 @@ class AddJokeVideoProcess extends ProcessBase
 
         $ql->use(Chrome::class, 'chrome');
 
-        while (true)
-        {
+        while (true) {
             for ($page = 1; $page <= 13; $page++)
             {
                 $url = "https://www.qiushibaike.com/video/page/{$page}";
@@ -53,8 +52,7 @@ class AddJokeVideoProcess extends ProcessBase
                     $filename = explode('/', $url);
                     $filename = end($filename);
 
-                    $check = OneJokeVideo::create()->where('url',"%{$filename}%",'like')->get();
-                    LogService::getInstance()->log4PHP(DbManager::getInstance()->getLastQuery()->getLastQuery());
+                    $check = OneJokeVideo::create()->where('url', "%{$filename}", 'like')->get();
                     if (!empty($check)) continue;
 
                     $ext = explode('.', $filename);
@@ -69,10 +67,10 @@ class AddJokeVideoProcess extends ProcessBase
                     //传绝对路径
                     is_dir(FILE_PATH . $pathSuffix) ?: mkdir(FILE_PATH . $pathSuffix, 0644);
 
-                    file_put_contents(FILE_PATH . $pathSuffix . $filename . $ext, file_get_contents($url));
+                    file_put_contents(FILE_PATH . $pathSuffix . $filename, file_get_contents($url));
 
                     OneJokeVideo::create()->data([
-                        'url' => $pathSuffix . $filename . $ext,
+                        'url' => $pathSuffix . $filename,
                         'source' => '糗事百科',
                     ])->save();
                 }
