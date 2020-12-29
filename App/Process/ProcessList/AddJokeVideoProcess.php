@@ -77,8 +77,9 @@ class AddJokeVideoProcess extends ProcessBase
                 }
             }
 
-            LogService::getInstance()->log4PHP(__FUNCTION__.' stop at '.Carbon::now()->format('Y-m-d H:i:s'));
-            \co::sleep(86400);
+            $time = mt_rand(21600, 86400);
+            LogService::getInstance()->log4PHP(__FUNCTION__ . ' next at ' . Carbon::now()->addSeconds($time)->format('Y-m-d H:i:s'));
+            \co::sleep($time);
         }
     }
 
