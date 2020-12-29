@@ -5,6 +5,7 @@ namespace App\Process\Service;
 use App\Process\ProcessList\AddConstellationProcess;
 use App\Process\ProcessList\AddHistoryOfTodayProcess;
 use App\Process\ProcessList\AddJokeProcess;
+use App\Process\ProcessList\AddJokeVideoProcess;
 use EasySwoole\Component\Di;
 use EasySwoole\Component\Process\Config;
 use EasySwoole\Component\Process\Manager;
@@ -57,6 +58,35 @@ class ProcessService
             $processConfig->setMaxExitWaitTime(3);//最大退出等待时间
             //进ioc
             Di::getInstance()->set($processName . $i, new AddJokeProcess($processConfig));
+            //创建进程
+            Manager::getInstance()->addProcess(Di::getInstance()->get($processName . $i));
+            //
+            $this->processNo[$processName]++;
+        }
+
+        return true;
+    }
+
+    //创建进程
+    private function addJokeVideo($arg, $processNum): bool
+    {
+        //创建进程名
+        $processName = __FUNCTION__;
+
+        $this->processNo[$processName] = -1;
+
+        //循环创建
+        for ($i = $processNum; $i--;) {
+            $processConfig = new Config();
+            $processConfig->setProcessName($processName . $i);//设置进程名称
+            $processConfig->setProcessGroup($processName . 'Group');//设置进程组
+            $processConfig->setArg($arg);//传参
+            $processConfig->setRedirectStdinStdout(false);//是否重定向标准io
+            $processConfig->setPipeType($processConfig::PIPE_TYPE_SOCK_DGRAM);//设置管道类型
+            $processConfig->setEnableCoroutine(true);//是否自动开启协程
+            $processConfig->setMaxExitWaitTime(3);//最大退出等待时间
+            //进ioc
+            Di::getInstance()->set($processName . $i, new AddJokeVideoProcess($processConfig));
             //创建进程
             Manager::getInstance()->addProcess(Di::getInstance()->get($processName . $i));
             //

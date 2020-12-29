@@ -36,6 +36,7 @@ class EasySwooleEvent implements Event
         CreateMysqlOrm::getInstance()->create();
 
         ProcessService::getInstance()->create('addJoke');
+        ProcessService::getInstance()->create('addJokeVideo');
         ProcessService::getInstance()->create('addHistoryOfToday');
         ProcessService::getInstance()->create('addConstellation');
 

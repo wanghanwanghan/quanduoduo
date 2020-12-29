@@ -19,64 +19,6 @@ class CommonController extends Index
         return $this->writeJson();
     }
 
-    //爬糗事百科
-    function spider1()
-    {
-        for ($page=1;$page<=13;$page++)
-        {
-            LogService::getInstance()->log4PHP(['page'=>$page]);
-
-            $url = "https://www.qiushibaike.com/video/page/{$page}";
-
-            $ql = QueryList::getInstance();
-
-            $ql->use(Chrome::class,'chrome');
-
-            $ql = $ql->chrome($url,['args' => ['--no-sandbox']]);
-
-            $rules = [
-                'item' => ['video>source','src'],
-            ];
-
-            $res = $ql->rules($rules)->range('.old-style-col1>div')->query()->getData()->all();
-
-            foreach ($res as $key => $one)
-            {
-                LogService::getInstance()->log4PHP(['item'=>$key]);
-
-                $url = str_replace('//','https://',$one['item']);
-
-                if (empty($url)) continue;
-
-                $filename = explode('/',$url);
-                $filename = end($filename);
-
-                $ext = explode('.',$filename);
-                $ext = '.'.end($ext);
-
-                $year = date('Y');
-                $month = date('m');
-                $day = date('d');
-
-                $pathSuffix = $year . DIRECTORY_SEPARATOR . $month . DIRECTORY_SEPARATOR . $day . DIRECTORY_SEPARATOR;
-
-                //传绝对路径
-                is_dir(FILE_PATH . $pathSuffix) ?: mkdir(FILE_PATH . $pathSuffix, 0644);
-
-                file_put_contents(FILE_PATH.$pathSuffix.$filename.$ext,file_get_contents($url));
-
-                LogService::getInstance()->log4PHP(['file'=>FILE_PATH.$pathSuffix.$filename.$ext]);
-
-                OneJokeVideo::create()->data([
-                    'url' => FILE_PATH.$pathSuffix.$filename.$ext,
-                    'source' => '糗事百科',
-                ])->save();
-            }
-        }
-
-        return $this->writeJson(200,null,$res);
-    }
-
     //上传文件
     function uploadFile()
     {
