@@ -5,7 +5,7 @@ namespace App\Process\ProcessList;
 use App\HttpModels\Admin\OneJokeVideo;
 use App\HttpService\LogService;
 use App\Process\ProcessBase;
-use EasySwoole\ORM\DbManager;
+use Carbon\Carbon;
 use QL\Ext\Chrome;
 use QL\QueryList;
 use Swoole\Process;
@@ -26,18 +26,19 @@ class AddJokeVideoProcess extends ProcessBase
 
     protected function addJokeVideo()
     {
-        $rules = [
-            'item' => ['video>source', 'src'],
-        ];
-
-        $ql = QueryList::getInstance();
-
-        $ql->use(Chrome::class, 'chrome');
-
-        while (true) {
+        while (true)
+        {
             for ($page = 1; $page <= 13; $page++)
             {
                 $url = "https://www.qiushibaike.com/video/page/{$page}";
+
+                $rules = [
+                    'item' => ['video>source', 'src'],
+                ];
+
+                $ql = QueryList::getInstance();
+
+                $ql->use(Chrome::class, 'chrome');
 
                 $ql = $ql->chrome($url, ['args' => ['--no-sandbox']]);
 
@@ -76,6 +77,7 @@ class AddJokeVideoProcess extends ProcessBase
                 }
             }
 
+            LogService::getInstance()->log4PHP(__FUNCTION__.' stop at '.Carbon::now()->format('Y-m-d H:i:s'));
             \co::sleep(86400);
         }
     }
