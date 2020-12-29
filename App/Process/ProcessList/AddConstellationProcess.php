@@ -84,7 +84,7 @@ class AddConstellationProcess extends ProcessBase
 
                 Constellation::create()->addSuffix('Week')->data([
                     'name' => $one,
-                    'week' => $res['weekth'],
+                    'week' => $weekOfYear,
                     'health' => $res['health'],
                     'job' => $res['job'],
                     'love' => $res['love'],
@@ -110,7 +110,7 @@ class AddConstellationProcess extends ProcessBase
 
                 Constellation::create()->addSuffix('Month')->data([
                     'name' => $one,
-                    'month' => $res['month'],
+                    'month' => $month,
                     'all' => $res['all'],
                     'health' => $res['health'],
                     'love' => $res['love'],
@@ -136,7 +136,7 @@ class AddConstellationProcess extends ProcessBase
 
                 Constellation::create()->addSuffix('Year')->data([
                     'name' => $one,
-                    'year' => $res['year'],
+                    'year' => $year,
                     'allTitle' => $res['mima']['info'],
                     'allDesc' => current($res['mima']['text']),
                     'career' => current($res['career']),
