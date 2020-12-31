@@ -3,12 +3,7 @@
 namespace App\HttpController\Common;
 
 use App\HttpController\Index;
-use App\HttpModels\Admin\OneJokeVideo;
-use App\HttpService\Common\CreateMysqlTable;
-use App\HttpService\LogService;
 use EasySwoole\Http\Message\UploadFile;
-use QL\Ext\Chrome;
-use QL\QueryList;
 use wanghanwanghan\someUtils\control;
 
 class CommonController extends Index
