@@ -40,19 +40,19 @@ class EasySwooleEvent implements Event
         ProcessService::getInstance()->create('addHistoryOfToday');
         ProcessService::getInstance()->create('addConstellation');
 
-        $register->set($register::onOpen, function ($ws, $request) {
-            var_dump($request->fd, $request->server);
-            $ws->push($request->fd, "hello, welcome\n");
-        });
-
-        $register->set($register::onMessage, function (\Swoole\WebSocket\Server $server, \Swoole\WebSocket\Frame $frame) {
-            echo "Message: {$frame->data}\n";
-            $server->push($frame->fd, "server: {$frame->data}");
-        });
-
-        $register->set($register::onClose, function ($ws, $fd) {
-            echo "client-{$fd} is closed\n";
-        });
+//        $register->set($register::onOpen, function ($ws, $request) {
+//            var_dump($request->fd, $request->server);
+//            $ws->push($request->fd, "hello, welcome\n");
+//        });
+//
+//        $register->set($register::onMessage, function (\Swoole\WebSocket\Server $server, \Swoole\WebSocket\Frame $frame) {
+//            echo "Message: {$frame->data}\n";
+//            $server->push($frame->fd, "server: {$frame->data}");
+//        });
+//
+//        $register->set($register::onClose, function ($ws, $fd) {
+//            echo "client-{$fd} is closed\n";
+//        });
     }
 
     public static function onRequest(Request $request, Response $response): bool
