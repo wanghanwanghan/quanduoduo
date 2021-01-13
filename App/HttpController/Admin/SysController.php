@@ -27,6 +27,7 @@ class SysController extends Index
         {
             $accessInfo = AccessRecode::create()
                 ->where('created_at',[$start,$end],'between')
+                ->order('created_at','desc')
                 ->limit($this->exprOffset($page,$pageSize),$pageSize)->all();
 
             $total = AccessRecode::create()->where('created_at',[$start,$end],'between')->count();
