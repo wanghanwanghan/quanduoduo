@@ -8,16 +8,16 @@ return [
         'SOCK_TYPE' => SWOOLE_TCP,
         'RUN_MODEL' => SWOOLE_PROCESS,
         'SETTING' => [
-            'worker_num' => 8,
+            'worker_num' => 4,
             'reload_async' => true,
-            'max_wait_time'=>3,
+            'max_wait_time' => 3,
             'dispatch_mode' => 2,
             'package_max_length' => 50 * 1024 * 1024,
         ],
-        'TASK'=>[
-            'workerNum'=>6,
-            'maxRunningNum'=>128,
-            'timeout'=>15
+        'TASK' => [
+            'workerNum' => 2,
+            'maxRunningNum' => 128,
+            'timeout' => 15
         ]
     ],
     'TEMP_DIR' => null,
