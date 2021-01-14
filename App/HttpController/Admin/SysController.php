@@ -4,9 +4,7 @@ namespace App\HttpController\Admin;
 
 use App\HttpController\Index;
 use App\HttpModels\Api\AccessRecode;
-use App\HttpService\LogService;
 use Carbon\Carbon;
-use EasySwoole\ORM\DbManager;
 
 class SysController extends Index
 {

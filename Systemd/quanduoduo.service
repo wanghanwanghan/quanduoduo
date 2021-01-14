@@ -1,0 +1,22 @@
+[Unit]
+Description=api server
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/bash /root/work/quanduoduo.sanh.com.cn/Systemd/start.sh ## 绝对路径
+ExecStop=/usr/bin/bash /root/work/quanduoduo.sanh.com.cn/Systemd/stop.sh ## 绝对路径
+ExecReload=/usr/bin/bash /root/work/quanduoduo.sanh.com.cn/Systemd/reload.sh ## 绝对路径
+Type=simple
+User=root
+Group=root
+RuntimeDirectory=/root/work/quanduoduo.sanh.com.cn/ ## 自己的项目目录
+RuntimeDirectoryMode=0755
+
+[Install]
+WantedBy=multi-user.target
+
+# cp quanduoduo.service /usr/lib/systemd/
+# systemctl start quanduoduo
+# systemctl reload quanduoduo
+# systemctl stop quanduoduo
+# systemctl enable quanduoduo 加入到开机自启
