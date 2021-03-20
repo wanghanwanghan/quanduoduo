@@ -15,28 +15,23 @@ class SysController extends Index
 
     function getMiniAppAccessRecord()
     {
-        $page = $this->getRawData('page',1);
-        $pageSize = $this->getRawData('pageSize',100);
-
+        $page = $this->getRawData('page', 1);
+        $pageSize = $this->getRawData('pageSize', 100);
         $start = Carbon::now()->startOfDay()->timestamp;
         $end = Carbon::now()->endOfDay()->timestamp;
 
-        try
-        {
+        try {
             $accessInfo = AccessRecode::create()
-                ->where('created_at',[$start,$end],'between')
-                ->order('created_at','desc')
-                ->limit($this->exprOffset($page,$pageSize),$pageSize)->all();
-
-            $total = AccessRecode::create()->where('created_at',[$start,$end],'between')->count();
-        }catch (\Throwable $e)
-        {
-            return $this->writeErr($e,__FUNCTION__);
+                ->where('created_at', [$start, $end], 'between')
+                ->order('created_at', 'desc')
+                ->limit($this->exprOffset($page, $pageSize), $pageSize)->all();
+            $total = AccessRecode::create()->where('created_at', [$start, $end], 'between')->count();
+        } catch (\Throwable $e) {
+            return $this->writeErr($e, __FUNCTION__);
         }
 
-        return $this->writeJson(200,$this->createPaging($page,$pageSize,$total),$accessInfo,'成功');
+        return $this->writeJson(200, $this->createPaging($page, $pageSize, $total), $accessInfo, '成功');
     }
-
 
 
 }
