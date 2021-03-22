@@ -30,7 +30,7 @@ class SysController extends Index
             return $this->writeErr($e, __FUNCTION__);
         }
 
-        return $this->writeJson(200, $this->createPaging($page, $pageSize, $total), $accessInfo, '成功');
+        return $this->writeJson(200, $this->createPaging($page, $pageSize, $total), $accessInfo, '成功1');
     }
 
 
